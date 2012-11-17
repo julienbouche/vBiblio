@@ -1,0 +1,57 @@
+<html>
+
+<head>
+  <title>DatePickerControl</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta name="GENERATOR" content="Quanta Plus">
+  <script type="text/javascript" src="datepickercontrol.js"></script>
+  <script language="JavaScript">
+     if (navigator.platform.toString().toLowerCase().indexOf("linux") != -1){
+	 	document.write('<link type="text/css" rel="stylesheet" href="datepickercontrol_lnx.css">');
+	 }
+	 else{
+	 	document.write('<link type="text/css" rel="stylesheet" href="datepickercontrol.css">');
+	 }
+  </script>
+  <link type="text/css" rel="stylesheet" href="content.css">
+</head>
+
+<body id="theme1">
+
+<h1>DatePickerControl v1.0 with crazy options</h1>
+
+<p>This example uses a 3 day weekend and start the week in Monday.</p>
+
+<p>Also, use an horizontal offset of 20 pixels for the calendar layer and
+10 pixels for the calendar icon.</p>
+
+<form name="form1" action="">
+
+<input type="hidden" id="DPC_FIRST_WEEK_DAY" value="2">
+<input type="hidden" id="DPC_WEEKEND_DAYS" value="[0,5,6]">
+<input type="hidden" id="DPC_CALENDAR_OFFSET_X" value="20">
+<input type="hidden" id="DPC_BUTTON_OFFSET_X" value="10">
+
+<p>
+  A simple edit:
+  <input type="text" id="DPC_calendar1" name="calendar1" size="12">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Another simple with <code>YYYY-MM-DD</code> format:
+  <input type="text" id="DPC_calendar1b_YYYY-MM-DD" name="calendar1b" size="12">
+</p>
+</form>
+
+<p>&nbsp;</p>
+<p>Configuration params used in this example:</p>
+
+<textarea cols="150" rows="6">
+<input type="hidden" id="DPC_FIRST_WEEK_DAY" value="2">
+<input type="hidden" id="DPC_WEEKEND_DAYS" value="[0,5,6]">
+<input type="hidden" id="DPC_CALENDAR_OFFSET_X" value="20">
+<input type="hidden" id="DPC_BUTTON_OFFSET_X" value="10">
+</textarea>
+
+
+</body>
+</html>
+

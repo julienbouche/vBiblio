@@ -1,0 +1,59 @@
+<html>
+
+<head>
+  <title>DatePickerControl</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta name="GENERATOR" content="Quanta Plus">
+  <script type="text/javascript" src="datepickercontrol.js"></script>
+  <link type="text/css" rel="stylesheet" href="datepickercontrol_mozilla.css">
+  <link type="text/css" rel="stylesheet" href="content.css">
+
+  <script language="JavaScript">
+  DatePickerControl.onSelect = function(inputid)
+  {
+     input = document.getElementById(inputid);
+     alert("Date captured: " + input.value);
+  }
+  </script>
+
+</head>
+
+<body id="theme1">
+
+<h1>DatePickerControl v1.0 with Mozilla-theme and onSelect pseudo-event (in French,
+button outside and week number)</h1>
+
+<form name="form1" action="">
+<input type="hidden" id="DPC_TODAY_TEXT" value="aujourd'hui">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Ouvert calendrier...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Janvier', 'F&eacute;vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao&ucirc;t', 'Septembre', 'Octobre', 'Novembre', 'D&eacute;cembre']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']">
+<input type="hidden" id="DPC_BUTTON_POSITION" value="out">
+<input type="hidden" id="DPC_WEEK_NUMBER" value="true">
+
+
+  <p>
+  A simple edit:
+  <input type="text" id="DPC_calendar1" name="calendar1" size="12">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Another simple with <code>YYYY-MM-DD</code> format:
+  <input type="text" id="DPC_calendar1b_YYYY-MM-DD" name="calendar1b" size="12">
+  </p>
+</form>
+
+<p>&nbsp;</p>
+<p>Configuration params used in this example:</p>
+
+<textarea cols="150" rows="7">
+<input type="hidden" id="DPC_TODAY_TEXT" value="aujourd'hui">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Ouvert calendrier...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Janvier', 'F&eacute;vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao&ucirc;t', 'Septembre', 'Octobre', 'Novembre', 'D&eacute;cembre']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']">
+<input type="hidden" id="DPC_BUTTON_POSITION" value="out">
+<input type="hidden" id="DPC_WEEK_NUMBER" value="true">
+</textarea>
+
+
+</body>
+</html>
+
