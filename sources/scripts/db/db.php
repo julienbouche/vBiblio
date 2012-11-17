@@ -8,7 +8,7 @@ function dbConnect(){
 		
 	global $serveur, $login, $mdp;
  
-	$bdname = "jubouche";
+	$bdname = "nom_de_la_base";
 
 	//connexion  au serveur sql
 	$db = mysql_connect($serveur, $login, $mdp)
