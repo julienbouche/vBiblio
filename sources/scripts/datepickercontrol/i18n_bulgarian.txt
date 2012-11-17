@@ -1,0 +1,11 @@
+The encoding is windows-1251 
+
+
+<!-- Bulgarian -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="Днес" />
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Покажи календар..." />
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Януари', 'Февруари', 'Март', 'Април', 'Май', 'Юни', 'Юли', 'Август', 'Септември', 'Октомври', 'Ноември', 'Декември']" />
+<input type="hidden" id="DPC_DAY_NAMES" value="['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']" />
+
+
+

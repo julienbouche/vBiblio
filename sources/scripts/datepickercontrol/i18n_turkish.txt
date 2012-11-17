@@ -1,0 +1,5 @@
+<!-- Turkish -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="Bugün">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Takvimi aç...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cts']">

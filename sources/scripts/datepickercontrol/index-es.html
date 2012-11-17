@@ -1,0 +1,292 @@
+<html>
+
+<head>
+  <title>DatePickerControl</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta name="GENERATOR" content="Quanta Plus">
+  <script type="text/javascript" src="datepickercontrol.js"></script>
+  <link type="text/css" rel="stylesheet" href="datepickercontrol_darkred.css">
+  <link type="text/css" rel="stylesheet" href="content.css">
+</head>
+
+<body id="theme2">
+
+<h1>DatePickerControl v0.9.3</h1>
+
+<p>
+Convierte tus controles de edici&oacute;n de texto en controles con selecctor de fecha,
+de manera simple y autom&aacute;tica.
+</p>
+
+<p><a href="index.html">(English version)</a></p>
+
+<h2>Caracter&iacute;sticas</h2>
+
+<ul>
+   <li>Completamente escrito con JavaScript (es decir, compatible con cualquier lenguaje de scripts
+   del lado del servidor [&iexcl;&iexcl;usa programas libres!!])</li>
+   <li>Conversi&oacute;n autom&aacute;tica del control con un solo atributo en el tag <code>input</code>,
+    o el atributo <code>id</code> con un prefijo especial.</li>
+   <li>M&uacute;ltiples formatos para las fechas.</li>
+   <li>Calendario en capas, sin molestas ventanas emergentes.</li>
+   <li>Navegaci&oacute;n con teclado y rat&oacute;n.</li>
+   <li>Soporta hojas de estilo CSS.</li>
+   <li>Licencia GPL.</li>
+</ul>
+
+<h2>Uso</h2>
+
+<p>
+En la secci&oacute;n <code>head</code> de tu p&aacute;gina, agrega las siguientes l&iacute;neas:
+</p>
+
+<p>
+<code>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;datepickercontrol.js&quot;&gt;&lt;/script&gt;
+  <br>
+  &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;datepickercontrol.css&quot;&gt;
+</code>
+</p>
+
+
+<p>
+Ahora, tienes dos opciones, dependiendo de si necesitas cumplir con XHTML:
+</p>
+
+<h3>Usar el pseudo-atributo &quot;datepicker&quot; (no cumple con XHTML)</h3>
+
+<p>
+Solamente necesitas agregar un atributo al c&oacute;digo de tu control
+(dos si no has especificado el atributo <code>id</code>... bueno, tres si quieres utilizar
+un formato diferente para la fecha :P), como en el ejemplo siguiente:
+</p>
+
+<p>
+<code>
+&lt;input type=&quot;text&quot; name=&quot;edit1&quot; id=&quot;edit1&quot;
+datepicker=&quot;true&quot;&gt;
+</code>
+</p>
+
+<p>
+Y eso es todo ;)...
+</p>
+
+<p>
+Opcionalmente, puedes utilizar el atributo <code>datepicker_format="XXXXXXX"</code>.
+Esto cambiar&aacute; el formato de la fecha. Los formatos disponibles son:
+<code>DD/MM/YYYY, DD-MM-YYYY, MM-DD-YYY, MM/DD/YYYY, YYYY-MM-DD, YYYY/MM/DD</code>.
+El formato por defecto es <code>DD/MM/YYYY</code>. Un ejemplo:
+</p>
+
+<p>
+<code>
+&lt;input type &quot;text&quot; name=&quot;edit1&quot; id=&quot;edit1&quot;
+datepicker=&quot;true&quot; datepicker_format=&quot;MM-DD-YYYY&quot;&gt;
+</code>
+</p>
+
+
+<h3>Usar el atributo &quot;id&quot; con formato especial</h3>
+
+<p>
+Necesitas un id con las siguientes caracter&iacute;sticas:
+</p>
+
+<p>
+Un prefijo <code>DPC_</code> seguido de cualquier nombre, y si deseas utilizar
+un format de fecha, agregar el sufijo <code>_[FORMAT]</code>, en donde <code>[FORMAT]</code>
+puede ser cualquiera de los formats descritos anteriormente. Por ejemplo:
+
+<p>
+<code>
+&lt;input type &quot;text&quot; name=&quot;edit1&quot; id=&quot;DPC_edit1&quot;&gt;
+<br><br>
+&lt;input type &quot;text&quot; name=&quot;edit1&quot; id=&quot;DPC_edit1_YYYY/MM/DD&quot;&gt;
+</code>
+</p>
+
+<p>
+La primera opci&oacute;n utilizar&aacute; el formato por defecto, y la
+segunda el formato <code>YYYY/MM/DD</code>. Nota que el prefijo <code>DPC_</code>
+es obligatorio, incluso si has especificado un formato de fecha.
+</p>
+
+
+<h2>Ejemplo</h2>
+
+<form name="form">
+<p>
+  Un control simple:
+  <input type="text" id="DPC_calendar1" name="calendar1" size="12">&nbsp;&nbsp;
+  Otro control simple con formato <code>YYYY-MM-DD</code>:
+  <input type="text" id="DPC_calendar1b_YYYY-MM-DD" name="calendar1b" size="12">
+</p>
+<p>
+  Los controles sin el atributo datepicker o el prefijo DPC_ ser&aacute;n tratados como normales:
+  <input type="text" name="foo" size="20">
+</p>
+<p>
+  Borde delgado con formato <code>DD-MM-YYYY</code>:
+  <input type="text" name="calendar2" id="calendar2" size="12" style="border-width:1px;" datepicker="true" datepicker_format="DD-MM-YYYY">
+  &nbsp;&nbsp;
+  Estilo plano con formato <code>YYYY/MM/DD</code>:
+  <input type="text" name="calendar3" id="calendar3" size="13" class="flatedit" datepicker="true" datepicker_format="YYYY/MM/DD">
+</p>
+</form>
+
+<br>
+<p>
+Ahora, presiona la tecla de flecha abajo (cuando el control tiene el foco de entrada
+por supuesto) para mostrar el calendario, y la tecla Esc para ocultarlo, o utiliza
+el icono del calendario a la derecha del control. Cuando el calendario est&aacute;
+visible, usa las teclas de flechas para mover la fecha seleccionada, RePag y AvPag
+para cambiar el mes actual, y la Barra espaciadora, Tab o Intro para seleccionar
+la fecha y cerrar el calendario. Si usas la tecla Intror cuando el calendario est&aacute;
+desplegado (y si tu forma tiene un bot&oacute;n submit) no se lanzar&aacute; dicha
+acci&oacute;n, sino hasta que el calendario se encuentre oculto.
+</p>
+
+
+<h2>El pseudo-evento onSelect</h2>
+
+<p>
+Si necesitas un reemplazo para el evento <code>onChange</code> de un
+control de edici&oacute;n transformado en un DatePickerControl,
+puedes emplear el pseudo-evento <code>onSelect</code>, tal como se
+muestra en el siguiente ejemplo:
+</p>
+
+<p>
+<code>
+&nbsp;&nbsp;&lt;script language=&quot;JavaScript&quot;&gt;<br>
+&nbsp;&nbsp;DatePickerControl.onSelect = function(inputid)<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;input = document.getElementById(inputid);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;alert(&quot;Date captured: &quot; + input.value);<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&lt;/script&gt;<br>
+</code>
+</p>
+
+<p>
+Puedes ver un ejemplo <a href="mozilla-theme.html">aqu&iacute;</a>.
+</p>
+
+
+<h2>Notas</h2>
+
+<ul>
+
+<li>
+Si vas a usar esta librer&iacute;a, env&iacute;ame por favor un correo electr&oacute;nico,
+y ser&iacute;a grandioso si incluyes una foto de la ciudad en donde vives ;).
+</li>
+
+<li>
+DatePickerControls funciona en navegadores *reales* (esto es, la familia Mozilla).
+No se acerca de IE y, a decir verdad, no me interesa.
+</li>
+
+<li>
+Si deseas cambiar los nombres de los meses a otro idioma es muy sencillo; solamente
+tienes que editar el archivo <code>datepickercontrol.js</code> y comenta/descomenta
+las l&iacute;neas con los arreglos de nombres.
+</li>
+
+<li>
+Si quieres ver el control funcionando con los colores del sistema, checa la
+<a href="index.html">versi&oacute;n en ingl&eacute;s</a>.
+El tema original azul-gris est&aacute; <a href="bug-tester.html">aqu&iacute;</a>.
+Y finalmente, <a href="mozilla-theme.html">aqu&iacute; est&aacute;</a>
+un tema similar a los controles de la p&aacute;gina principal de Mozilla.
+</li>
+
+<li>
+&iquest;El icono del calendario aparece en una posici&oacute;n incorrecta?.
+Bueno, ese es un problema del IE. Los navegadores basados en Gecko muestran
+el control sin problemas.
+</li>
+
+<li>
+La librer&iacute;a trata de poner el icono en la posici&oacute;n m&aacute;s sim&eacute;trica
+posible, pero a veces el tama&ntilde;o del control no es &quot;compatible&quot;
+con el tama&ntilde;o del icono. Puedes intentar corregir eso con la hoja de
+estilo. El archivo <code>calendar_icon_big.png</code> puede servirte para generar una
+versi&oacute;n del icono con diferente tama&ntilde;o.
+</li>
+
+
+<li>
+Si deseas crear din&aacute;micamente un control DatePickerControl, despu&eacute;s
+de llamar a la funci&oacute;n <code>document.appendChild()</code>,
+necesitas invocar al m&eacute;todo <code>DatePickerControl.init()</code>.
+Asimismo, si vas a modificar din&aacute;micamente tu p&aacute;gina (por
+ejemplo agregar nuevos renglones a una tabla), utiliza el m&eacute;todo
+<code>DatePickerControl.relocateButtons()</code>.
+</li>
+
+
+</ul>
+
+
+<h2>Errores</h2>
+
+<ul>
+<li>
+La posici&oacute;n del icono en algunos navegadores es poco est&eacute;tica.
+</li>
+</ul>
+
+
+<h2>Descargas</h2>
+
+<p>Historial de versiones:</p>
+<ul>
+  <li>Versi&oacute;n 0.9.0 : Primera presentaci&oacute;n.</li>
+  <li>Versi&oacute;n 0.9.1 : Mejoras en la navegaci&oacute;n con teclado. Compatibilidad opcional con XHTML.</li>
+  <li>Versi&oacute;n 0.9.2 : Reubicaci&oacute;n de los botones cuando la ventana del navegador cambia de tama&ntilde;o.</li>
+  <li>Versi&oacute;n 0.9.3 : Pseudo-evento <code>onSelect()</code></li>
+</ul>
+
+<p>
+<a href="datepickercontrol-v0_9_3.tgz">Aqu&iacute; est&aacute;</a> un archivo tgz
+con el c&oacute;digo, ejemplos y hojas de estilo (24.3 Kb).
+</p>
+
+<h2>Autor</h2>
+
+<p>
+Por: Hugo Ortega-Hern&aacute;ndez - hugorteg{drop-this-text}@gmail.com
+</p>
+
+<p>
+&iexcl;T&uacute; puedes apoyar al software libre! Considera que hay
+proyectos similares no libres, con menores atributos y costos m&aacute;s altos... as&iacute;
+que si puedes donar un poco de dinero, puedes contribuir al desarrollo
+de programas libres de calidad:
+</p>
+<form name="frmdonate">
+<p>
+<input type="radio" name="donate" value="5.00">$5 USD&nbsp;&nbsp;&nbsp;
+<input type="radio" name="donate" value="10.00">$10 USD&nbsp;&nbsp;&nbsp;
+<input type="radio" name="donate" value="15.00" checked="true">$15 USD&nbsp;&nbsp;&nbsp;
+<input type="radio" name="donate" value="20.00">$20 USD&nbsp;&nbsp;&nbsp;
+<input type="radio" name="donate" value="30.00">$30 USD&nbsp;&nbsp;&nbsp;
+<input type="radio" name="donate" value="50.00">$50 USD&nbsp;&nbsp;&nbsp;
+<img src="paypal-donate.png" border="0" style="cursor:pointer" title="&iexcl;Colabora y ayuda al software libre!"
+     onclick="var amount=0; for(i=0; i<6; i++) if(document.frmdonate.donate[i].checked) amount=document.frmdonate.donate[i].value; window.open('https://www.paypal.com/xclick/business=hugorteg%40gmail.com&item_name=DatePickerControl&\nitem_number=1&amount='+amount+'&no_shipping=0&no_note=1&currency_code=USD')">
+</p>
+</form>
+
+<p>&nbsp</p>
+
+<div align="right">
+  <a href="http://www.mozilla.org">
+    <img border="0" alt="&iexcl;Obt&eacute;n Firefox!" title="&iexcl;Obt&eacute;n Firefox!" src="ff_take.png"/>
+  </a>
+</div>
+
+</body>
+</html>
+

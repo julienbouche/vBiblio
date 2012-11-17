@@ -1,0 +1,3 @@
+php 1
+
+ErrorDocument 404 http://vbiblio.free.fr/pageErreur.php

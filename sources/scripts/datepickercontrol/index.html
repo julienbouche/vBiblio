@@ -1,0 +1,651 @@
+<html>
+
+<head>
+  <title>DatePickerControl</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta name="GENERATOR" content="Quanta Plus">
+  <script type="text/javascript" src="datepickercontrol.js"></script>
+  <script language="JavaScript">
+     if (navigator.platform.toString().toLowerCase().indexOf("linux") != -1){
+	 	document.write('<link type="text/css" rel="stylesheet" href="datepickercontrol_lnx.css">');
+	 }
+	 else{
+	 	document.write('<link type="text/css" rel="stylesheet" href="datepickercontrol.css">');
+	 }
+  </script>
+  <link type="text/css" rel="stylesheet" href="content.css">
+</head>
+
+<body id="theme1">
+
+
+<!-- ================================================================================ -->
+
+<h1>DatePickerControl v1.1.7</h1>
+
+<p>
+Transform your input text control into a date-picker control.
+<input type="text" size="14"> --&gt;  <input type="text" id="DPC_date1" size="14">
+</p>
+
+<p><a href="index-es.html">(Versi&oacute;n en espa&ntilde;ol)</a> [No actualizada]</p>
+
+
+<!-- ================================================================================ -->
+
+<h2>Features</h2>
+
+<ul>
+   <li>Fully JavaScript (i.e. compatible with any server-side language [use free sofware!!])</li>
+   <li>Automatic input control conversion with a single attribute in the <code>input</code> tag,
+   or using a special <code>id</code> attribute.</li>
+   <li>Multiple date formats.</li>
+   <li>Layered calendar, without annoying pop-up windows.</li>
+   <li>Mouse and keyboard navigation.</li>
+   <li>Variable first day of week.</li>
+   <li>Min and Max date limits.</li>
+   <li>CSS support.</li>
+   <li>LGPL License.</li>
+</ul>
+
+
+<!-- ================================================================================ -->
+
+<h2>Use</h2>
+
+<p>
+In the <code>head</code> section of your page, add the following two lines:
+</p>
+
+<p>
+<code>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;datepickercontrol.js&quot;&gt;&lt;/script&gt;<br>
+  &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;datepickercontrol.css&quot;&gt;
+</code>
+</p>
+
+<p>
+Now, if you want to override default parameters, such as month and day names, tooltips, and
+others words that are in spanish by default, you need to add some inputs of type hidden in your document (but not in a 
+<code>form</code> tag to avoid the submit of these controls), as in the following examples:
+</p>
+
+<p>
+<code>
+&lt;input type=&quot;hidden&quot; id=&quot;DPC_TODAY_TEXT&quot; value=&quot;today&quot;&gt;<br>
+&lt;input type=&quot;hidden&quot; id=&quot;DPC_BUTTON_TITLE&quot; value=&quot;Open calendar...&quot;&gt;<br>
+&lt;input type=&quot;hidden&quot; id=&quot;DPC_MONTH_NAMES&quot; value=&quot;['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']&quot;&gt;<br>
+&lt;input type=&quot;hidden&quot; id=&quot;DPC_DAY_NAMES&quot; value=&quot;['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']&quot;&gt;<br>
+</code>
+</p>
+
+<p>
+See at the <a href="#i18n">end of this page</a> to find other language
+definitions. Optionally, you can set other parameters described
+<a href="#parameters">below</a>.
+</p>
+
+<p>
+Now, you have two options if is important for you to be compliant with XHTML:
+</p>
+
+
+<!-- ================================================================================ -->
+
+<h3>Use pseudo-attribute &quot;datepicker&quot; (not XHTML compliant)</h3>
+
+<p>
+You only need to add one attribute to your input text code (two if you don't
+have the <code>id</code> attribute... well, three if you want a format date :P),
+as in the following example:
+</p>
+
+<p>
+<code>
+&lt;input type &quot;text&quot; name=&quot;edit1&quot; id=&quot;edit1&quot;
+datepicker=&quot;true&quot;&gt;
+</code>
+</p>
+
+<p>
+Optionally, you can use the <code>datepicker_format="XXXXXXX"</code> attribute. This
+will change the format of the date. Available formats are:
+<code>DD/MM/YYYY, DD-MM-YYYY, MM-DD-YYYY, MM/DD/YYYY, YYYY-MM-DD, YYYY/MM/DD, DD.MM.YYYY, DD.MM.YY</code>.
+Default format is <code>DD/MM/YYYY</code>. An example:
+</p>
+
+<p>
+<code>
+&lt;input type=&quot;text&quot; name=&quot;edit1&quot; id=&quot;edit1&quot;
+datepicker=&quot;true&quot; datepicker_format=&quot;MM-DD-YYYY&quot;&gt;
+</code>
+</p>
+
+
+<!-- ================================================================================ -->
+
+<h3>Use a specially formatted &quot;id&quot; attribute (XHTML compliant)</h3>
+
+<p>
+You need to use an <code>id</code> attribute with following characteristics:
+</p>
+
+<p>
+A prefix <code>DPC_</code> followed by any name, and if you want a date format, add
+a sufix <code>_[FORMAT]</code>, where <code>[FORMAT]</code> can be any of the options described
+previously. For example:
+</p>
+
+<p>
+<code>
+&lt;input type &quot;text&quot; name=&quot;edit1&quot; id=&quot;DPC_edit1&quot;&gt;
+<br>
+&lt;input type &quot;text&quot; name=&quot;edit1&quot; id=&quot;DPC_edit1_YYYY/MM/DD&quot;&gt;
+</code>
+</p>
+
+<p>
+The first option will use the default date format, and the second one will use the
+<code>YYYY/MM/DD</code> format. Note that the <code>DPC_</code> prefix is mandatory,
+unless you specify a date format in the id.
+</p>
+
+
+
+<!-- ================================================================================ -->
+
+<h2>Example</h2>
+
+<form name="form">
+
+<input type="hidden" id="DPC_TODAY_TEXT" value="today">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Open calendar...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
+
+<p>
+  A simple edit:
+  <input type="text" id="DPC_calendar1" name="calendar1" size="12">&nbsp;&nbsp;
+  Another simple edit with <code>YYYY-MM-DD</code> format:
+  <input type="text" id="DPC_calendar1b_YYYY-MM-DD" name="calendar1b" size="12">
+</p>
+<p>
+  Input without datepicker attribute or DPC_ prefix at id will be treated as normal:
+  <input type="text" name="foo" size="20">
+</p>
+<p>
+Thin border with <code>DD-MM-YY</code> format:
+  <input type="text" name="calendar2" id="calendar2" size="12" style="border-width:1px;" datepicker="true" datepicker_format="DD-MM-YY">
+  &nbsp;&nbsp;
+  Flat style with <code>YYYY/MM/DD</code> format:
+  <input type="text" name="calendar3" id="calendar3" size="13" class="flatedit" datepicker="true" datepicker_format="YYYY/MM/DD">
+</p>
+</form>
+
+<p>
+Now, you have some keys to play with the control:
+</p>
+
+<ul>
+
+<li>
+<em>Down arrow</em> key (when the input is focused, of course) to show the calendar
+and <em>escape</em> key to hide. Of course, you can use the calendar icon instead.
+</li>
+
+<li>
+When the calendar is displayed, use <em>arrow keys</em> to move the selected day,
+</li>
+
+<li>
+<em>PgUp</em> and <em>PgDown</em> keys to change the current month,
+</li>
+
+<li>
+<em>Shift + PgUp</em> and <em>Shift + PgDown</em> keys to change the current year,
+</li>
+
+<li>
+<em>Space</em> key, <em>Tab</em> key or <em>Enter</em> key to accept the selected date.
+</li>
+
+<li>
+If you press <em>Enter key</em> when the calendar is displayed, and your form have a submit
+control, the submit action won't be triggered, until the calendar is closed.
+</li>
+
+</ul>
+
+
+<!-- ================================================================================ -->
+
+<h2><a name="parameters">More configuration parameters</a></h2>
+
+<p>
+The following parameters can be defined as hidden inputs with this format:
+<code>&lt;input type=&quot;hidden&quot; id=&quot;PARAM_NAME&quot; value=&quot;PARAM_VALUE&quot;&gt;</code>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>PARAM_NAME</th>
+      <th>PARAM_VALUE description</th>
+	  <th>Example</th>
+	  <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>DPC_DEFAULT_FORMAT</code></td>
+      <td>
+	  <p>
+	      Overrides default date format for all controls without a specified format
+	      (if you don't want to specify a format for each control, as explained in previous sections).
+	  </p>
+      </td>
+	  <td><code>value=&quot;MM/DD/YYYY&quot;</code></td>
+	  <td><code>DD/MM/YYYY</code></td>
+    </tr>
+    <tr>
+      <td><code>DPC_SUBMIT_FORMAT</code></td>
+      <td>
+	  <p>
+	      Specifies the submit format for all datepicker controls, i.e. all datepickers with
+		  a value will be transformed to this format. This is very useful when you are using
+		  a GUI with a format but your database is expected another format. You can see an example
+	      <a href="bug-tester.html">here</a>
+	  </p>
+      </td>
+	  <td><code>value=&quot;YYYY/MM/DD&quot;</code></td>
+	  <td><code>None</code></td>
+    </tr>
+    <tr>
+      <td><code>DPC_FIRST_WEEK_DAY</code></td>
+      <td>
+      <p> Defines the first day of the week in the calendar. You can use a numeric
+	      value in the range 0..6, where 0=Sunday, 1=Monday, 2=Tuesday, ..., 6=Saturday.
+		  You can see an example with Monday as first day <a href="first-day-example.html">here</a>.
+      </p>      
+      </td>
+	  <td><code>value=&quot;1&quot;</code></td>
+	  <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><code>DPC_WEEKEND_DAYS</code></td>
+      <td>
+	      <p>
+		  Defines the days treated as weekend. You need to define an array in which
+	      0=Sunday, 1=Monday, ..., 6=Saturday. A dreaming example with 3 days weekend
+		  is <a href="crazy-calendar.html">here</a>.
+		  </p>
+		  </td>
+	  <td>
+	     <p><code>value=&quot;[0,5,6]&quot;</code> for Friday, Saturday and Sunday</p>
+	  </td>
+      <td><code>[0,6]</code></td>
+    </tr>
+    <tr>
+      <td><code>DPC_AUTO_SHOW</code></td>
+      <td>
+	   <p>Speficied whether or not to automatically display the calendar layer. You can see an auto-show example
+	      <a href="bug-tester.html">here</a>.
+		</p>
+	   </td>
+	  <td><code>value=&quot;true&quot;</code></td>
+	  <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>DPC_BUTTON_POSITION</code></td>
+      <td>
+             <p style="font-weight : bold;">Deprecated</p>
+	     <p>To specify if the calendar icon appears <code>in</code>side or
+	     <code>out</code>side of the edit control; see an outside example
+		 <a href="mozilla-theme.html">here</a>.
+		 </p>
+	   </td>
+	  <td><code>value=&quot;out&quot;</code></td>
+	  <td><code>in</code></td>
+    </tr>
+    <tr>
+      <td><code>DPC_CALENDAR_OFFSET_X</code> and <code>DPC_CALENDAR_OFFSET_Y</code></td>
+      <td>
+              
+	      <p>Modifies the calendar position in relation to the input's position. Could be
+	      useful in some browsers as IE which has strange behaviour depending of
+		  page's style, XHTML, etc. <a href="crazy-calendar.html">Here</a> is an example.
+	      </p>
+	  </td>
+	  <td><p><code>value=&quot;2&quot;</code> (values in pixels)</p></td>
+	  <td><p><code>0</code> for both.</p></td>
+    </tr>
+    <tr>
+      <td><code>DPC_BUTTON_OFFSET_X</code> and <code>DPC_BUTTON_OFFSET_Y</code></td>
+      <td>
+      	<p style="font-weight : bold;">Deprecated</p>
+	      <p>The same of <code>DPC_CALENDAR_OFFSET_X</code> parameters, but for
+	      the calendar icon button. <a href="crazy-calendar.html">Here</a> is an example.
+		  </p>
+	  </td>
+	  <td><p><code>value=&quot;2&quot;</code> (values in pixels)</p></td>
+	  <td><p><code>0</code> for both.</p></td>
+    </tr>
+    <tr>
+      <td><code>DPC_WEEK_NUMBER</code></td>
+      <td>
+	      <p>Specify if week number is showed on the left side of the calendar.
+		  An example with week number is <a href="mozilla-theme.html">here</a>.
+		  </p>
+	  </td>
+	  <td><p><code>value=&quot;true&quot;</code></p></td>
+	  <td><p><code>false</code></p></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!-- ================================================================================ -->
+
+<h2>The pseudo-event onSelect</h2>
+
+<p>
+If you need an <code>onChange</code> event replacement for a date-picker,
+use the pseudo-event <code>onSelect</code>, as in the following example:
+</p>
+
+<p>
+<code>
+&nbsp;&nbsp;&lt;script language=&quot;JavaScript&quot;&gt;<br>
+&nbsp;&nbsp;DatePickerControl.onSelect = function(inputid)<br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;input = document.getElementById(inputid);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;alert(&quot;Date captured: &quot; + input.value);<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&lt;/script&gt;<br>
+</code>
+</p>
+
+<p>
+You can see a live example <a href="mozilla-theme.html">here</a>.
+</p>
+
+
+<!-- ================================================================================ -->
+<h2>Using MIN and MAX date limits</h2>
+
+<p>
+Well, one of the most requested features, date range, is ready!. You can specify it by
+using two new attributes in the input tag: <code>datepicker_min</code> and 
+<code>datepicker_max</code>. For example:
+</p>
+
+<p>
+<code>
+&lt;input type &quot;text&quot; name=&quot;edit1&quot; id=&quot;edit1&quot;
+datepicker=&quot;true&quot; datepicker_format=&quot;DD/MM/YYYY&quot; 
+datepicker_min=&quot;01/01/2005&quot; 
+datepicker_max=&quot;31/12/2005&quot;&gt;
+</code>
+</p>
+
+<p>
+Min and max dates should be specified in the same format of the datepicker (or the
+default format specified in configuration parameters).
+</p>
+
+<p>
+Also is possible to use <code>setMinDate()</code> and <code>setMaxDate()</code>
+methods defined for datepicker controls. This is very useful when you want
+to change the limits according other events, e.g. the classic date range selection:
+the first date is the low limit for the second one.
+</p>
+
+<p>
+Some examples using date ranges can be found <a href="minmaxtest.html">here</a>.
+</p>
+
+
+<!-- ================================================================================ -->
+
+<h2>Notes</h2>
+
+<ul>
+
+<li>
+If you're going to use this library, please send me an e-mail, and it would be great if you
+included a photo of your city :) (se habla espa&ntilde;ol)
+</li>
+
+<li>
+DatePickerControl works in *real* browsers (i.e. Mozilla family). I don't know about IE.
+[Update: some people ask for patches... ok, finished]
+</li>
+
+<li>
+If you want to see another calendar theme, check the <a href="index-es.html">spanish version</a>
+of this page. The original blue-gray theme is <a href="bug-tester.html">here</a>. And
+finally, <a href="mozilla-theme.html">here is</a> a Mozilla homepage's control like theme.
+</li>
+
+<li>
+Calendar icon appears at incorrect position?. Well, it's an IE issue. Gecko based
+browsers display the icon without problems.
+</li>
+
+<li>Library try to put the icon at the most symmetric position possible, but sometimes
+the input size is not &quot;compatible&quot; with the icon size. You can try to
+modifiy the CSS file to fix the icon look. The <code>calendar_icon_big.png</code> file
+can help you to generate a new icon with different size.
+</li>
+
+<li>
+If you want to create a DatePickerControl dynamically, after calling
+<code>document.appendChild()</code>, you need to invoke the
+<code>DatePickerControl.init()</code> method. Also, if you modify
+your page dynamically (for example, adding table rows), use the
+<code>DatePickerControl.relocateButtons()</code> method.
+<span style="font-style:italic"> This is no longer necessary, because the position of
+the icon is now fixed into the element not as a floating div but as a img element into a 
+nobr tag </span>
+</li>
+
+</ul>
+
+
+<!-- ================================================================================ -->
+
+<h2><a name="i18n">i18n</a></h2>
+
+<p>Here are some easy-access language definitions:</p>
+
+<textarea cols="140" rows="119">
+<!-- English -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="today">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Open calendar...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
+
+<!-- French -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="aujourd'hui">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Ouvert calendrier...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Janvier', 'F&eacute;vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao&ucirc;t', 'Septembre', 'Octobre', 'Novembre', 'D&eacute;cembre']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']">
+
+<!-- German -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="heute">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Kalender &ouml;ffnen...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Januar', 'Februar', 'M&auml;rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam']">
+
+<!-- German alternative -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="heute">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Kalender &ouml;ffnen...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Januar', 'Februar', 'M&auml;rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']">
+
+<!-- Dutch -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="vandaag">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Kalender openen...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za']">
+
+<!-- Italian -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="&ograve;ggi">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Ap&egrave;rto calend&agrave;rio...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab']">
+
+<!-- Polish (bad characters due to codification, sorry) -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="dzisiaj">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Otw&oacute;rz kalendarz...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Stycze?', 'Luty', 'Marzec', 'Kwiecie?', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpie?', 'Wrzesie?', 'Pa?dziernik', 'Listopad', 'Grudzie?']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Nie', 'Pon', 'Wto', '?ro', 'Czw', 'Pi?', 'Sob']">
+
+<!-- Romanian -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="astazi">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Deschide calendar...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sam']">
+
+<!-- Norwegian -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="Dagens dato">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="&aring;pne kalender">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Januar','Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['S&oslash;n', 'Man', 'Tir','Ons', 'Tor', 'Fre', 'L&oslash;r']">
+<input type="hidden" id="DPC_FIRST_WEEK_DAY" value="1">
+<input type="hidden" id="DPC_WEEKEND_DAYS" value="[0]">
+
+<!-- Hungarian -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="ma">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Naptár nyitása...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Vas', Hé', 'Ke', 'Sze', 'Cs', 'Pé', 'Szo']">
+<input type="hidden" id="DPC_FIRST_WEEK_DAY" value="1">
+
+<!-- Portuguese (PT) -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="Hoje">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Abrir Calendario...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembroe', 'Dezembro']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']">
+
+<!-- Portuguese (BR) -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="hoje">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Abrir calend&aacute;rio...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b']">
+
+<!-- Swedish -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="idag">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Öppna kalender...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör']">
+<input type="hidden" id="DPC_FIRST_WEEK_DAY" value="1">
+
+<!-- Euskera -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="Gaur">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Egutegia zabaldu...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Urtarrila', 'Otsaila', 'Martxoa', 'Apirila', 'Maiatza', 'Ekaina', 'Uztaila', 'Abuztua', 'Iraila', 'Urria', 'Azaroa', 'Abendua']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Ig', 'As', 'As', 'As', 'Os', 'Os', 'La']">
+
+<!-- Czech (bad characters due to codification, sorry) -->
+<input type="hidden" id="DPC_TODAY_TEXT" value="Dnes">
+<input type="hidden" id="DPC_BUTTON_TITLE" value="Otevrít kalendár...">
+<input type="hidden" id="DPC_MONTH_NAMES" value="['Leden', Únor', 'Brezen', 'Duben, 'Kveten', 'Cerven', 'Cervenec', 'Srpen', 'Zárí', 'Ríjen', 'Listopad', 'Prosinec']">
+<input type="hidden" id="DPC_DAY_NAMES" value="['Ne', 'Po', 'Út', 'St', 'Ct', 'Pá', 'So']">
+
+<!-- Bulgarian in i18n_bulgarian.txt file on dowloaded package -->
+
+<!-- Turkish in 118n_turkish.txt file on download packege -->
+
+<!-- Other? -->
+<!-- Could you send me please? -->
+<!-- Thanks people for your contributions :-) -->
+</textarea>
+
+
+<!-- ================================================================================ -->
+
+<h2>Download</h2>
+
+<p>Version history:</p>
+<ul>
+  <li>Version 0.9.0 : First public release.</li>
+  <li>Version 0.9.1 : Keyboard navigation improvements. Optional XHTML compliant.</li>
+  <li>Version 0.9.2 : Relocation when browser's window resized.</li>
+  <li>Version 0.9.3 : Pseudo-event <code>onSelect()</code>.</li>
+  <li>Version 0.9.4 : Easy i18n.</li>
+  <li>Version 1.0.0 : Variable first day of week. Auto-show option. New configuration params.</li>
+  <li>Version 1.0.1 : Minor bugs fixed (IE issues).</li>
+  <li>Version 1.0.2 : Minor bug fixed (Don't show the calendar when edit is disabled)</li>
+  <li>Version 1.0.3 - 1.0.9 : I was very busy in my job to release decent versions ;-)</li>
+  <li>The big jump! :-)</li>
+  <li>Version 1.1.0b : 
+  <ul>
+  <li>New date formats <code>DD.MM.YYYY</code> and <code>DD.MM.YY</code>.</li> 
+  <li>Bug fix when the container (for example a <code>tr</code> tag) is hidden.</li>
+  <li>New key accelerators to change the year.</li> 
+  <li>Optional week numbers.</li>
+  <li>Submit format.</li>
+  <li>Min and Max limits.</li>
+  <li>Manual entries validation.</li>
+  </ul>
+  <li>Version 1.1.1b : Restricted input only to valid characters.</li>
+  <li>Version 1.1.2 : Minor bugfixes.</li>
+  <li>Version 1.1.3 : Minor (and ugly) bugfixes.</li>
+  <li>Version 1.1.4 : Minor (and again ugly) bugfixes with min and max dates, and position of calendar icon (not tested in IE, so, if you found a bug please drop me an email).</li>
+  <li>Version 1.1.5 : Minor bugfixes (still don't know if works on IE) and new LGPL license.</li>
+  <li>Version 1.1.6 : Other minor bug... </li>
+  <li>Version 1.1.7 : Minor bug with variables initialisation</li>
+</ul>
+
+<p>
+<a href="datepickercontrol-v1_1_7.tar.gz">Here's</a> a tgz file with complete code, examples
+and css files (&lt;50kb). Also, you can download de zip 
+version <a href="datepickercontrol-v1_1_7.zip">here</a>.
+</p>
+
+<!-- ================================================================================ -->
+
+<h2>Author</h2>
+
+<p>
+By Hugo Ortega-Hern&aacute;ndez - hugorteg{drop-this-text}@gmail.com
+</p>
+
+
+<p>
+You can support free software! Consider that there are non-free similar projects,
+with less features and higher costs... so, if you donate some
+money, you can contribute to develop more quality free software.
+</p>
+
+<p>
+If I received one Euro or dollar whenever somebody download one of my JS widgets, I would have more time 
+to develop new useful ideas for all of you, and to support other free software projects of course...
+</p>
+
+<a href="https://www.paypal.com/xclick/business=hugorteg%40gmail.com&item_name=DatePickerControl&item_number=v1_0&no_shipping=1&return=http%3A//dali.mty.itesm.mx/~hugo/js/datepickercontrol/thanks.html&cn=Optional+Message+to+Hugo&tax=0&currency_code=USD" target="_blank">
+  <img src="paypal-donate.png" border="0" style="cursor:pointer" title="Donate and support Free Software!">
+</a>
+
+
+<h2>Other JavaScript controls</h2>
+
+<p>
+You can find other JavaScript controls <a href="../index.html">here</a>.
+</p>
+
+
+<p>&nbsp;</p>
+
+<div align="right">
+  <a href="http://www.mozilla.org" target="_blank">
+    <img border="0" alt="Get Firefox!"  style="cursor:pointer" title="Get Firefox!" src="ff_take.png"/>
+  </a>
+</div>
+
+
+</body>
+</html>
+
