@@ -1,11 +1,11 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
 
-dbConnect();
+//dbConnect();
 checkSecurity();
 
 

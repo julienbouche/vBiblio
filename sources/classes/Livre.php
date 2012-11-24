@@ -19,6 +19,8 @@ class Livre{
   private $nb_tomes_cycle;
   private $nbVotants;
   private $totalVotes;  
+  private $nextBookID;
+  private $previousBookID;
   
   function __construct($idBook){
     $this->id=$idBook;
@@ -56,6 +58,8 @@ class Livre{
 		$this->belongToCycle = false;
 		$this->titreLong = $this->titreCourt;
 	}
+	//$this->nextBook = new Livre(0);
+	
     }else $this->exists=false;
   }
 
@@ -135,7 +139,9 @@ class Livre{
   function retournerAuteur(){
     return new Auteur($this->idauteur);
   }
-  
+  /**
+  *TODO
+  */
   function retournerLivresSimilaires(){
   }
   
@@ -167,7 +173,50 @@ class Livre{
 		return $this->exists;
   }
   
+  public function hasNext(){
+	if($this->dansUnCycle() && $this->retournerNumeroTome() < $this->retournerMaxTomesCycle() ){
+		$sql= "SELECT vBiblio_book.id_book 
+			FROM vBiblio_cycle, vBiblio_book 
+			WHERE vBiblio_book.id_cycle=vBiblio_cycle.id_cycle 
+			AND vBiblio_cycle.id_cycle =".$this->idCycle."
+			AND vBiblio_book.numero_cycle=".($this->tome+1);
+		$result = mysql_query($sql);
 
+		if($result && mysql_num_rows($result)>0 ){
+			$row = mysql_fetch_assoc($result);
+			$this->nextBookID = $row['id_book'];
+
+			return true;
+		}
+		else return false;
+	}
+	else return false;
+  }
+  public function getNext(){
+	return new Livre($this->nextBookID);
+  }
+
+  public function hasPrevious(){
+	if($this->dansUnCycle() && $this->retournerNumeroTome()>1){
+		$sql= "SELECT vBiblio_book.id_book 
+			FROM vBiblio_cycle, vBiblio_book 
+			WHERE vBiblio_book.id_cycle=vBiblio_cycle.id_cycle 
+			AND vBiblio_cycle.id_cycle =".$this->idCycle."
+			AND vBiblio_book.numero_cycle=".($this->tome-1);
+		$result = mysql_query($sql);
+
+		if($result && mysql_num_rows($result)>0 ){
+			$row = mysql_fetch_assoc($result);
+			$this->previousBookID = $row['id_book'];
+
+			return true;
+		}
+		else return false;
+	}else return false;
+  }
+  public function getPrevious(){
+	return new Livre($this->previousBookID);
+  }
 }
 
 ?>

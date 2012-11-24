@@ -1,12 +1,12 @@
 <?php
 include('accesscontrol.php');
 include('scripts/common.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 include('scripts/dateFunctions.php');
 checkSecurity();
 
 //connexion    la bd
-dbConnect();
+//dbConnect();
 
 $uid= $_SESSION['uid'];
 

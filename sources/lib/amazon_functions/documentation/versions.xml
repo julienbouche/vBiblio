@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+<name>Filzhut.net amazon_functions for PHP</name>
+<author>Daniel Filzhut</author>
+<email>info@filzhut.net</email>
+<download>http://associatesshop.filzhut.net/download/</download>
+<platform>all</platform>
+<language>PHP</language>
+<price>Free for non-commercial users with quarterly referral fees &lt;$50, all others please contact author for registering information</price>
+<description>Use Amazon.com's XML-API "Amazon Web Services 1.0" to create small product-teasers as well as a complete online-store &amp; start earn provisions on every sold product. It has never been easier to retrieve detailed product-information like Author, Price, Manufacturer, Salesrank, Reviews and much more. The functions include an XML-parser; search-functions for author, director, artist etc.; functions to create pages with detailed product-information, search-forms,... Easy to set up and ready for use in minutes! </description>
+<version>
+	<number>0.906</number>
+	<date>20040415234712</date>
+	<new_features>
+		<feature>Changed XML-URL from http://xml.amazon.com/onca/xml to http://xml.amazon.com/onca/xml3</feature>
+	</new_features>
+</version>
+<version>
+	<number>0.905</number>
+	<date>20030320224712</date>
+	<new_features>
+		<feature>Changed setup-vars from variables to constants</feature>
+	</new_features>
+</version>
+<version>
+	<number>0.904</number>
+	<date>20021023213000</date>
+	<new_features>
+		<feature>Fixed pass-by-reference-bug</feature>
+	</new_features>
+</version>
+<version>
+	<number>0.903</number>
+	<date>20020927180000</date>
+	<new_features>
+		<feature>Added function amazon_search_similarity</feature>
+		<feature>Added function amazon_calculate_savings</feature>
+		<feature>Modified Add-to-cart-button</feature>
+		<feature>Added sourcecode-credits</feature>
+	</new_features>
+</version>
+</application>

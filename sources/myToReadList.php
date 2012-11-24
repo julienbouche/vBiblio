@@ -1,11 +1,11 @@
 <?php
 include('scripts/common.php');
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
-dbConnect();
+//dbConnect();
 checkSecurity();
 
 $uid = $_SESSION['uid'];
@@ -43,17 +43,16 @@ $utilisateur = new Utilisateur($uid);
 	
 	if($result && mysql_num_rows($result)>0 ){
 		$cpt=0;		
-		?>
-    <input type="text" name="filtreSaisie" title="Filtrer..." onkeyup="javascript:filter();" style="float:left;"/>
-    <br/>    
-		<table class="vBiblioBooksTable">
-		<thead>
-		<td onclick="javascript:sortTRLByTitle();" style="width:75%">Titre</td><td style="width:20%" onclick="javascript:sortTRLByAuthor();">Auteur</td>
+		echo "<input type=\"text\" name=\"filtreSaisie\" title=\"Filtrer...\" placeholder=\"Filtrer...\" style=\"-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;margin-left:10px;\" onkeyup=\"javascript:filter();\" style=\"float:left;\"/><br/>";
+
+		echo "<table class=\"vBiblioBooksTable\">";
+		echo "<thead>";
+		echo "<td onclick=\"javascript:sortTRLByTitle();\" style=\"width:75%\">Titre</td><td style=\"width:20%\" onclick=\"javascript:sortTRLByAuthor();\">Auteur</td>";
 		
 
-		</thead>
-		<tbody name="vBiblioBookList">
-    <?
+		echo "</thead>";
+		echo "<tbody name=\"vBiblioBookList\">";
+
 		while($row=mysql_fetch_assoc($result)){
 			if($cpt%2==0){
 				$style = "vBiblioBookEven";

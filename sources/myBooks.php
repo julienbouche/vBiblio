@@ -1,11 +1,11 @@
 <?php
 include('accesscontrol.php');
 include('scripts/common.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
-dbConnect();
+//dbConnect();
 checkSecurity();
 
 $uid = $_SESSION['uid'];
@@ -53,7 +53,7 @@ $utilisateur = new Utilisateur($uid);
 		echo "<a href=\"export2csv.php\" target=\"_blank\" style=\"float:right;\" ><img src=\"images/excel-icon.png\" width=\"32\" height=\"32\" title=\"Export au format CSV\"/><a href=\"generateTablePDF.php\" target=\"_blank\" style=\"float:right;\" ><img src=\"images/adobe-pdf-logo.png\" width=\"32\" height=\"32\" title=\"Export au format PDF\"/></a><br/><br/>";
 		
 		
-		echo "<input type=\"text\" name=\"filtreSaisie\" title=\"Filtrer...\" onkeyup=\"javascript:filter();\" style=\"float:left;\"/>";
+		echo "<input type=\"text\" name=\"filtreSaisie\" title=\"Filtrer...\" placeholder=\"Filtrer...\" style=\"-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;\" onkeyup=\"javascript:filter();\" style=\"float:left;\"/>";
 		$str_nbBooksInLib = $utilisateur->NbBooksInLibrary();
 		if($str_nbBooksInLib== "1"){
 			echo "Vous poss&eacute;dez actuellement $str_nbBooksInLib seul livre dans votre vBiblio.<br/>";

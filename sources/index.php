@@ -1,12 +1,12 @@
 <?php
 require_once('accesscontrol.php');
-require_once('scripts/db/db.php');
+//require_once('scripts/db/db.php');
 require_once('scripts/dateFunctions.php');
 require_once('scripts/common.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Message.php');
 
-dbConnect();
+//dbConnect();
 checkSecurityHome();
 
 

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Filzhut.net - Amazon&trade; functions for PHP</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<font size="2" face="verdana">
+<a href="http://www.filzhut.net" target="_blank"><img align=right src="filzhut.net-logo.gif" alt="Filzhut.net" border="0"></a>
+<big><b>Filzhut.net amazon_functions for PHP </b></big><small>(Version 0.9)<br>
+Making the work with Amazon.com&trade; Web Services Version 1.0 much easier</small>
+<hr width="100%" size="1">
+<p>
+<!-- Header //-->
+
+<font size="+1"><b>amazon_create_teaserlist</b></font>
+<p>
+Generates a short teaser-list as an HTML-table.
+<p>
+<b>amazon_create_teaserlist(array <i>xmlresult</i> [, int <i>noofitems</i> [, int <i>link</i> [, int <i>align</i>] [, int <i>title</i>]]])</b>
+<p>
+This function returns a short teaserlist-table which you can use to link to amazon as well as to a script that contains detailed information on the product. Before you run this function you first have to run a search function like <a href="functions.amazon_search.html">amazon_search()</a>. The array you receive with this function is the <b><i>xmlresult</i></b> you need to run amazon_create_teaserlist(). Optional parameters are the <b><i>noofitems</i></b> which will be replied (1-10, 5 is default), the <b><i>align</i></b> of the table (right, left or center) and a short <b><i>title</i></b>. With the parameter <b><i>link</i></b> you can define a URL as a link for each item. To improve the use of this function in cooperation with other scripts, the flag "&ASIN=" will be added and will contain the ASIN of the selected product. If you leave this field blank, there will be a directly link to amazon&trade;.
+
+<p>
+<b>Example 1. Returns a teaser-table with books by "Tom Clancy":</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$Author="Tom Clancy";
+$Data=amazon_search_author($Author);
+$HTMLTable=amazon_create_teaserlist($Data);
+echo $HTMLTable;
+</font></td></pre></tr></table><br>
+<b>Will return:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+<table border="0" width="150" align="left" style="border-style:solid;border-width:1px;border-color:'#F1F1F1';">
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/obidos/ASIN/0399148701/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0399148701.01.THUMBZZZ.jpg" alt="Red Rabbit" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0399148701/webservices" target="_blank"><b>Red Rabbit</b></a><br>by Tom Clancy<br>Our Price: <b>$20.27</b><br></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/obidos/ASIN/0425133540/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0425133540.01.THUMBZZZ.jpg" alt="The Sum of All Fears" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0425133540/webservices" target="_blank"><b>The Sum of All Fears</b></a><br>by Tom Clancy<br>Our Price: <b>$7.99</b><br></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/obidos/ASIN/0425186709/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0425186709.01.THUMBZZZ.jpg" alt="Tom Clancy's Op-Center: Mission of Honor" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0425186709/webservices" target="_blank"><b>Tom Clancy's Op-Center: Mission of Honor</b></a><br>by Jeff Rovin<br>Our Price: <b>$7.99</b><br></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/obidos/ASIN/0425158632/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0425158632.01.THUMBZZZ.jpg" alt="Executive Orders" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0425158632/webservices" target="_blank"><b>Executive Orders</b></a><br>by Tom Clancy<br>Our Price: <b>$7.99</b><br></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/obidos/ASIN/0425170349/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0425170349.01.THUMBZZZ.jpg" alt="Rainbow Six" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0425170349/webservices" target="_blank"><b>Rainbow Six</b></a><br>by Tom Clancy<br>Our Price: <b>$8.50</b><br></small></font></td>
+</tr>
+</table>
+</font></td></pre></tr></table><br>
+
+<p>
+<b>Example 2. Returns a teaser-table with books by "Tom Clancy" and the title "Books by Tom Clancy":</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$Author="Tom Clancy";
+$Data=amazon_search_author($Author);
+$HTMLTable=amazon_create_teaserlist($Data,5,"","left","Books by Tom Clancy");
+echo $HTMLTable;
+</font></td></pre></tr></table><br>
+<b>Will return:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+<table border="0" width="150" align="left" style="border-style:solid;border-width:1px;border-color:'#F1F1F1';">
+<tr>
+<td valign=top colspan=2 align=center><font color="black" size="2" face="verdana"><b>Books by Tom Clancy</b></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/ASIN/obidos/0399148701/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0399148701.01.THUMBZZZ.jpg" alt="Red Rabbit" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0399148701/webservices" target="_blank"><b>Red Rabbit</b></a><br>by Tom Clancy<br>Our Price: <b>$20.27</b><br></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/obidos/ASIN/0425133540/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0425133540.01.THUMBZZZ.jpg" alt="The Sum of All Fears" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/ASIN/obidos/0425133540/webservices" target="_blank"><b>The Sum of All Fears</b></a><br>by Tom Clancy<br>Our Price: <b>$7.99</b><br></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/ASIN/obidos/0425186709/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0425186709.01.THUMBZZZ.jpg" alt="Tom Clancy's Op-Center: Mission of Honor" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0425186709/webservices" target="_blank"><b>Tom Clancy's Op-Center: Mission of Honor</b></a><br>by Jeff Rovin<br>Our Price: <b>$7.99</b><br></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/obidos/ASIN/0425158632/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0425158632.01.THUMBZZZ.jpg" alt="Executive Orders" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0425158632/webservices" target="_blank"><b>Executive Orders</b></a><br>by Tom Clancy<br>Our Price: <b>$7.99</b><br></small></font></td>
+</tr>
+<tr>
+<td valign=top><a href="http://www.amazon.com/exec/obidos/ASIN/0425170349/webservices" target="_blank"><img align=right src="http://images.amazon.com/images/P/0425170349.01.THUMBZZZ.jpg" alt="Rainbow Six" border="0"></a></td>
+<td valign=top><font color="black" size="2" face="verdana"><small>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0425170349/webservices" target="_blank"><b>Rainbow Six</b></a><br>by Tom Clancy<br>Our Price: <b>$8.50</b><br></small></font></td>
+</tr>
+</table>
+</font></td></pre></tr></table><br>
+
+
+<!-- Footer //-->
+<p>
+<hr width="100%" size="1">
+<small>&copy; by <a href="http://www.filzhut.net" target="_blank">Filzhut.net</a>, Daniel Filzhut 2002</small>
+</font>
+</body>
+</html>

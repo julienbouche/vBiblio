@@ -1,11 +1,11 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 include('scripts/friendsTools.php');
 
 require_once('classes/Utilisateur.php');
 
-dbConnect();
+//dbConnect();
 checkSecurity();
 
 
@@ -27,9 +27,24 @@ $utilisateur = new Utilisateur($uid);
 <div id="vBibContenu">
 <?
 	include('header.php');
+
+if(isset($_POST['searchText'])){
+	$searchText=$_POST['searchText'];
+}
+else{
+	if(isset($_GET['q'])){
+		$searchText=$_GET['q'];
+	}
+}
+
 ?>
 
 	<div id="vBibDisplay">
+		<div align="center">
+			<div class="MessagerieMenuItem"><a href="addBooks.php?q=<?=$searchText?>" class="vBibLink" ><input value="Livres" type="button" /></a></div>
+			<div class="MessagerieMenuItem"><a href="emprunts.php?q=<?=$searchText?>" class="vBibLink" ><input value="Emprunts" type="button" /></a></div>
+			<div class="MessagerieMenuItem"><a href="addFriends.php?q=<?=$searchText?>&attribut=fullname" class="vBibLink" ><input class="vert" value="Utilisateurs" type="button" /></a></div>
+		</div>
 
 	<div class="BookmarkN1">
 		<div class="BMCorner"></div>
@@ -44,11 +59,13 @@ $utilisateur = new Utilisateur($uid);
 	<fieldset style="width:430px;">
 	<table style="font-size:inherit">
 	<tr>
+
+
   <td>Par son <select name="attribut">
 		<option value="fullname" <?if(isset($_POST['attribut']) and $_POST['attribut']=="fullname") echo "selected";?>>Nom</option>
 		<option value="userid" <?if(isset($_POST['attribut']) and $_POST['attribut']=="userid") echo "selected";?>>Pseudo</option>
 		<option value="email" <?if(isset($_POST['attribut']) and $_POST['attribut']=="email") echo "selected";?>>Email</option>
-	</select> : <input type="text" max-length="100" size="25" name="searchText" value="<?=$_POST['searchText']?>"/></td><td></td>
+	</select> : <input type="text" max-length="100" size="25" name="searchText" value="<?=$searchText?>"/></td><td></td>
   </tr>
   <tr>
     <td>Afficher <select name="listSize"><option value="10">10</option><option value="20">20</option><option value="40">40</option><option value="100fr">100</option></select> r&eacute;sultats au max.</td><td></td>
@@ -60,12 +77,15 @@ $utilisateur = new Utilisateur($uid);
 	</form>
 
 <?
-	if( (isset($_POST['attribut']) && isset($_POST['searchText']) )|| (isset($_GET['attr'])) ) {
+	if( (isset($_POST['attribut']) ||isset($_GET['attr']) ||isset($_GET['attribut']) ) && (isset($_POST['searchText']) || isset($_GET['q'])) ) {
 		
 		if( isset($_POST['attribut'] ) ) {
 			$searchAttr = $_POST['attribut'];
 		}
-		else $searchAttr = $_GET['attr'];
+		else{ 
+			if(isset($_GET['attr']))$searchAttr = $_GET['attr'];
+			else $searchAttr=$_GET['attribut'];
+		}
 
 		if( isset($_POST['searchText']) ){
 			$squery = $_POST['searchText'];
@@ -80,7 +100,8 @@ $utilisateur = new Utilisateur($uid);
 			$delta = $_POST['listSize'];
 		}
 		else {
-			$delta = $_GET['s'];
+			if(isset($_GET['s']))$delta = $_GET['s'];
+			else $delta=10;
 		}
 		$end = intval($delta);
 		

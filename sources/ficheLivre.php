@@ -1,13 +1,13 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 include('scripts/common.php');
 include('scripts/dateFunctions.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
 //connexion à la bd
-dbConnect();
+//dbConnect();
 
 //ouverture des pages livres sans être connectés
 //checkSecurity();
@@ -177,7 +177,6 @@ if(isset($_GET['id']) ){
    </tr>
 
 <?
-
 	if($bouquin->dansUnCycle()){
 ?>
    <tr>  
@@ -188,7 +187,21 @@ if(isset($_GET['id']) ){
    </tr>
    <tr>  
        <td align="left"><p>Tome:</p></td>  
-       <td><?=$bouquin->retournerNumeroTome()?>/<?=$bouquin->retournerMaxTomesCycle()?></td>  
+       <td>
+<?
+	if($bouquin->hasPrevious()){
+		$nextBook = $bouquin->getPrevious();
+		echo "<a href=\"".$nextBook->retournerURL()."\" class=\"vBibLink\"><img src=\"images/arrow2.png\" style=\"-moz-transform:scale(0.5);\" title=\"".$nextBook->TitreCourt()."\"/></a>\n";
+	}
+?>
+<?=$bouquin->retournerNumeroTome()?>/<?=$bouquin->retournerMaxTomesCycle()?>
+<?
+	if($bouquin->hasNext()){
+		$nextBook = $bouquin->getNext();
+		echo "<a href=\"ficheLivre.php?id=".$nextBook->getID()."\" class=\"vBibLink\"><img src=\"images/arrow1.png\" style=\"-moz-transform:scale(0.5);\" title=\"".$nextBook->TitreCourt()."\"/></a>\n";
+	}
+?>
+	</td>  
    </tr>
 <?
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Filzhut.net - Amazon&trade; functions for PHP</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<font size="2" face="verdana">
+<a href="http://www.filzhut.net" target="_blank"><img align=right src="filzhut.net-logo.gif" alt="Filzhut.net" border="0"></a>
+<big><b>Filzhut.net amazon_functions for PHP </b></big><small>(Version 0.9)<br>
+Making the work with Amazon.com&trade; Web Services Version 1.0 much easier</small>
+<hr width="100%" size="1">
+<p>
+<!-- Header //-->
+
+<font size="+1"><b>amazon_create_productinfo</b></font>
+<p>
+Generates a product-description in HTML-format.
+<p>
+<b>amazon_create_productinfo(str <i>xmlresult</i>)</b>
+<p>
+This functions returns an HTML-table which contends all important information on a product and an "add to shoppingcart"-button. Before you run this function you first have to run a search function like <a href="functions.amazon_search.html">amazon_search()</a>. The array you receive with this function is the <b><i>xmlresult</i></b> you need to run amazon_create_productinfo(). 
+
+<p>
+<b>Example 1. Returns a table with product-information for ASIN B0000524E5 ("Coyote Ugly"-DVD):</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$Data=amazon_search_asin("B0000524E5");
+$HTMLProductInformation=amazon_create_productinfo($Data);
+echo $HTMLProductInformation;
+</font></td></pre></tr></table><br>
+
+<p>
+<b>Will return:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><font size="2" face="verdana">
+<table border=0 width=600>
+<tr><td align=left valign=top width=75%><font size=2 face=verdana color=black><small>DVD</small><br><big><b>Coyote Ugly</b></big><br>
+by David McNally (II)<br>starring Piper Perabo, Adam Garcia<br><p></font></td><td align=right valign=top width=100><form method="POST" action="http://www.amazon.com/o/dt/assoc/handle-buy-box=b0000524e5/stores/detail/one-click-thank-you-confirm" target="_blank">
+<input type="hidden" name="asin" value="b0000524e5">
+<input type="hidden" name="asin.b0000524e5" value="1">
+<input type="hidden" name="b0000524e5" value="1" size="1">
+<input type="hidden" name="tag-value" value="webservices">
+<input type="hidden" name="dev-tag-value" value="D11PKT3GJ43H2X">
+<input type="hidden" name="template-name" value="stores/detail/one-click-thank-you-confirm">
+<input type="submit" name="submit.add-to-cart" value="Buy from Amazon.com">
+</form>
+</td></tr><tr><td colspan=2><font size=2 face=verdana color=black>
+<table border=0>
+<tr>
+<td align=center rowspan=10 valign=top><font size=2 face=verdana color=black><a href='http://images.amazon.com/images/P/B0000524E5.01.LZZZZZZZ.jpg' target='_blank'><img src='http://images.amazon.com/images/P/B0000524E5.01.MZZZZZZZ.jpg' border=0></font></td>
+<td width=15 rowspan=10></td>
+</tr>
+<tr>
+<td align=left><font size=2 face=verdana color=black><b>List Price:</b> $19.99</strike></font></td>
+<td rowspan=3 width=15></td><td align=left rowspan=3 valign=bottom><font size=2 face=verdana color=black><b>Publisher:</b> Touchstone Video<br><b>Released:</b> 29 December, 2000<br><b>Theatrical-Release:</b> 04 August, 2000<br></font></td></tr>
+<tr><td align=left><font size=2 face=verdana color=black><b>Our Price:</b> $19.99</font></td></tr>
+<tr><td align=left><font size=2 face=verdana color=black></font></td></tr>
+<tr><td height=10 colspan=3></td></tr>
+<tr><td colspan=3><font size=2 face=verdana color=black><b>MpaaRating:</b> R (Restricted)<br><b>Media:</b> DVD<br></td></tr>
+<tr><td height=10 colspan=3></td></tr>
+<tr><td colspan=3><font size=2 face=verdana color=black><b>Availibility:</b> Available</font></td></tr>
+</table><p align=justify><br>
+<big><b>Features:</b></big><br><li>Color<li>DTS Surround Sound<li>Closed-captioned<li>Widescreen<li>Dolby<p align=justify><big><b>Customer Reviews:</b></big><br><b>Welcome to Hogs and Hefiers</b> <img src='http://g-images.amazon.com/images/G/01/detail/stars-3-0.gif' widith=64 height=12 align=absolute><br>This movie is somewhat based on a girl at the NYC country music small but packed bar Hogs and Hefiers in the Meat District of the West Village where sexy semi nude women dance on the bar and men pack the place to get a look. Piper Perabo is a very attractive songwriter looking to make it in the big city. My only problem is that is she's from North Jersey. There goes that cliche again where anyone living up to 25 miles outside of Manhattan is moving to the big city. That's like moving from Independence Missouri to Kansas City. It's not that big of a deal especially when you grew up 25 miles away in South Amboy. People commute eveyday on NJ Transit. I'll get past that. (Bruckheimer) repeats a great Flashdance concepct however with too much sappy drama and impauseable messages. Piper needs a job so she makes it on the bar to dance at colt club Coyote Ugly (Hogs and Hefiers) to make ends meet where cute but silly drama take place. Her love interest starts off as a baffoon and continues to be one, taking Pipers sexual advances as she says a sultry "Goodbye" which really means "Let's do it". as Goodbye to impress her and be a her perfect guy. Sorry ladies not in this world! This is a fun movie especially for female teenagers as it's story book romance and star oriented goals are felt thouroughly. It's dramatic intensity is as deep as a puddle, while Flashdance had most viewers believing! This movie is sexy without offensive nudity and sex. Piper (Jersey) is really good in her part. John Goodman as Pipers dad plays a sensitive but easy role. You may finish this movie feeling good, or you may take it seriously enough to hate it's pie in the sky predictability. Not everybodys movie!<p align=justify><b>It is a fun movie</b> <img src='http://g-images.amazon.com/images/G/01/detail/stars-4-0.gif' widith=64 height=12 align=absolute><br>Coyote Ugly is a nice movie,and although it may not be apparent from the trailer or the pictures from the movie,there is a fine story included,to add to the pleasure of seeing beautiful ladies dancing to great songs on the top of a bar.&lt;P>It is the story of a young lady,Violet,who leaves South Amboy N.J. and goes to New York to become a famous songwriter.There is one slight problem though,she has stagefright and it is not easy to make people hear your songs if you can not sing them.On top of that,her house gets robbed and she runs out of money.At that point,she learns about the bar named Coyote Ugly (why would a bar be named like that?) and gets a chance to work there.In the meantime,she also meets Kevin O'Donnel,a young Australian and a love interest starts between them.The rest is the funny adaptation of Violet to the crazy and wild environment of Coyote Ugly and her struggle to overcome her stagefright to finally make it to the bigtime.&lt;P>The songs are definitely worth mentioning,both because they are important to the story of Violet and because they are really beautiful.Leanne Rimes is the voice of Violet singing and she does a great job altering her voice to make us believe that it is really Violet singing.&lt;P>The DVD includes a lot of extras,and also some deleted scenes which for me are the most important element of any dvd's bonus features.&lt;P>Just don't bother with how cheesy the storyline is,and how much this movie looks like a lot of movies we have seen before.Then I guarantee you will have fun watching Coyote Ugly.<p align=justify><b>I liked Coyote Ugly</b> <img src='http://g-images.amazon.com/images/G/01/detail/stars-3-0.gif' widith=64 height=12 align=absolute><br>Usually I scoff at entertainment which garners praise like, "It's great but leave your brain at the door!" If I left my brain at the door, then how would I ever enjoy the film? Coyote Ugly is, I think, the kind of film that the people who use those insipid phrases are referring too. For there are indeed many flaws to the film that one should skip across. For instance, the romantic dialogue between Piper Perabo and Adam Garcia (the famous stage actor of Saturday Night Fever fame) ranges from the poorly written to the idiotic. The acting is spotty occasionally, by all members of the cast, except Maria Bello. Yet ultimately, it's apparent that the filmmakers didn't think that they're audience was too braindead, because this film has a lot to offer. &lt;P>First of all, the dance sequences of the women on top of the bars are colorful and fun. And despite the supposed exploitation aspect of the scenes are a lot tamer and less exploitive than imagined. The wardrobe is surprisingly tasteful. And the dancing, while obviously choreographed doesn't really border into the excessive all too often.&lt;P>The meat of the story, about Violet (Piper Perabo) going to the big city to become a songwriter is not really based in any kind of reality, yet is fun regardless. For instance, her New York apartment is made to look like a dump, even though it's huge and nice, and definitely not bad for an unemployed member of the working class, but if you accept the movie on these terms of its reality, it works. There's also some really hilarious moments when Violet takes her tapes to various record companys with limited success. In order to make some money because of this resulting failure, Violet decides to strut her stuff on top of bar tops at the Coyote Ugly, a bar run by the tough-livin' and hard talkin' boss, played by Maria Bello who demands the most out of her coyotes.&lt;P>One night at a different club, Violet meets a hunky fry cook (Adam Garcia) and the two of them hit it off. He pretends like he's the owner of the club to impress her, and had the filmmakers assumed we were all dumb, a two hour romance of painfully rendered misunderstandings would have ensued. However, within five minutes of meeting, Violet quickly figures out he's really just a fry cook and we, in turn figure out that Coyote Ugly isn't interested in cheating its audience out of a good time. &lt;P>Another good reason to see Coyote Ugly is Piper Perabo. She's a star. Her likable personality and congenial quality will hopefully catapult her to A status in Hollywood, for her charm alone carries the movie. &lt;P>Coyote Ugly is a good film, even though it's very preposterous as once can already guess from trailers and the general plotline. However there's a lot in this film that could have worked as an excellent, dark character study or study of what it's really like to work at a bar such as the Coyote Ugly. The filmmakers could have dealt with the dark corners that the current film isn't interested in exploring. That's fine. They made a good film on its own light, entertaining, slightly funny, romantic terms. But during scenes in which a fight breaks out and one of the coyotes is nearly gangraped, snippets of the kind of film Coyote Ugly could have been emerge.<p align=justify><p align=justify></font></td>
+</tr>
+<tr><td height=30 colspan=2 align=center><center><a href='http://www.amazon.com/exec/obidos/redirect-home/leannrimesfansit'><img align=center src='http://images.amazon.com/images/G/01/associates/home-logo-130x60w.gif' border=0></a></center></td></tr></table>
+</font></td></tr></table><br>
+
+<!-- Footer //-->
+<p>
+<hr width="100%" size="1">
+<small>&copy; by <a href="http://www.filzhut.net" target="_blank">Filzhut.net</a>, Daniel Filzhut 2002</small>
+</font>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Filzhut.net - Amazon&trade; functions for PHP</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<font size="2" face="verdana">
+<a href="http://www.filzhut.net" target="_blank"><img align=right src="filzhut.net-logo.gif" alt="Filzhut.net" border="0"></a>
+<big><b>Filzhut.net amazon_functions for PHP </b></big><small>(Version 0.9)<br>
+Making the work with Amazon.com&trade; Web Services Version 1.0 much easier</small>
+<hr width="100%" size="1">
+<p>
+<!-- Header //-->
+
+<a name="Setup"></a><font size="+1"><b>Work with the search reply</b></font><p>
+The amazon_functions search functions have the advantage that they don't reply the searchresult as the XML-file amazon&trade; delivers, but as an array which is much easier to use. You can use this array for other amazon_functions like <a href="functions.amazon_create_productlist.html">amazon_create_productlist</a> or use it as shown below. In the returned array he structure of the XML is maintained (except of the first node called "ProductInfo" which is embezzled). Lets have a look at a usually XML result from a search at the XML-API:
+<p>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;ProductInfo&gt;
+   &lt;Details url="http://www.amazon.com/exec/obidos/ASIN/039480001X"&gt;
+      &lt;ASIN&gt;039480001X&lt;/ASIN&gt;
+      &lt;ProductName&gt;The Cat in the Hat&lt;/ProductName&gt;
+      &lt;Catalog&gt;Book&lt;/Catalog&gt;
+      &lt;Authors&gt;
+          &lt;Author&gt;Seuss&lt;/Author&gt;
+          &lt;Author&gt;Theodor Seuss Geisel&lt;/Author&gt;
+          &lt;Author&gt;Dr. Seuss&lt;/Author&gt;
+      &lt;/Authors&gt;
+      &lt;ReleaseDate&gt;June 1957&lt;/ReleaseDate&gt;
+      &lt;Manufacturer&gt;Random House&lt;/Manufacturer&gt;
+      &lt;ListPrice&gt;$8.99&lt;/ListPrice&gt;
+      &lt;OurPrice&gt;$8.99&lt;/OurPrice&gt;
+      &lt;UsedPrice&gt;$6.95&lt;/UsedPrice&gt;
+      &lt;ImageUrlSmall&gt;http://images.amazon.com/images/P/039480001X.01.THUMBZZZ.jpg&lt;/ImageUrlSmall&gt;
+      &lt;ImageUrlMedium&gt;http://images.amazon.com/images/P/039480001X.01.MZZZZZZZ.jpg&lt;/ImageUrlMedium&gt;
+      &lt;ImageUrlLarge&gt;http://images.amazon.com/images/P/039480001X.01.LZZZZZZZ.jpg&lt;/ImageUrlLarge&gt;
+   &lt;/Details&gt;
+  &lt;/ProductInfo&gt;
+</font></td></pre></tr></table>
+<p>
+Our functions transform this data into the form of an array which would look like this:
+<p>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+Array
+(
+    [Details] => Array
+        (
+            [0] => Array
+                (
+                    [ASIN] => Array
+                        (
+                            [0] => 039480001X
+                        )
+                    [ProductName] => Array
+                        (
+                            [0] => The Cat in the Hat
+                        )
+                    [Catalog] => Array
+                        (
+                            [0] => Book
+                        )
+                    [Authors] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [Author] => Array
+                                        (
+                                            [0] => Theodor Seuss Geisel
+                                            [1] => Seuss
+                                            [2] => Dr. Seuss
+                                        )
+                                )
+                        )
+                    [ReleaseDate] => Array
+                        (
+                            [0] => June 1957
+                        )
+                    [Manufacturer] => Array
+                        (
+                            [0] => Random House
+                        )
+                    [ListPrice] => Array
+                        (
+                            [0] => $8.99
+                        )
+                    [OurPrice] => Array
+                        (
+                            [0] => $8.99
+                        )
+                    [UsedPrice] => Array
+                        (
+                            [0] => $6.95
+                        )
+                    [ImageUrlSmall] => Array
+                        (
+                            [0] => http://images.amazon.com/images/P/039480001X.01.THUMBZZZ.jpg
+                        )
+                    [ImageUrlMedium] => Array
+                        (
+                            [0] => http://images.amazon.com/images/P/039480001X.01.MZZZZZZZ.jpg
+                        )
+                    [ImageUrlLarge] => Array
+                        (
+                            [0] => http://images.amazon.com/images/P/039480001X.01.LZZZZZZZ.jpg
+                        )
+                )
+        )
+)
+</font></td></pre></tr></table>
+<p>
+In plain english: The search function gets the XML-string from amazon, embezzles the first node "ProductInfo", and pushs the XMLs' data into an array structure. The name of the nodes in the XML are also the keys of the array. The following example would printout the title of the replied book, which is "The Cat in the Hat" in this case, and the books' author.
+<p>
+<b>Example 1. Disply the productname & author of the first book which was found:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$Bookdata=amazon_search_asin("039480001X");
+$ProductName=$Bookdata[Details][0][ProductName][0];
+$Author=$Bookdata[Details][0][Authors][0][Author][0];
+echo "ProductName:  $ProductName&lt;br&gt;";
+echo "Author: $Author";
+</font></td></pre></tr></table>
+<p>
+If there wouldn't be just one book in the replied array, but two or more you just had to replace the "0" after "Details" with a "1" and you could printout the title and author of the second book the search replied.
+<p>
+<b>Example 2. Disply the productname & author of the second book which was found:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$Bookdata=amazon_search_asin("039480001X");
+$ProductName=$Bookdata[Details]<font color="red">[1]</font>[ProductName][0];
+$Author=$Bookdata[Details]<font color="red">[1]</font>[Authors][0][Author][0];
+echo "ProductName:  $ProductName&lt;br&gt;";
+echo "Author: $Author";
+</font></td></pre></tr></table>
+<p>
+Sometimes a book has more than one author or another field is existing twice. In this case you don't have to call the "0" behind this key, but the "1" or "2". So you'll get the second or third value of this array.
+<p>
+<b>Example 3. Display the productname and the 2nd author field:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$Bookdata=amazon_search_asin("039480001X");
+$ProductName=$Bookdata[Details][1][ProductName][0];
+$Author=$Bookdata[Details][1][Authors][0][Author]<font color="red">[1]</font>;
+echo "ProductName:  $ProductName&lt;br&gt;";
+echo "Author: $Author";
+</font></td></pre></tr></table>
+<p>
+<!-- Footer //-->
+<p>
+<hr width="100%" size="1">
+<small>&copy; by <a href="http://www.filzhut.net" target="_blank">Filzhut.net</a>, Daniel Filzhut 2002</small>
+</font>
+</body>
+</html>

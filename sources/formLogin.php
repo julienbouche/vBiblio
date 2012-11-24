@@ -1,9 +1,9 @@
 <?php
 include 'accesscontrol.php';
 include 'scripts/common.php';
-include 'scripts/db/db.php';
+//include 'scripts/db/db.php';
 session_start();
-dbConnect();
+//dbConnect();
 checkSecurityLoginPage();
 
 if( !isset($_POST['uid']) ){

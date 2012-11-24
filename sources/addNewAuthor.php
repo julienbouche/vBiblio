@@ -1,9 +1,9 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 
 checkSecurity();
-dbConnect();
+//dbConnect();
 
 $uid = $_SESSION['uid'];
 //ajout du bouquin si l'utilisateur a décidé d'ajouter un livre

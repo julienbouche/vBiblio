@@ -1,6 +1,26 @@
 <?php //accesscontrol.php
+require_once('scripts/db/db.php');
+
 //permet de vérifier que l'utilisateur à le droit d'être sur cette page.
 session_start();
+
+dbConnect();
+//permettre le login par le menu sur n'importe quelle page
+if(!isset($_SESSION['uid']) ){
+	   //recherche d'un éventuel cookie ... 
+			if(isset($_POST['login']) && isset($_POST['pwd']) && $_POST['pwd']!='' && $_POST['login']!=''){
+				$sqlSec = "SELECT fullname, userid FROM vBiblio_user WHERE (userid='".$_POST['login']."' OR email='".$_POST['login']."') AND password=PASSWORD('".$_POST['pwd']."')";
+	      			$resSec = mysql_query($sqlSec);
+				if($resSec && mysql_num_rows($resSec)>0 ){
+					$_SESSION['fullname'] = mysql_result($resSec, 0, "fullname");
+					$_SESSION['uid']=mysql_result($resSec, 0, "userid");
+					//seulement dans ce cas, on considère l'utilisateur comme effectivement authentifié
+				}else {
+					unset($_SESSION['uid']);
+				}
+			}
+}
+
 
 /*
  *
@@ -15,10 +35,11 @@ function checkSecurity(){
 			$valeurrech = $_COOKIE["vbiblio"] ;
 			$pass = "*".$_COOKIE["vbiblio_check"];
 	      		$_SESSION['uid'] = $valeurrech ;
-	      		$sqlSec = "SELECT fullname FROM vBiblio_user WHERE (userid='$valeurrech' OR email='$valeurrech') AND password='$pass'";
+	      		$sqlSec = "SELECT fullname, userid FROM vBiblio_user WHERE (userid='$valeurrech' OR email='$valeurrech') AND password='$pass'";
 	      		$resSec = mysql_query($sqlSec);
 			if($resSec && mysql_num_rows($resSec)>0 ){
 				$_SESSION['fullname'] = mysql_result($resSec, 0, "fullname");
+				$_SESSION['uid']=mysql_result($resSec, 0, "userid");
 				//seulement dans ce cas, on considère l'utilisateur comme effectivement authentifié
 			}else {
 				unset($_SESSION['uid']);
@@ -42,10 +63,11 @@ function checkSecurityHome(){
 	      		$valeurrech = $_COOKIE["vbiblio"] ;
 			      $pass = $_COOKIE["vbiblio_check"];
 	      		$_SESSION['uid'] = $valeurrech ;
-	      		$sqlSec = "SELECT fullname FROM vBiblio_user WHERE (userid='$valeurrech' OR email='$valeurrech') AND password='$pass' ";
+	      		$sqlSec = "SELECT fullname, userid FROM vBiblio_user WHERE (userid='$valeurrech' OR email='$valeurrech') AND password='$pass' ";
 	      		$resSec = mysql_query($sqlSec);
 	      		if($resSec && mysql_num_rows($resSec)>0 ){
 	        		$_SESSION['fullname'] = mysql_result($resSec, 0, "fullname");
+				$_SESSION['uid']=mysql_result($resSec, 0, "userid");
 	      		}
 	      		else{
 	        		unset($_SESSION['uid']);
@@ -73,10 +95,11 @@ function checkSecurityLoginPage(){
 		$valeurrech = $_COOKIE["vbiblio"] ;
 		$pass = "*".$_COOKIE["vbiblio_check"];
       		$_SESSION['uid'] = $valeurrech ;
-      		$sqlSec = "SELECT fullname FROM vBiblio_user WHERE (userid='$valeurrech' OR email='$valeurrech') AND password='$pass' ";
+      		$sqlSec = "SELECT fullname, userid FROM vBiblio_user WHERE (userid='$valeurrech' OR email='$valeurrech') AND password='$pass' ";
       		$resSec = mysql_query($sqlSec);
 		if($resSec && mysql_num_rows($resSec)>0 ){
 			$_SESSION['fullname'] = mysql_result($resSec, 0, "fullname");
+			$_SESSION['uid']=mysql_result($resSec, 0, "userid");
 			//seulement dans ce cas, on considère l'utilisateur comme effectivement authentifié
 			header('Location:index.php');
 		}

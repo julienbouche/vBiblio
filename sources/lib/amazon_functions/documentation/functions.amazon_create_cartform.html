@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Filzhut.net - Amazon&trade; functions for PHP</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<font size="2" face="verdana">
+<a href="http://www.filzhut.net" target="_blank"><img align=right src="filzhut.net-logo.gif" alt="Filzhut.net" border="0"></a>
+<big><b>Filzhut.net amazon_functions for PHP </b></big><small>(Version 0.9)<br>
+Making the work with Amazon.com&trade; Web Services Version 1.0 much easier</small>
+<hr width="100%" size="1">
+<p>
+<!-- Header //-->
+
+<font size="+1"><b>amazon_create_cartform</b></font>
+<p>
+Generates an HTML-Table to add a given ASIN to the amazon shopping-cart
+<p>
+<b>amazon_create_cartform(string <i>asin</i> [, int <i>form_type</i> [, int <i>image</i>]])</b>
+<p>
+This function returns a standarized HTML-form to add a product with an <i><b>asin</b></i> to the amazon&trade; shoppingcart, wishlist or wedding registry. The default <i><b>form_type</b></i> is CART to get an "Add to shopping cart" form. But you can also choose WEDDING for an "Add to wedding registry" form or WISHLIST for an "Add to wishlist" form. With <b><i>image</i></b> you can define that the returned form has no grey submit-button but the selected image instead.
+
+<p>
+<b>Example 1. Returns a simple "Add to Cart" form:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$ShoppingCartForm=amazon_create_cartform("3182349567");
+echo $ShoppingCartForm;
+</font></td></pre></tr></table><br>
+<b>Will return:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+&lt;form method="POST" action="http://www.amazon.com/o/dt/assoc/handle-buy-box=3182349567/stores/detail/one-click-thank-you-confirm"&gt;
+&lt;input type="hidden" name="asin" value="3182349567"&gt;
+&lt;input type="hidden" name="asin.3182349567" value="1"&gt;
+&lt;input type="hidden" name="3182349567" value="1" size="1"&gt;
+&lt;input type="hidden" name="tag-value" value="leannrimesfansit"&gt;
+&lt;input type="hidden" name="dev-tag-value" value="D11PKT3GJ43H2X"&gt;
+&lt;input type="hidden" name="template-name" value="stores/detail/one-click-thank-you-confirm"&gt;
+&lt;input type="submit" name="submit.add-to-cart" value="Buy from Amazon.com"&gt;
+&lt;/form&gt;
+</font></td></pre></tr></table><br>
+
+<p><br>
+<b>Example 2. Returns a form with a graphical submit-button:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$ShoppingCartForm=amazon_create_cartform("3182349567",CART,"images/buynow.gif");
+echo $ShoppingCartForm;
+</font></td></pre></tr></table><br>
+<b>Will return:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+&lt;form method="POST" action="http://www.amazon.com/o/dt/assoc/handle-buy-box=3182349567/stores/detail/one-click-thank-you-confirm"&gt;
+&lt;input type="hidden" name="asin" value="3182349567"&gt;
+&lt;input type="hidden" name="asin.3182349567" value="1"&gt;
+&lt;input type="hidden" name="3182349567" value="1" size="1"&gt;
+&lt;input type="hidden" name="tag-value" value="leannrimesfansit"&gt;
+&lt;input type="hidden" name="dev-tag-value" value="D11PKT3GJ43H2X"&gt;
+&lt;input type="hidden" name="template-name" value="stores/detail/one-click-thank-you-confirm"&gt;
+&lt;input <font color="red">type="image" src="images/buynow.gif"</font> name="submit.add-to-cart" value="Buy from Amazon.com"&gt;
+&lt;/form&gt;
+</font></td></pre></tr></table><br>
+
+
+<!-- Footer //-->
+<p>
+<hr width="100%" size="1">
+<small>&copy; by <a href="http://www.filzhut.net" target="_blank">Filzhut.net</a>, Daniel Filzhut 2002</small>
+</font>
+</body>
+</html>

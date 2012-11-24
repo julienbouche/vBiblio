@@ -1,9 +1,9 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 
 checkSecurity();
-dbConnect();
+//dbConnect();
 
 $uid = $_SESSION['uid'];
 
@@ -69,177 +69,11 @@ if($result && mysql_num_rows($result)){
 
 <html>
 <head>
-	<title>vBiblio - Vos Livres</title>  
+	<title>vBiblio - Formulaire d'ajout de livres</title>  
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<link rel="stylesheet" type="text/css" href="css/vBiblio.css" media="screen" />
-<script language="javascript">
-<!-- 
-var ISBNok = false;
-
-function createXHR(){
-	var xhr;
-	if (window.XMLHttpRequest) {
-		xhr = new XMLHttpRequest();
-	}
-
-	//ie
-	else if (window.ActiveXObject) {
-		try {
-			xhr = new ActiveXObject("Msxml2.XMLHTTP");
-		}
-		catch (e) {
-			xhr = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-	} 
-	return xhr;
-}	
-
-
-function enableSeries(){
-	if(document.getElementsByName('series')[0].disabled){
-		document.getElementsByName('series')[0].disabled = false;
-		document.getElementsByName('idTome')[0].disabled = false;
-		//charger la liste des series de l'auteur
-		populateSeriesList(document.getElementsByName('auteur')[0]);		
-	}else{ //on désactive le choix de la série
-		document.getElementsByName('series')[0].disabled = true;
-		document.getElementsByName('idTome')[0].disabled = true;
-		//on met un élément vide
-		document.getElementsByName('series')[0].innerHTML="<option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>";
-	}
-}
-
-function reloadBookTitles(object){
-	populateSeriesList(object);
-}
-
-function populateSeriesList(authorChoice){
-	idAuteur = authorChoice.options[authorChoice.selectedIndex].value;
-	
-
-	xhr = createXHR();
-	if(xhr!=null) {
-		xhr.open("GET","scripts/db/reqAuthorSeries.php?author="+idAuteur, true);
-		xhr.onreadystatechange = function(){
-			if ( xhr.readyState == 4 ){
-				// j'affiche dans les series de l'auteur
-				if(document.getElementsByName('series')[0].disabled!=true){
-					seriesList = document.getElementById('seriesList');
-					seriesList.innerHTML = xhr.responseText;			
-				}
-			}
-		};
-		xhr.send(null);
-	}	
-
-}
-
-
-function validateTomes(){
-	serie = document.getElementsByName('seriesEnabled')[0];
-	if(serie.checked){
-		tome = document.getElementsByName('idTome')[0];
-		chaine= tome.value;
-		return validateNum(chaine);
-	} else return true;
-}
-
-function validateISBN(){
-	dom_isbn = document.getElementsByName('addBookISBN')[0];
-	isbn= dom_isbn.value;
-	if(isbn.match(/[^0-9xX\.\-\s]/)) {
-		ISBNok = false;
-	}
-  else{
-  	isbn = isbn.replace(/[^0-9xX]/g,'');
-  
-  	if(isbn.length != 10 && isbn.length != 13) {
-  		ISBNok = false;
-  	}
-  	else{	
-    	checkDigit = 0;
-    	if(isbn.length == 10) {
-    		checkDigit = 11 - ( (
-    								 10 * isbn.charAt(0) +
-    								 9  * isbn.charAt(1) +
-    								 8  * isbn.charAt(2) +
-    								 7  * isbn.charAt(3) +
-    								 6  * isbn.charAt(4) +
-    								 5  * isbn.charAt(5) +
-    								 4  * isbn.charAt(6) +
-    								 3  * isbn.charAt(7) +
-    								 2  * isbn.charAt(8)
-    								) % 11);
-    						 
-    		if(checkDigit == 10) {
-    			ISBNok = (isbn.charAt(9) == 'x' || isbn.charAt(9) == 'X') ? true : false;
-    		} else {
-    			ISBNok = (isbn.charAt(9) == checkDigit ? true : false);
-    		}
-    	} else {
-    		checkDigit = 10 -  ((
-    								 1 * isbn.charAt(0) +
-    								 3 * isbn.charAt(1) +
-    								 1 * isbn.charAt(2) +
-    								 3 * isbn.charAt(3) +
-    								 1 * isbn.charAt(4) +
-    								 3 * isbn.charAt(5) +
-    								 1 * isbn.charAt(6) +
-    								 3 * isbn.charAt(7) +
-    								 1 * isbn.charAt(8) +
-    								 3 * isbn.charAt(9) +
-    								 1 * isbn.charAt(10) +
-    								 3 * isbn.charAt(11)
-    								) % 10);
-    						 
-    		if(checkDigit == 10) {
-    			ISBNok = (isbn.charAt(12) == 0 ? true : false) ;
-    		} else {
-    			ISBNok = (isbn.charAt(12) == checkDigit ? true : false);
-    		}
-    	}
-  	}
-	}
-	showISBNValidationResult(dom_isbn);
-}
-
-function showISBNValidationResult(obj){
-	if(ISBNok){
-		obj.style.backgroundColor = "#00FF00";
-	}
-	else{
-		obj.style.backgroundColor = "#FF0000";
-	}
-	return ISBNok;
-}
-
-function validateNum(chaine){
-	retour = false;
-	if(chaine !=''){
-		reg = /^[0-9]+$/;
-		if(reg.test(chaine))retour = true;
-		else alert("Vous ne devez entrer que des chiffres pour le numero du tome");
-	}
-	else{
-		alert('Vous n\'avez pas saisi le numero du tome');
-		retour = false;
-	}
-	return retour;
-}
-
-function validateForm(){
-	if(showISBNValidationResult(document.getElementsByName('addBookISBN')[0])){
-		//si la check est sélectionnée
-		return validateTomes();
-	}
-	else{
-		return false;
-	}
-	return false;
-}
-
--->
-</script>
+	<script type="text/javascript" src="js/core/vbiblio_ajax.js"></script>
+	<script type="text/javascript" src="js/gui/bookForm_gui.js"></script>
 </head>
 <body>
 <div id="vBibContenu">
@@ -277,7 +111,7 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 			</select></td></tr>
 
 			<tr><td>Titre :</td><td> <input type="text" max-length="100" size="25" name="addBookTitle" /></td></tr>
-			<tr><td>ISBN :</td><td> <input type="text" max-length="13" size="25" name="addBookISBN" onchange="javascript:validateISBN();"/></td></tr>
+			<tr><td>ISBN :</td><td> <input type="text" max-length="13" size="25" name="addBookISBN" onchange="javascript:validateISBN(this);"/></td></tr>
 			<tr><td valign="top">Description :</td><td> <textarea  cols="50" rows="10" name="desc" ></textarea></tr>
 			<tr><td>S&eacute;rie:</td><td> <input type="checkbox" onchange="javascript:enableSeries()" name="seriesEnabled"/>
 			Titre : <select id="seriesList" name="series" disabled><option></option><option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option></select> 

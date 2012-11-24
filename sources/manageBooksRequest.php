@@ -1,8 +1,8 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 
-dbConnect();
+//dbConnect();
 
 checkSecurity();
 

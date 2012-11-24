@@ -1,10 +1,10 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 include('scripts/common.php');
 include('classes/Utilisateur.php');
 
-dbConnect();
+//dbConnect();
 checkSecurity();
 
 

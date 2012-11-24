@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Filzhut.net - Amazon&trade; functions for PHP</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<font size="2" face="verdana">
+<a href="http://www.filzhut.net" target="_blank"><img align=right src="filzhut.net-logo.gif" alt="Filzhut.net" border="0"></a>
+<big><b>Filzhut.net amazon_functions for PHP </b></big><small>(Version 0.9)<br>
+Making the work with Amazon.com&trade; Web Services Version 1.0 much easier</small>
+<hr width="100%" size="1">
+<p>
+<!-- Header //-->
+
+<font size="+1"><b>amazon_create_searchform</b></font>
+<p>
+Generates an HTML-Table with a standarized searchform
+<p>
+<b>amazon_create_searchform([ str <i>url</i>, [ str <i>image</i>]])</b>
+<p>
+This function returns a standarized HTML-form. To define the script which should be called by the form set <i><b>url</b></i>. If you leave this field blank, the script will call itself. With <b><i>image</i></b> you can define that the returned form has no grey submit-button but the selected image instead. The names of the forms' inputfields are "SearchType", "SearchMode" and "SearchKeyword".
+
+<p>
+<b>Example 1. Returns a searchform:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$SearchForm=amazon_create_searchform();
+echo $SearchForm;
+</font></td></pre></tr></table><br>
+<b>Will return:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+<table border="0">
+<form name="SearchForm" method="get">
+<tr>
+<td><font size="2" face="verdana" color="black">Type:</font></td>
+<td><select name="SearchType" onChange="changemodes()">
+<option value="author">Author</option>
+<option value="artist">Artist</option>
+<option value="actor">Actor</option>
+<option value="director">Director</option>
+<option value="keyword" selected>Keyword</option>
+<option value="manufacturer">Manufacturer</option>
+</select></td>
+</tr>
+<tr>
+<td><font size="2" face="verdana" color="black">Mode:</font></td>
+<td><select name="SearchMode">
+<option value="books">Books</option>
+</select></td>
+</tr>
+<tr>
+<td><font size="2" face="verdana" color="black">Search for:</font></td>
+<td><input type="text" size="20" name="SearchKeyword"> <input type=submit value="Search"></td>
+</tr>
+</form>
+</table>
+
+<script language="Javascript">
+changemodes();
+function setfield (Select,No,FieldText,FieldValue) {
+  Select[No].text=FieldText;
+  Select[No].value=FieldValue;
+ }
+function changemodes() {
+  var a=document.SearchForm.SearchType.options;
+  var b=document.SearchForm.SearchMode.options;
+  var i=a.selectedIndex;
+  if(a[i].value=="author") {
+    b.length = 1;
+    setfield(b,"0","Books","books")
+   }
+  if(a[i].value=="artist") {
+    b.length = 2;
+    setfield(b,"0","Popular music","music")
+    setfield(b,"1","Classical music","classical")
+   }
+  if(a[i].value=="actor" || a[i].value=="director") {
+    b.length = 2;
+    setfield(b,"0","DVD","dvd")
+    setfield(b,"1","VHS","vhs")
+   }
+  if(a[i].value=="keyword" || a[i].value=="manufacturer") {
+    b.length = 17;
+    setfield(b,"0","Books","books")
+    setfield(b,"1","Classical Music","classical")
+    setfield(b,"2","DVD","dvd")
+    setfield(b,"3","Popular Music","music")
+    setfield(b,"4","Video","vhs")
+    setfield(b,"5","---------","books")
+    setfield(b,"6","Baby","baby")
+    setfield(b,"7","Camera & Photo","photo")
+    setfield(b,"8","Computers","pc-hardware")
+    setfield(b,"9","Computer & Video Games","videogames")
+    setfield(b,"10","Electronics","electronics")
+    setfield(b,"11","Kitchen & Housewares","kitchen")
+    setfield(b,"12","Magazines","magazines")
+    setfield(b,"13","Outdoor Living","garden")
+    setfield(b,"14","Software","software")
+    setfield(b,"15","Tools & Hardware","universal")
+    setfield(b,"16","Toys & Games","toys")
+
+   }
+  b[0].selected = true
+ }
+</script>
+</font></td></pre></tr></table><br>
+
+
+<!-- Footer //-->
+<p>
+<hr width="100%" size="1">
+<small>&copy; by <a href="http://www.filzhut.net" target="_blank">Filzhut.net</a>, Daniel Filzhut 2002</small>
+</font>
+</body>
+</html>

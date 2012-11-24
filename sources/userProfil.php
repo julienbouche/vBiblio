@@ -1,11 +1,11 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 include('scripts/common.php');
 include('scripts/dateFunctions.php');
 
 //connexion à la bd
-dbConnect();
+//dbConnect();
 
 checkSecurity();
 

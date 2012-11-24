@@ -1,0 +1,8 @@
+HTTP/1.1 410 Gone
+Date: Fri, 22 Jan 2010 10:50:36 GMT
+Server: Server
+Content-Length: 879
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+<title>We're Sorry</title><div align=center><a href="http://www.amazon.com/"><img src="http://g-images.amazon.com/images/G/01/icons/amazon-logo.gif" width=140 height=30 alt="Amazon.com" border=0></a><br></div><h2>We're Sorry - Service Gone</h2><br>Amazon Ecommerce Web Service 3.0 has been deprecated after many years of useful service on March 31st 2008. Please upgrade to the Amazon Associates Web Service 4.0 as detailed in the <a href="http://developer.amazonwebservices.com/connect/entry.jspa?categoryID=12&externalID=627">migration guide</a>. Please visit <a href="http://developer.amazonwebservices.com/connect/forum.jspa?forumID=9&start=0">Amazon Associates Web Service Developer Forum</a> for more information.  If you came to this page from an RSS feed, visit <a href="http://www.amazon.com/b/?ie=UTF8&node=390052011">Amazon's Product RSS Feeds</a> page for an upgrade.

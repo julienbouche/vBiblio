@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Filzhut.net - Amazon&trade; functions for PHP</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<font size="2" face="verdana">
+<a href="http://www.filzhut.net" target="_blank"><img align=right src="filzhut.net-logo.gif" alt="Filzhut.net" border="0"></a>
+<big><b>Filzhut.net amazon_functions for PHP </b></big><small>(Version 0.9)<br>
+Making the work with Amazon.com&trade; Web Services Version 1.0 much easier</small>
+<hr width="100%" size="1">
+<p>
+<!-- Header //-->
+
+<a name="Setup"></a><font size="+1"><b>Some vars...</b></font><p>
+To get startet you just need to set some vars in the file "amazon_functions.php". Open the file and set the constant <b>DEVTOKEN</b> with the developers token you obtained from amazon&trade; (<a href="setup.token.html">learn here how to get one</a>). The second constant <b>ASSOCIATESID</b> is optional - if you have one, you can set your associates-id here. In this case the product-links returned by amazon and shopping-cart-buttons already contain your id (please check this with a little test).<br>
+If you want to change the caching-settings feel free to change the directory for caching (<b>AMAZONCACHEDIR</b>) and the time after which the files will be reloaded (<b>AMAZONCACHEMAXTIME</b>). This time is set in seconds, so if you want to let the files be cached for one day (default), it is "86400". IMPORTANT: The remote file permission for the directory you choose to cache has to be in "write" mode.
+<p>
+<b>Example 1. Setup your token & id:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+define ("DEVTOKEN", "YOUR_TOKEN_HERE");
+define ("ASSOCIATESID", "YOUR_ASSOCIATES_ID_HERE");
+define ("AMAZONCACHEDIR", "functions/cache/");
+define ("AMAZONCACHEMAXTIME", "86400");		# In seconds, 86400=one day
+</font></td></pre></tr></table><br>
+
+<!-- Footer //-->
+<p>
+<hr width="100%" size="1">
+<small>&copy; by <a href="http://www.filzhut.net" target="_blank">Filzhut.net</a>, Daniel Filzhut 2002</small>
+</font>
+</body>
+</html>

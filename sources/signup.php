@@ -20,8 +20,9 @@ if(!isset($_POST['submitok'])){
  <?
 	include('header.php');
 ?>
+<br/>
+<br/>
 <h3>Formulaire d'inscription</h3>  
-<p style="font-size:small" ><font color="orangered" ><tt><b>*</b></tt></font> champs obligatoires</p>  
 
 <!-- define parameters for the date picker control -->
 	<input type="hidden" id="DPC_TODAY_TEXT" value="Aujourd'hui"/>
@@ -40,7 +41,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre pseudo</p>  
        </td>  
        <td>  
-           <input name="newid" type="text" maxlength="100" size="25" value="<?=$_SESSION['uid']?>"/>  
+           <input name="newid" type="text" maxlength="100" size="25" value="<?=$_SESSION['uid']?>" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>  
@@ -49,7 +50,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre nom</p>  
        </td>  
        <td>  
-           <input name="nom" type="text" maxlength="100" size="25" />  
+           <input name="nom" type="text" maxlength="100" size="25" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>  
@@ -58,7 +59,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre pr&eacute;nom</p>  
        </td>  
        <td>  
-           <input name="prenom" type="text" maxlength="100" size="25" />  
+           <input name="prenom" type="text" maxlength="100" size="25" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>
@@ -67,7 +68,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre adresse e-mail</p>  
        </td>  
        <td>  
-           <input name="newemail" type="text" maxlength="100" size="25" />  
+           <input name="newemail" type="text" maxlength="100" size="25" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>  
@@ -76,7 +77,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre date de naissance</p>  
        </td>  
        <td>
-		<input type="text" name="dateNaiss" id="DPC_edit1_DD/MM/YYYY" value=""/>   
+		<input type="text" name="dateNaiss" id="DPC_edit1_DD/MM/YYYY" placeholder="jj/mm/aaaa" value="" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>   
        </td>  
    </tr>  
   <tr>  
@@ -89,25 +90,16 @@ if(!isset($_POST['submitok'])){
     
        </td>  
    </tr>  
-
-<!--
-   <tr valign="top">  
-       <td align="right">  
-           <p>Other Notes</p>  
-       </td>  
-       <td>  
-           <textarea wrap="soft" name="newnotes" rows="5" cols="30"></textarea>  
-       </td>  
-   </tr>  
--->
    <tr>  
        <td align="right" colspan="2">
        <br/>
 <br/>
+<p style="font-size:small" ><font color="orangered" ><tt><b>*</b></tt></font> champs obligatoires</p>  
+
 <br/>
 <br/>
-	   <input type="reset" value="Remettre &agrave; z&eacute;ro" />  
-           <input type="submit" name="submitok" value="   OK   " />  
+	   <input type="reset" value="Remettre &agrave; z&eacute;ro" style="margin-right:50px" />  
+           <input class="vert" type="submit" name="submitok" value="   OK   " />  
        </td>  
    </tr>  
 </table>  

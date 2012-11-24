@@ -1,9 +1,9 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 require_once('classes/Utilisateur.php');
 
-dbConnect();
+//dbConnect();
 checkSecurity();
 
 
@@ -65,8 +65,8 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 	include('header.php');
 ?>
 
-	<div id="vBibDisplay">
-	
+	<div id="vBibDisplay">	
+
 	<div class="BookmarkN1">
 		<div class="BMCorner"></div>
 		<div class="BMCornerLink"></div>

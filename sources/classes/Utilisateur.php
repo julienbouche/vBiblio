@@ -393,7 +393,7 @@ public function recupererListeDerniersMessages(){
 				
 				echo "</td></tr>";
 			}
-			echo "</table><br/> <hr>";
+			echo "</table><br/>";
 		}else echo "Aucun r&eacute;sultat ne correspond &agrave; votre recherche.<br/>";
 	}
 

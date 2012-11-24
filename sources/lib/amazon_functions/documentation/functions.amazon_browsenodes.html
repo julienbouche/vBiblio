@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Filzhut.net - Amazon&trade; functions for PHP</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<font size="2" face="verdana">
+<a href="http://www.filzhut.net" target="_blank"><img align=right src="filzhut.net-logo.gif" alt="Filzhut.net" border="0"></a>
+<big><b>Filzhut.net amazon_functions for PHP </b></big><small>(Version 0.9)<br>
+Making the work with Amazon.com&trade; Web Services Version 1.0 much easier</small>
+<hr width="100%" size="1">
+<p>
+<!-- Header //-->
+
+<font size="+1"><b>amazon_browsenodes</b></font>
+<p>
+Returns an array of a modes' valid browsenodes
+<p>
+<b>amazon_browsenodes(str <i>mode</i>)</b>
+<p>
+This function returns an associative array with the valid amazon&trade; browsenodes of a <b><i>mode</i></b> as keys and their common names as value (f.e. "1000" as key and "Book Bestsellers" as value). You can get the valid amazon&trade; modes with the function amazon_modes().
+
+<p>
+<b>Example 1. Get browsenodes of the mode "books", sort and display them:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+$Browsenodes=amazon_browsenodes("books");
+asort($Browsenodes);
+while(list($Key,$Value)=each($Browsenodes)) {
+  echo "&lt;a href='displaycategory.php?browsenode=$Key'&gt;$Value&lt;/a&gt;\n";
+ }
+</font></td></pre></tr></table><br>
+<b>Will return:</b><br>
+<table border="0" bgcolor="#E5E5E5" width="100%"><tr><td><pre><font size="2" face="verdana">
+&lt;a href='displaycategory.php?browsenode=2'&gt;Biographies&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=3'&gt;Business&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=4'&gt;Childrens&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=5'&gt;Computers/Internet&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=6'&gt;Cooking&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=13643'&gt;Engineering&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=86'&gt;Entertainment&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=10'&gt;Health&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=9'&gt;History&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=48'&gt;Home/Garden&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=10777'&gt;Law&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=17'&gt;Literature/Fiction&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=18'&gt;Mystery&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=53'&gt;Nonfiction&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=21'&gt;Reference&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=22'&gt;Religion&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=23'&gt;Romance&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=25'&gt;SciFi/Fantasy&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=75'&gt;Science&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=26'&gt;Sports&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=173507'&gt;Technical&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=1000'&gt;Top Selling&lt;/a&gt;
+&lt;a href='displaycategory.php?browsenode=27'&gt;Travel&lt;/a&gt;
+</font></td></pre></tr></table><br>
+
+<!-- Footer //-->
+<p>
+<hr width="100%" size="1">
+<small>&copy; by <a href="http://www.filzhut.net" target="_blank">Filzhut.net</a>, Daniel Filzhut 2002</small>
+</font>
+</body>
+</html>

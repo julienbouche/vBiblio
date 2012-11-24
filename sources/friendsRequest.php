@@ -1,9 +1,9 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 include('classes/Utilisateur.php');
 
-dbConnect();
+//dbConnect();
 checkSecurity();
 
 $uid = $_SESSION['uid'];

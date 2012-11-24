@@ -1,6 +1,6 @@
 <?php
 require_once("classes/Utilisateur.php");
-//$rootPath = "/vBiblio";
+$rootPath = "/vBiblio";
 
 ?>
 	<div id="header">
@@ -33,6 +33,13 @@ require_once("classes/Utilisateur.php");
 
 			<ul id="vBibMenu">
 			<li><div id="enseigne"><a href="<?=$rootPath?>/formLogin.php">vBiblio</a></div></li>
+			<li style="float:right;">
+				<form method="POST" action="<?=$_SERVER['REQUEST_URI']?>">
+					<input type="text" name="login" placeholder="login/email..." size="20" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;margin-left:60px"/>
+					<input type="password" name="pwd" placeholder="Mot de passe" size="20" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>
+					<input type="submit" name="submitok" class="darkblue" value="Connexion" /> 
+				</form>
+			</li>
 <?
 	}
 	if(isset($_SESSION['fullname'])){
@@ -84,10 +91,16 @@ require_once("classes/Utilisateur.php");
 					?>
 				</div>
 			</li>
+			<li>
+				<form method="POST" action="addBooks.php">
+					<input type="text" name="searchText" placeholder="Recherche..." size="30" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;margin-left:60px"/>
+				</form>
+			</li>
 
 <?
 	}
-?>
+	
+?>	
 		</ul>
 	</div>
 </div>

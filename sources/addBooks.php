@@ -1,10 +1,10 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
+//include('scripts/db/db.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
-dbConnect();
+//dbConnect();
 checkSecurity();
 
 $uid = $_SESSION['uid'];
@@ -25,18 +25,22 @@ $utilisateur = new Utilisateur($uid);
 <div id="vBibContenu">
 <?
 	include('header.php');
-?>
-
-	<div id="vBibDisplay">
-
-	Rechercher parmi notre r&eacute;f&eacute;rentiel un livre que vous souhaitez ajouter &agrave; votre biblioth&egrave;que :
-<?
-
 
 	if(isset($_POST['searchText']) ){
 		$searchText = $_POST['searchText'];
+	}else{
+		$searchText = $_GET['q'];
 	}
 ?>
+
+	<div id="vBibDisplay">
+		<div align="center">
+			<div class="MessagerieMenuItem"><a href="addBooks.php?q=<?=$searchText?>" class="vBibLink" ><input class="vert" value="Livres" type="button" /></a></div>
+			<div class="MessagerieMenuItem"><a href="emprunts.php?q=<?=$searchText?>" class="vBibLink" ><input value="Emprunts" type="button" /></a></div>
+			<div class="MessagerieMenuItem"><a href="addFriends.php?q=<?=$searchText?>&attribut=fullname" class="vBibLink" ><input value="Utilisateurs" type="button" /></a></div>
+		</div>
+
+	Rechercher parmi notre r&eacute;f&eacute;rentiel un livre que vous souhaitez ajouter &agrave; votre biblioth&egrave;que :
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
 		<fieldset>
 			<input type="text" max-length="100" size="100" name="searchText" value="<? echo str_replace("\\", "" , $searchText);?>"/>
@@ -46,8 +50,8 @@ $utilisateur = new Utilisateur($uid);
 	<br/>
 <?
 
-	if(isset($_POST['searchText']) ){
-		$utilisateur->afficherRechercheLivresAAjouter($_POST['searchText']);	
+	if(isset($searchText) ){
+		$utilisateur->afficherRechercheLivresAAjouter($searchText);	
 	}
 
 	//gestion de l'enregistrement des livres sélectionnés
