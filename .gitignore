@@ -165,3 +165,6 @@ pip-log.txt
 
 #temp win files
 *.*~
+
+#exclusion du fichier de mot de passe
+scripts/db/db.php
