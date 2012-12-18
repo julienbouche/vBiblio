@@ -475,8 +475,19 @@ public function recupererListeDerniersMessages(){
 	
 	return $str_nbBooksInLib;
 	}
+
 	public function retournerListeLivresDispos(){
-			$sql = "SELECT vBiblio_poss.id_book as id_book FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user WHERE vBiblio_poss.userid = vBiblio_user.tableuserid AND vBiblio_user.userid='".$this->pseudo."' AND vBiblio_poss.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author AND vBiblio_poss.pret=0 ORDER BY vBiblio_author.nom ASC";
+			$sql = "SELECT vBiblio_poss.id_book as id_book 
+				FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user 
+				WHERE vBiblio_poss.userid = vBiblio_user.tableuserid 
+				AND vBiblio_user.userid='".$this->pseudo."' 
+				AND vBiblio_poss.id_book = vBiblio_book.id_book 
+				AND vBiblio_book.id_author=vBiblio_author.id_author 
+				AND vBiblio_poss.pret=0
+				AND vBiblio_poss.id_book NOT IN (SELECT id_book 
+								 FROM vBiblio_pret 
+								 WHERE id_emprunteur=".$this->identifiant.") 
+				ORDER BY vBiblio_author.nom ASC";
 
 		//echo "$sql";
 		$result = mysql_query($sql) or die(mysql_error());

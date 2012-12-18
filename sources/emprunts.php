@@ -84,13 +84,17 @@ $utilisateur = new Utilisateur($uid);
 	<!-- **************************************FORMULAIRE SECONDAIRE****************************************-->
 	<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
 	<fieldset>
+<?
+	$bouquins = $utilisateur->retournerListeLivresDispos();
+	if(count($bouquins) > 0){
+?>
 	<table>
 	<tr>
 	<td>Le livre</td>
 	<td><select name="id_book">
 <?
 
-	$bouquins = $utilisateur->retournerListeLivresDispos();
+	
 	
 	foreach($bouquins as $bouquin){
 		$concatStr =$bouquin->TitreLongAsShortNames()." de ".$bouquin->retournerAuteur()->getShortName();
@@ -114,6 +118,12 @@ $utilisateur = new Utilisateur($uid);
 		</td>
 	</tr>
 </table>
+<?
+	}
+	else {
+		echo "Vous n'avez plus de livre &agrave; emprunter.";
+	}
+?>
 	</fieldset>
 	</form>		<!-- **************************************FIN FORMULAIRE SECONDAIRE****************************************-->
 <?
@@ -124,8 +134,11 @@ $utilisateur = new Utilisateur($uid);
 		$sysdate = date('Y-m-d H:i:s');
 		
 		$sql = "INSERT INTO vBiblio_pret (id_preteur, id_emprunteur, nom_emprunteur, id_book, date_pret) VALUES ('0', '".$utilisateur->getID()."', '$nomEmprunteur', '$id_book_Emp', '$sysdate') ";
-
-		mysql_query($sql) or die("Erreur : ".$sql);
+		$erreur = 0;
+		mysql_query($sql) or $erreur = 1;
+		if($erreur = 1){
+			echo "Une erreur est survenue pendant le traitement de votre demande.";
+		}
 	}
 ?>
 	<br/>
@@ -140,8 +153,8 @@ $utilisateur = new Utilisateur($uid);
 <?
 	
 	$sql = "SELECT vBiblio_pret.nom_emprunteur as fullname, titre, vBiblio_pret.id_preteur, vBiblio_pret.id_book as id_book FROM vBiblio_pret, vBiblio_book WHERE vBiblio_pret.id_emprunteur='".$utilisateur->getID()."' AND vBiblio_pret.id_book=vBiblio_book.id_book order by date_pret ASC";
-
-	$result = mysql_query($sql);
+	
+	$result = mysql_query($sql) ;
 	
 	if($result && mysql_num_rows($result)>0 ){
 		$cpt=0;
@@ -172,7 +185,7 @@ $utilisateur = new Utilisateur($uid);
 
 			echo $bouquin->titreLong()."</a></span>";
 			if($IDPreteur =="0"){//l'utilisateur est externe au systeme, il faut proposer le moyen de supprimer l'emprunt
-				echo "<input type=\"button\" class=\"alert\" value=\"X\" onclick=\"javascript:retourEmpruntExterne(this,".$utilisateur->getID().", '$preteur', ".$bouquin->getID().");\"/>";
+				echo "&nbsp;<input type=\"button\" class=\"alert\" value=\"X\" onclick=\"javascript:retourEmpruntExterne(this,".$utilisateur->getID().", '$preteur', ".$bouquin->getID().");\"/>";
 			}
 			echo "</li>";
 		}

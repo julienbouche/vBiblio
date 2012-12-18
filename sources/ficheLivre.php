@@ -48,7 +48,8 @@ if(isset($_GET['id']) ){
 	<link rel="stylesheet" type="text/css" href="css/vBiblio.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="css/popInside.css" media="screen" />	
 
-	<link href='http://fonts.googleapis.com/css?family=Lancelot' rel='stylesheet' type='text/css'>
+	<!--link href='http://fonts.googleapis.com/css?family=Lancelot' rel='stylesheet' type='text/css'-->
+	<link href='http://fonts.googleapis.com/css?family=Donegal+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div id="vBibContenu">
@@ -273,7 +274,7 @@ if(isset($_GET['id']) ){
 	<td class="tdTitleProfil" colspan="3">Description:</td>
 </tr>
 <tr>
-	<td colspan="3" style="text-align:justify;font-family: 'Lancelot', cursive;font-size:18px;">
+	<td colspan="3" style="text-align:justify;font-family: 'Donegal One', cursive;">
 <?
 	$description = $bouquin->retournerDescription();
 	if($description==""){
