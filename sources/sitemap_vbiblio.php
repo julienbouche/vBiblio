@@ -6,7 +6,7 @@ echo "<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">";
 <?
 $serveur = "http://sql.free.fr";
 $login = "vBiblio" ;
-$mdp = "shifty12";
+$mdp = "********";
 
 $bdname = "vBiblio";
 
