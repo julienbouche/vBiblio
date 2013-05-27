@@ -167,4 +167,4 @@ pip-log.txt
 *.*~
 
 #exclusion du fichier de mot de passe
-scripts/db/db.php
+ sources/scripts/db/db.php
