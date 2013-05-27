@@ -1,45 +1,44 @@
-=mot_de_passe<=mot_de_passe?=mot_de_passep=mot_de_passeh=mot_de_passep=mot_de_passe =mot_de_passe
-=mot_de_passe
-=mot_de_passe$=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passev=mot_de_passee=mot_de_passeu=mot_de_passer=mot_de_passe =mot_de_passe =mot_de_passe"=mot_de_passel=mot_de_passeo=mot_de_passec=mot_de_passea=mot_de_passel=mot_de_passeh=mot_de_passeo=mot_de_passes=mot_de_passet=mot_de_passe"=mot_de_passe;=mot_de_passe
-=mot_de_passe
-=mot_de_passe$=mot_de_passel=mot_de_passeo=mot_de_passeg=mot_de_passei=mot_de_passen=mot_de_passe =mot_de_passe =mot_de_passe"=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe"=mot_de_passe;=mot_de_passe
-=mot_de_passe$=mot_de_passem=mot_de_passed=mot_de_passep=mot_de_passe =mot_de_passe =mot_de_passe"=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe"=mot_de_passe;=mot_de_passe
-=mot_de_passe
-=mot_de_passef=mot_de_passeu=mot_de_passen=mot_de_passec=mot_de_passet=mot_de_passei=mot_de_passeo=mot_de_passen=mot_de_passe =mot_de_passed=mot_de_passeb=mot_de_passeC=mot_de_passeo=mot_de_passen=mot_de_passen=mot_de_passee=mot_de_passec=mot_de_passet=mot_de_passe(=mot_de_passe)=mot_de_passe{=mot_de_passe
-=mot_de_passe	=mot_de_passe	=mot_de_passe
-=mot_de_passe	=mot_de_passeg=mot_de_passel=mot_de_passeo=mot_de_passeb=mot_de_passea=mot_de_passel=mot_de_passe =mot_de_passe$=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passev=mot_de_passee=mot_de_passeu=mot_de_passer=mot_de_passe,=mot_de_passe =mot_de_passe$=mot_de_passel=mot_de_passeo=mot_de_passeg=mot_de_passei=mot_de_passen=mot_de_passe,=mot_de_passe =mot_de_passe$=mot_de_passem=mot_de_passed=mot_de_passep=mot_de_passe;=mot_de_passe
-=mot_de_passe =mot_de_passe
-=mot_de_passe	=mot_de_passe$=mot_de_passeb=mot_de_passed=mot_de_passen=mot_de_passea=mot_de_passem=mot_de_passee=mot_de_passe =mot_de_passe =mot_de_passe"=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe*=mot_de_passe"=mot_de_passe;=mot_de_passe
-=mot_de_passe
-=mot_de_passe	=mot_de_passe/=mot_de_passe/=mot_de_passec=mot_de_passeo=mot_de_passen=mot_de_passen=mot_de_passee=mot_de_passex=mot_de_passei=mot_de_passeo=mot_de_passen=mot_de_passe =mot_de_passe =mot_de_passea=mot_de_passeu=mot_de_passe =mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passev=mot_de_passee=mot_de_passeu=mot_de_passer=mot_de_passe =mot_de_passes=mot_de_passeq=mot_de_passel=mot_de_passe
-=mot_de_passe	=mot_de_passe$=mot_de_passed=mot_de_passeb=mot_de_passe =mot_de_passe =mot_de_passem=mot_de_passey=mot_de_passes=mot_de_passeq=mot_de_passel=mot_de_passe_=mot_de_passec=mot_de_passeo=mot_de_passen=mot_de_passen=mot_de_passee=mot_de_passec=mot_de_passet=mot_de_passe(=mot_de_passe$=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passev=mot_de_passee=mot_de_passeu=mot_de_passer=mot_de_passe,=mot_de_passe =mot_de_passe$=mot_de_passel=mot_de_passeo=mot_de_passeg=mot_de_passei=mot_de_passen=mot_de_passe,=mot_de_passe =mot_de_passe$=mot_de_passem=mot_de_passed=mot_de_passep=mot_de_passe)=mot_de_passe
-=mot_de_passe	=mot_de_passe	=mot_de_passeo=mot_de_passer=mot_de_passe =mot_de_passed=mot_de_passei=mot_de_passee=mot_de_passe(=mot_de_passe"=mot_de_passeU=mot_de_passen=mot_de_passee=mot_de_passe =mot_de_passee=mot_de_passer=mot_de_passer=mot_de_passee=mot_de_passeu=mot_de_passer=mot_de_passe =mot_de_passed=mot_de_passee=mot_de_passe =mot_de_passec=mot_de_passeo=mot_de_passen=mot_de_passen=mot_de_passee=mot_de_passex=mot_de_passei=mot_de_passeo=mot_de_passen=mot_de_passe =mot_de_passea=mot_de_passeu=mot_de_passe =mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passev=mot_de_passee=mot_de_passeu=mot_de_passer=mot_de_passe =mot_de_passed=mot_de_passee=mot_de_passe =mot_de_passeb=mot_de_passea=mot_de_passes=mot_de_passee=mot_de_passe =mot_de_passed=mot_de_passee=mot_de_passe =mot_de_passed=mot_de_passeo=mot_de_passen=mot_de_passen=mot_de_passe&=mot_de_passee=mot_de_passea=mot_de_passec=mot_de_passeu=mot_de_passet=mot_de_passee=mot_de_passe;=mot_de_passee=mot_de_passes=mot_de_passe =mot_de_passee=mot_de_passes=mot_de_passet=mot_de_passe =mot_de_passes=mot_de_passeu=mot_de_passer=mot_de_passev=mot_de_passee=mot_de_passen=mot_de_passeu=mot_de_passee=mot_de_passe.=mot_de_passe<=mot_de_passeb=mot_de_passer=mot_de_passe/=mot_de_passe>=mot_de_passeM=mot_de_passee=mot_de_passer=mot_de_passec=mot_de_passei=mot_de_passe =mot_de_passed=mot_de_passee=mot_de_passe =mot_de_passer=mot_de_passe&=mot_de_passee=mot_de_passea=mot_de_passec=mot_de_passeu=mot_de_passet=mot_de_passee=mot_de_passe;=mot_de_passee=mot_de_passes=mot_de_passes=mot_de_passea=mot_de_passey=mot_de_passee=mot_de_passer=mot_de_passe =mot_de_passep=mot_de_passel=mot_de_passeu=mot_de_passes=mot_de_passe =mot_de_passet=mot_de_passea=mot_de_passer=mot_de_passed=mot_de_passe.=mot_de_passe"=mot_de_passe)=mot_de_passe;=mot_de_passe
-=mot_de_passe
-=mot_de_passe	=mot_de_passem=mot_de_passey=mot_de_passes=mot_de_passeq=mot_de_passel=mot_de_passe_=mot_de_passes=mot_de_passee=mot_de_passel=mot_de_passee=mot_de_passec=mot_de_passet=mot_de_passe_=mot_de_passed=mot_de_passeb=mot_de_passe(=mot_de_passe$=mot_de_passeb=mot_de_passed=mot_de_passen=mot_de_passea=mot_de_passem=mot_de_passee=mot_de_passe,=mot_de_passe =mot_de_passe$=mot_de_passed=mot_de_passeb=mot_de_passe)=mot_de_passe;=mot_de_passe
-=mot_de_passe}=mot_de_passe
-=mot_de_passe
-=mot_de_passe
-=mot_de_passef=mot_de_passeu=mot_de_passen=mot_de_passec=mot_de_passet=mot_de_passei=mot_de_passeo=mot_de_passen=mot_de_passe =mot_de_passeb=mot_de_passeo=mot_de_passeo=mot_de_passek=mot_de_passeR=mot_de_passee=mot_de_passeq=mot_de_passeu=mot_de_passee=mot_de_passes=mot_de_passet=mot_de_passeE=mot_de_passex=mot_de_passei=mot_de_passes=mot_de_passet=mot_de_passe(=mot_de_passe$=mot_de_passeo=mot_de_passew=mot_de_passen=mot_de_passet=mot_de_passea=mot_de_passeb=mot_de_passel=mot_de_passee=mot_de_passeu=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passei=mot_de_passed=mot_de_passe,=mot_de_passe =mot_de_passe$=mot_de_passet=mot_de_passea=mot_de_passeb=mot_de_passel=mot_de_passee=mot_de_passeu=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passei=mot_de_passed=mot_de_passe,=mot_de_passe =mot_de_passe$=mot_de_passei=mot_de_passed=mot_de_passe_=mot_de_passeb=mot_de_passeo=mot_de_passeo=mot_de_passek=mot_de_passe)=mot_de_passe{=mot_de_passe
-=mot_de_passe	=mot_de_passe$=mot_de_passes=mot_de_passeq=mot_de_passel=mot_de_passe =mot_de_passe =mot_de_passe"=mot_de_passeS=mot_de_passeE=mot_de_passeL=mot_de_passeE=mot_de_passeC=mot_de_passeT=mot_de_passe =mot_de_passe*=mot_de_passe =mot_de_passeF=mot_de_passeR=mot_de_passeO=mot_de_passeM=mot_de_passe =mot_de_passev=mot_de_passeB=mot_de_passei=mot_de_passeb=mot_de_passel=mot_de_passei=mot_de_passeo=mot_de_passe_=mot_de_passed=mot_de_passee=mot_de_passem=mot_de_passea=mot_de_passen=mot_de_passed=mot_de_passee=mot_de_passe =mot_de_passeW=mot_de_passeH=mot_de_passeE=mot_de_passeR=mot_de_passeE=mot_de_passe =mot_de_passei=mot_de_passed=mot_de_passe_=mot_de_passeu=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passe$=mot_de_passeo=mot_de_passew=mot_de_passen=mot_de_passet=mot_de_passea=mot_de_passeb=mot_de_passel=mot_de_passee=mot_de_passeu=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passei=mot_de_passed=mot_de_passe =mot_de_passeA=mot_de_passeN=mot_de_passeD=mot_de_passe =mot_de_passei=mot_de_passed=mot_de_passe_=mot_de_passeu=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passe_=mot_de_passer=mot_de_passee=mot_de_passeq=mot_de_passeu=mot_de_passee=mot_de_passes=mot_de_passet=mot_de_passee=mot_de_passed=mot_de_passe$=mot_de_passet=mot_de_passea=mot_de_passeb=mot_de_passel=mot_de_passee=mot_de_passeu=mot_de_passes=mot_de_passee=mot_de_passer=mot_de_passei=mot_de_passed=mot_de_passe =mot_de_passeA=mot_de_passeN=mot_de_passeD=mot_de_passe =mot_de_passei=mot_de_passed=mot_de_passe_=mot_de_passer=mot_de_passee=mot_de_passeq=mot_de_passeu=mot_de_passee=mot_de_passes=mot_de_passet=mot_de_passee=mot_de_passed=mot_de_passe$=mot_de_passei=mot_de_passed=mot_de_passe_=mot_de_passeb=mot_de_passeo=mot_de_passeo=mot_de_passek=mot_de_passe"=mot_de_passe;=mot_de_passe
-=mot_de_passe
-=mot_de_passe	=mot_de_passe$=mot_de_passer=mot_de_passee=mot_de_passes=mot_de_passeu=mot_de_passel=mot_de_passet=mot_de_passe =mot_de_passe =mot_de_passem=mot_de_passey=mot_de_passes=mot_de_passeq=mot_de_passel=mot_de_passe_=mot_de_passeq=mot_de_passeu=mot_de_passee=mot_de_passer=mot_de_passey=mot_de_passe(=mot_de_passe$=mot_de_passes=mot_de_passeq=mot_de_passel=mot_de_passe)=mot_de_passe;=mot_de_passe
-=mot_de_passe
-=mot_de_passe	=mot_de_passei=mot_de_passef=mot_de_passe(=mot_de_passe$=mot_de_passer=mot_de_passee=mot_de_passes=mot_de_passeu=mot_de_passel=mot_de_passet=mot_de_passe)=mot_de_passe
-=mot_de_passe	=mot_de_passe	=mot_de_passer=mot_de_passee=mot_de_passet=mot_de_passeu=mot_de_passer=mot_de_passen=mot_de_passe =mot_de_passem=mot_de_passey=mot_de_passes=mot_de_passeq=mot_de_passel=mot_de_passe_=mot_de_passen=mot_de_passeu=mot_de_passem=mot_de_passe_=mot_de_passer=mot_de_passeo=mot_de_passew=mot_de_passes=mot_de_passe(=mot_de_passe$=mot_de_passer=mot_de_passee=mot_de_passes=mot_de_passeu=mot_de_passel=mot_de_passet=mot_de_passe)=mot_de_passe>=mot_de_passe0=mot_de_passe;=mot_de_passe
-=mot_de_passe	=mot_de_passee=mot_de_passel=mot_de_passes=mot_de_passee=mot_de_passe =mot_de_passer=mot_de_passee=mot_de_passet=mot_de_passeu=mot_de_passer=mot_de_passen=mot_de_passe =mot_de_passef=mot_de_passea=mot_de_passel=mot_de_passes=mot_de_passee=mot_de_passe;=mot_de_passe
-=mot_de_passe
-=mot_de_passe}=mot_de_passe
-=mot_de_passe
-=mot_de_passef=mot_de_passeu=mot_de_passen=mot_de_passec=mot_de_passet=mot_de_passei=mot_de_passeo=mot_de_passen=mot_de_passe =mot_de_passef=mot_de_passet=mot_de_passer=mot_de_passei=mot_de_passem=mot_de_passe(=mot_de_passe$=mot_de_passes=mot_de_passet=mot_de_passer=mot_de_passe)=mot_de_passe{=mot_de_passe
-=mot_de_passe	=mot_de_passe$=mot_de_passet=mot_de_passee=mot_de_passem=mot_de_passep=mot_de_passeS=mot_de_passet=mot_de_passer=mot_de_passe"=mot_de_passe"=mot_de_passe;=mot_de_passe
-=mot_de_passe	=mot_de_passe$=mot_de_passei=mot_de_passe0=mot_de_passe;=mot_de_passe
-=mot_de_passe	=mot_de_passew=mot_de_passeh=mot_de_passei=mot_de_passel=mot_de_passee=mot_de_passe(=mot_de_passe$=mot_de_passei=mot_de_passe<=mot_de_passes=mot_de_passet=mot_de_passer=mot_de_passel=mot_de_passee=mot_de_passen=mot_de_passe(=mot_de_passe$=mot_de_passes=mot_de_passet=mot_de_passer=mot_de_passe)=mot_de_passe =mot_de_passe)=mot_de_passe{=mot_de_passe
-=mot_de_passe	=mot_de_passe	=mot_de_passei=mot_de_passef=mot_de_passe(=mot_de_passes=mot_de_passeu=mot_de_passeb=mot_de_passes=mot_de_passet=mot_de_passer=mot_de_passe(=mot_de_passe$=mot_de_passes=mot_de_passet=mot_de_passer=mot_de_passe,=mot_de_passe$=mot_de_passei=mot_de_passe,=mot_de_passe1=mot_de_passe)=mot_de_passe!=mot_de_passe =mot_de_passe'=mot_de_passe =mot_de_passe'=mot_de_passe)=mot_de_passe
-=mot_de_passe	=mot_de_passe	=mot_de_passe	=mot_de_passe$=mot_de_passet=mot_de_passee=mot_de_passem=mot_de_passep=mot_de_passeS=mot_de_passet=mot_de_passer=mot_de_passe =mot_de_passe =mot_de_passe$=mot_de_passet=mot_de_passee=mot_de_passem=mot_de_passep=mot_de_passeS=mot_de_passet=mot_de_passer=mot_de_passe.=mot_de_passes=mot_de_passeu=mot_de_passeb=mot_de_passes=mot_de_passet=mot_de_passer=mot_de_passe(=mot_de_passe$=mot_de_passes=mot_de_passet=mot_de_passer=mot_de_passe,=mot_de_passe$=mot_de_passei=mot_de_passe,=mot_de_passe1=mot_de_passe)=mot_de_passe;=mot_de_passe
-=mot_de_passe	=mot_de_passe	=mot_de_passe$=mot_de_passei=mot_de_passe+=mot_de_passe+=mot_de_passe;=mot_de_passe
-=mot_de_passe	=mot_de_passe}=mot_de_passe
-=mot_de_passe	=mot_de_passer=mot_de_passee=mot_de_passet=mot_de_passeu=mot_de_passer=mot_de_passen=mot_de_passe =mot_de_passe$=mot_de_passet=mot_de_passee=mot_de_passem=mot_de_passep=mot_de_passeS=mot_de_passet=mot_de_passer=mot_de_passe;=mot_de_passe
-=mot_de_passe}=mot_de_passe
-=mot_de_passe
-=mot_de_passe
-=mot_de_passe?=mot_de_passe>=mot_de_passe
+<?php 
+
+$serveur = "localhost";
+$login = "db_user";
+$mdp = "mot_de_passe";
+
+function dbConnect(){
+		
+	global $serveur, $login, $mdp;
+ 
+	$bdname = "db_name";
+
+	//connexion  au serveur sql
+	$db = mysql_connect($serveur, $login, $mdp)
+		or die("Une erreur de connexion au serveur de base de donn&eacute;es est survenue.<br/>Merci de r&eacute;essayer plus tard.");
+
+	mysql_select_db($bdname, $db);
+}
+
+
+function bookRequestExist($owntableuserid, $tableuserid, $id_book){
+	$sql = "SELECT * FROM vBiblio_demande WHERE id_user=$owntableuserid AND id_user_requested=$tableuserid AND id_requested=$id_book";
+
+	$result = mysql_query($sql);
+
+	if($result)
+		return mysql_num_rows($result)>0;
+	else return false;
+
+}
+
+function ftrim($str){
+	$tempStr="";
+	$i=0;
+	while($i<strlen($str) ){
+		if(substr($str,$i,1)!= ' ')
+			$tempStr = $tempStr.substr($str,$i,1);
+		$i++;
+	}
+	return $tempStr;
+}
+
+
+?>
