@@ -182,7 +182,7 @@ div#vBibFooter {
 	min-width:800px;
 	width:100%;
 	height:38px;
-	z-index:100; /*eviter que le menu se retrouve "sous" un élément du contenu (les coins des titres par ex.)*/
+	z-index:2000; /*eviter que le menu se retrouve "sous" un élément du contenu (les coins des titres par ex.)*/
 	/*opacity:0.7;*/
 	background-color:#AAF;
 	-moz-border-radius:0px 0px 5px 5px;
@@ -279,7 +279,7 @@ div.vBibProfilDisplay{
 	visibility:hidden;
 	opacity:0;
 	min-height:100px;
-	width:300px;
+	width:250px;
 	right:0px;
 	z-index:1;
 	background-color:#CCE;
@@ -315,6 +315,10 @@ div.MessagerieMenuItem{
 
 
 div.vBibProfilDisplay img{
+	box-shadow: 1px 1px 1px 0px #888;
+}
+
+img.ImgDefaultShadow{
 	box-shadow: 2px 2px 2px 0px #888;
 }
 
@@ -324,9 +328,9 @@ div.vBibProfilDisplay a{
 	background-color:#CCE;
 }
 
-div.vBibProfilDisplay a:hover{
+/*div.vBibProfilDisplay a:hover{
 	background-color:#DDF;
-}
+}*/
 div.vBibProfilDisplay a,div.vBibProfilDisplay a:hover{
 	-moz-transition: background-color 0.4s ease;
 	-webkit-transition: background-color 0.4s ease;
@@ -338,7 +342,7 @@ div.SubMenuItem{
 	/*width:100px;*/
 	border-radius:0px 0px 10px 10px;
 	box-shadow: 2px 10px 10px 0px #669;
-	margin-top:12px;
+	margin-top:5px;
 	visibility:hidden;
 	background-color:#AAF;
 	z-index:1;
@@ -492,7 +496,7 @@ a.vBibLink:visited{
 }
 
 .vBibMessage{
-  padding: 3px 0 3px 0px;
+	padding: 3px 0px 3px 0px;
 }
 
 .vBibMessageAuthor{
@@ -503,15 +507,15 @@ a.vBibLink:visited{
 .vBibMessageDate{
 	font-size:x-small;
 	color:gray;
+	float : right;
 }
 
 
 .vBibMessageContent{
 	border:1px solid gray;
 	padding:5px;
-	
-	border-radius:0px 3px 3px 3px;
-	padding-bottom:10px;	
+	padding-bottom:10px;
+	background-color:#FFF8DF;	
 	
 }
 
@@ -571,6 +575,7 @@ a img{
 	color:#22F;
 }
 
+/******************* RATING SYSTEM **********************/
 .vote{
 }
 
@@ -579,6 +584,7 @@ a img{
 }
 
 
+/******************* BOOK TABLES **********************/
 .vBiblioBooksTable{
 	font-size:small;
 	width:800px;
@@ -764,29 +770,27 @@ div.BuddyList{
 div.BuddyBox{
 	display:inline-block;
 	width:30%;
-	border:1px solid gray;
+	/*border:1px solid gray;*/
 	border-radius:5px 5px 5px 5px;
 	padding:5px;
 	margin:5px;
 
-
-
-	background: -moz-linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+	/*background: -moz-linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
 	background: -webkit-linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
 	background: -ms-linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-	background: -o-linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-
-
+	background: -o-linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);*/
 
 	/*Mozilla*/
-	background: -moz-linear-gradient(to bottom, #AAF, #CCF, #AAF);
+	
+	background: -webkit-gradient(to bottom, #BBF, #DDF, #BBF);
+	background: -moz-linear-gradient(to bottom, #AAF, #DDF);
 }
 
 div.BuddyBox:hover{
-
-	background: -webkit-gradient(to bottom, #BBF, #DDF, #BBF);
-	/*Mozilla*/
-	background: -moz-linear-gradient(to bottom, #BBF, #DDF, #BBF);
+	background: -moz-linear-gradient(to bottom, #99F, #DDF);
+}
+div.BuddyBox>img:hover{
+	background-color:#55DD55;
 }
 
 /************************************

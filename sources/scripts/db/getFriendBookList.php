@@ -1,10 +1,9 @@
 <?php
 include('../../accesscontrol.php');
-include('../../scripts/db/db.php');
+require_once('../../scripts/db/db.php');
 include("../../classes/Utilisateur.php");
 require_once("../../classes/Livre.php");
 
-//checkSecurity();
 
 dbConnect();
 

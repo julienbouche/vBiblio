@@ -1,17 +1,9 @@
 <?php
 include('accesscontrol.php');
-//include('scripts/db/db.php');
 include('scripts/common.php');
 include('scripts/dateFunctions.php');
 
-//connexion à la bd
-//dbConnect();
-
 checkSecurity();
-
-
-
-
 
 $uid= $_SESSION['uid'];
 
@@ -21,13 +13,22 @@ if(isset($_GET['user']) ){
 	$tableID=$_GET['user'];
 	$tuid = $tableID;
 	$sql = "SELECT email, date_naiss, fullname, userid, sexe, id_pref_book, website, prefBookStyle FROM vBiblio_user WHERE tableuserid = '$tableID'";
-  //verifier que les utilisateurs sont amis sinon redirection ou message d'erreur !!!
-  $verifSecuSQL = "SELECT id_user1 FROM vBiblio_user, vBiblio_amis WHERE userid='$uid' AND id_user2=tableuserid AND id_user1=$tableID"; 
-  $resultSecu = mysql_query($verifSecuSQL);
-  if(mysql_num_rows($resultSecu)>0){
-    $SecuriteOK = true;
-  }
-  else $SecuriteOK = false;
+  	//verifier que les utilisateurs sont amis ou que le profil consulté a demandé la personne en ami sinon redirection ou message d'erreur !!!
+  	$verifSecuSQL = "SELECT id_user1 FROM vBiblio_user, vBiblio_amis WHERE userid='$uid' AND id_user2=tableuserid AND id_user1=$tableID"; 
+  	$resultSecu = mysql_query($verifSecuSQL);
+  	if(mysql_num_rows($resultSecu)>0){
+    		$SecuriteOK = true;
+		$limitedAccess = false;
+  	}
+  	else{
+		$verifSecuSQL = "SELECT id_user, id_demande FROM vBiblio_demande WHERE id_user_requested ='".getTableUserId($uid)."' AND id_user='$tableID' AND type='FRIENDS_REQUEST'";
+		echo $verifSecuSQL;
+  		$resultSecu = mysql_query($verifSecuSQL);
+		if(mysql_num_rows($resultSecu)>0){
+			$SecuriteOK = true;
+			$limitedAccess = true;
+		}else $SecuriteOK = false;
+	}
 }
 else {
 $sql = "SELECT email, date_naiss, fullname, userid, sexe, id_pref_book, website, prefBookStyle FROM vBiblio_user WHERE userid = '$uid'";
@@ -87,11 +88,11 @@ else{
 	
 	
 	if ( file_exists("images/avatars/avatar-160-".$tuid.".png") ){
-    $avatarPath = "images/avatars/avatar-160-".$tuid.".png";
-  }
-  else {
-    $avatarPath = "images/avatars/no_avatar.png\"  width=\"160px\" height=\"160px";
-  }
+		$avatarPath = "images/avatars/avatar-160-".$tuid.".png";
+	}
+	else {
+		$avatarPath = "images/avatars/no_avatar.png\"  width=\"160px\" height=\"160px";
+	}
 }
 
 $message="";
@@ -107,101 +108,46 @@ $message="";
 </head>
 <body>
 <div id="vBibContenu">
-<?
-	include('header.php');
-?>
+	<? include('header.php'); ?>
 
 	<div id="vBibDisplay">
+	<?php if($SecuriteOK) :  ?>
+		<?php if(!$limitedAccess) : include('ssMenuPageAmi.php') ?>
+		<?php endif; ?>
 
-<?
-if($SecuriteOK){
-	include('ssMenuPageAmi.php');
+	<table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;">  
+		<tr>
+			<td class="tdTitleProfil" colspan="3" style="text-align:center;">Informations g&eacute;n&eacute;rales</td>
+		</tr>
+		<tr>
+			<td rowspan="5"><img src="<?=$avatarPath?>" /></td>
+		</tr>
+		<tr>
+			<td align="left">Pseudo:</td>  
+			<td align="left"><?=$pseudo?></td>  
+		</tr>  
+		<tr>  
+			<td align="left">Nom:</td>
+			<td><?=$userName?></td>  
+		</tr>
+		<tr>  
+			<td align="left">Date de naissance:</td>
+			<td><?=displayInfo($dateNaissance)?></td>
+		</tr>
+	<tr>
+		<td>Site internet:</td>
+		<td><a href="<?=$sitePerso?>" class="vBibLink" target="_blank"><?=$sitePerso?></a></td>
+	</tr>
 
-?>
-<table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;">  
-   <tr>
-	<td rowspan="13"><img src="<?=$avatarPath?>" /> </td><td class="tdTitleProfil" colspan="2">Informations g&eacute;n&eacute;rales:</td>
-   </tr>
- <tr>  
-       <td align="left">  
-           <p>Sexe:</p>  
-       </td>  
-       <td align="left">   
-           <?=$sexe?>
-       </td>  
-   </tr>  
-   <tr>  
-       <td align="left">  
-           <p>Pseudo:</p>  
-       </td>  
-       <td align="left">   
-           <?=$pseudo?>
-       </td>  
-   </tr>  
-   <tr>  
-       <td align="left">  
-           <p>Nom:</p>  
-       </td>  
-       <td>  
-           <?=$userName?>
-       </td>  
-   </tr>
-   <tr>  
-       <td align="left">  
-           <p>Date de naissance:</p>  
-       </td>  
-       <td>  
-           <?=displayInfo($dateNaissance)?>
-       </td>  
-   </tr>
-   <tr>  
-       <td align="left"></td>  
-       <td></td>  
-   </tr>
-   <tr>  
-       <td align="left"></td>  
-       <td></td>  
-   </tr>   
-   <tr>  
-       <td align="left"></td>  
-       <td></td>  
-   </tr>
-
-   <tr>  
-       <td align="left"></td>  
-       <td></td>  
-   </tr>
-   <tr>  
-       <td align="left"></td>  
-       <td></td>  
-   </tr>
-
-   <tr>  
-       <td align="left"></td>  
-       <td></td>  
-   </tr>
-
-   <tr>  
-       <td align="left"></td>  
-       <td></td>  
-   </tr>
-
-   <tr>  
-       <td align="left"></td>  
-       <td></td>  
-   </tr>
-
-
-<!-- En dessous de l'avatar-->
-<tr>
-	<td class="tdTitleProfil" colspan="3">Informations personnelles:</td>
-</tr>
-<tr>
-	<td>Style pr&eacute;f&eacute;r&eacute;:</td><td colspan="2"><?=$prefBookStyle?></td>
-
-</tr>
-<tr>
-	<td>Livre pr&eacute;f&eacute;r&eacute;:</td><td colspan="2">
+	<!-- En dessous de l'avatar-->
+	<tr>
+		<td class="tdTitleProfil" colspan="3" style="text-align:center;">Informations sur vBiblio</td>
+	</tr>
+	<tr>
+		<td>Style pr&eacute;f&eacute;r&eacute;:</td><td colspan="2"><?=$prefBookStyle?></td>
+	</tr>
+	<tr>
+		<td>Livre pr&eacute;f&eacute;r&eacute;:</td><td colspan="2">
 <?
 	$req = "SELECT titre, id_cycle, numero_cycle FROM vBiblio_book WHERE id_book=$prefBook";
 	$res = mysql_query($req);
@@ -215,58 +161,35 @@ if($SecuriteOK){
 		echo "<a href=\"ficheLivre?id=$prefBook\" class=\"vBibLink\">$beginTitre".mysql_result($res, 0, "titre")."</a>";
 	}
 ?>
-	</td>
-</tr>
+		</td>
+	</tr>
 
-<tr>
-	<td>Site internet:</td><td colspan="2"><a href="<?=$sitePerso?>" class="vBibLink" target="_blank"><?=$sitePerso?></a></td>
-</tr>
-
-
-
-</table>  
-<br/>
-<br/>
-<?
-  if(isset($_GET['user'])){
-?>
-Envoyez un message &agrave; <?=$userName?>:
-<form name="formDirectMessage" method="POST" action="<?=$_SERVER['PHP_SELF']?>?user=<?=$_GET['user']?>">
-<fieldset>
-<table style="font-size:inherit">
-<tr>
-	<td>Message:</td><td></td>
-</tr>
-<tr>
-<td><textarea wrap="soft" name="directMessage" rows="5" cols="60"></textarea></td><td></td>
-</tr>
-<tr>
-<td><?=$msgSendMsg?></td><td><input type="submit" value="Envoyer" /></td>
-</tr>
-</table>
-</fieldset>
-</form>
-
-<?
-
-  }
-
-}
-else{
-?>
-Vous n'&ecirc;tes pas dans la liste d'amis de cet utilisateur. Vous ne pouvez pas acc&eacute;der &agrave; ses informations.
-<?
-}
-?>
+	</table>  
+	<br/>
+	<br/>
+	<?php if(isset($_GET['user']) && !$limitedAccess) : ?>
+		Envoyez un message &agrave; <?=$userName?>:
+		<form name="formDirectMessage" method="POST" action="<?=$_SERVER['PHP_SELF']?>?user=<?=$_GET['user']?>">
+		<fieldset>
+			<table style="font-size:inherit">
+				<tr>
+					<td>Message:</td><td></td>
+				</tr>
+				<tr>
+					<td><textarea wrap="soft" name="directMessage" rows="5" cols="60"></textarea></td><td></td>
+				</tr>
+				<tr>
+					<td><?=$msgSendMsg?></td><td><input type="submit" value="Envoyer" /></td>
+				</tr>
+			</table>
+		</fieldset>
+		</form>
+		<?php endif; ?>
+	<?php else : ?>
+	Vous n'&ecirc;tes pas dans la liste d'amis de cet utilisateur. Vous ne pouvez pas acc&eacute;der &agrave; ses informations.
+	<?php endif; ?>
+	</div>
+	<? include('footer.php'); ?>
 </div>
-<?
-
-
-
-	include('footer.php');
-?>
-
-</div>
-
 </body>
 </html>

@@ -162,3 +162,24 @@ function vote(idbook, note){
 		avote = 1;
 	}
 } 
+
+function ratingOverFnct(element, value){
+	element.src= "images/star-rating-full.png";
+	for(var i=0; i<=10;i++){
+		if(i<=value)document.getElementById('rating'+i).src="images/star-rating-full.png";
+		else document.getElementById('rating'+i).src="images/star1.png";
+	}
+}
+
+function ratingOutFnct(element, value){
+	element.src=value;
+}
+
+function ratingOutGlobal(){
+	
+	for(var i=0; i<=10;i++){
+		 document.getElementById('rating'+i).onmouseout();
+	}
+}
+
+

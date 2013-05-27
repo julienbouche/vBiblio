@@ -40,8 +40,9 @@ if($result && mysql_num_rows($result)>0 ){
 ?>
   
 <a href="<?=$rootPath?>/emprunts.php" class="vBibLink SubMenuItem">Mes Emprunts</a>
+<?php if($pendingRequest != "") : ?>
 <a href="<?=$rootPath?>/manageBooksRequest.php" class="vBibLink SubMenuItem">G&eacute;rer les demandes <?=$pendingRequest?></a>
-
+<?php endif; ?>
 
 
 

@@ -1,11 +1,10 @@
 <?php
 include('accesscontrol.php');
-//include('scripts/db/db.php');
 
 checkSecurity();
-//dbConnect();
 
 $uid = $_SESSION['uid'];
+
 //ajout du bouquin si l'utilisateur a décidé d'ajouter un livre
 if(isset($_POST['addAuthorName']) && trim($_POST['addAuthorName']) !='' && isset($_POST['addAuthorFirstname']) && $_POST['addAuthorFirstname']!='' ){
 	$nom = $_POST['addAuthorName'];
@@ -15,7 +14,7 @@ if(isset($_POST['addAuthorName']) && trim($_POST['addAuthorName']) !='' && isset
 
 	mysql_query($sql) or $error = "<a style=\"color:red;\">Une erreur est survenue pendant l'ajout.</a>";
 	
-	
+	//TODO trouver un moyen de ne pas faire attendre l'utilisateur pour l'envoi du mail
   mail("vbiblio@free.fr","[vBiblio] Nouvel auteur saisi", "Bonjour,
   
   L'utilisateur $uid a ins&eacute;r&eacute; un nouvel auteur dans la base de donn&eacute;es:
@@ -32,17 +31,6 @@ if(isset($_POST['addAuthorName']) && trim($_POST['addAuthorName']) !='' && isset
 	if(isset($_POST['addAuthorName'])) $error ="<a style=\"color:red;\">Vous n'avez pas correctement saisi les champs</a>";
 }
 
-
-$sql = "SELECT tableuserid FROM vBiblio_user WHERE userid='$uid'";
-$result = mysql_query($sql);
-if($result && mysql_num_rows($result)){
-	$row = mysql_fetch_assoc($result);
-	$mytableId = $row['tableuserid'];
-}
-
-
-
-
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -54,14 +42,10 @@ if($result && mysql_num_rows($result)){
 </head>
 <body>
 <div id="vBibContenu">
-<?
-	include('header.php');
-?>
+	<? include('header.php'); ?>
 
 	<div id="vBibDisplay">
-<?
-	include('ssmenuHelpUs.php');
-?>
+	<? include('ssmenuHelpUs.php'); ?>
 
 Vous avez la possibilit&eacute; d'ajouter un auteur directement si celui-ci n'est pas d&eacute;j&agrave; pr&eacute;sent dans notre r&eacute;f&eacute;rentiel:
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
@@ -81,10 +65,8 @@ Vous avez la possibilit&eacute; d'ajouter un auteur directement si celui-ci n'es
 	if (isset($error) ) echo "$error";
 ?>
 	
-</div>
-<?
-	include('footer.php');
-?>
+	</div>
+	<? include('footer.php'); ?>
 
 </div>
 

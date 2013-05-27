@@ -56,7 +56,10 @@ class Auteur{
 	}
 
 	public function retournerListeLivres(){
-		$sql = "SELECT  distinct id_book, titre FROM vBiblio_book WHERE vBiblio_book.id_author=".$this->id." ORDER BY id_cycle, numero_cycle";
+		$sql = "SELECT  distinct id_book, titre 
+			FROM vBiblio_book 
+			WHERE vBiblio_book.id_author=".$this->id." 
+			ORDER BY id_cycle, numero_cycle";
 
 		$result = mysql_query($sql);
 		if($result && mysql_num_rows($result) > 0){
@@ -69,6 +72,11 @@ class Auteur{
 			}
 		}
 		return $livres;
+	}
+
+	public function retournerListeAuteursSimilaires(){
+		//TODO trouver une méthode pour la similarité... par les tags des livres ?
+		return array();
 	}
 }
 ?>

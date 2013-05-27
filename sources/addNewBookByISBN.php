@@ -1,22 +1,20 @@
 <?php
 include('accesscontrol.php');
-//include('scripts/db/db.php');
-
 checkSecurity();
-//dbConnect();
 
 //ajout du bouquin si l'utilisateur a décidé d'ajouter un livre
 if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['auteur']) && $_POST['auteur'] ){
 	$title = $_POST['addBookTitle'];
 	$id_auteur =  $_POST['auteur'];
 	$desc = trim($_POST['desc']);
+	$isbn = $_POST['addBookISBN'];
 	
 	if (isset($_POST['seriesEnabled']) and isset($_POST['idTome']) and isset($_POST['series']) and $_POST['idTome']!=''  ){
 		$idtome = $_POST['idTome'];
 		$serie = $_POST['series'];
-		$sql = "INSERT INTO vBiblio_book (titre, id_author, id_cycle, numero_cycle, description) VALUES ('$title', '$id_auteur', '$serie', '$idtome', '$desc');";
+		$sql = "INSERT INTO vBiblio_book (titre, id_author, id_cycle, numero_cycle, description, isbn) VALUES ('$title', '$id_auteur', '$serie', '$idtome', '$desc', '$isbn');";
 	}
-	else $sql = "INSERT INTO vBiblio_book (titre, id_author, description) VALUES ('$title', '$id_auteur', '$desc');";
+	else $sql = "INSERT INTO vBiblio_book (titre, id_author, description, isbn) VALUES ('$title', '$id_auteur', '$desc', '$isbn');";
 
 	mysql_query($sql);
 }
@@ -62,7 +60,7 @@ header('Access-Control-Allow-Origin: http://xisbn.worldcat.org/');
 ?>
 
 Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est pas d&eacute;j&agrave; pr&eacute;sent dans notre r&eacute;f&eacute;rentiel:
-	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return validateFORM();">
+	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return validateForm();">
 		<fieldset>
 			<table style="font-size:inherit;">
 			<tr><td>ISBN :</td><td><input type="text" size="25" name="addBookISBN" onchange="javascript:validateISBNandPopulateBookInformations(this);" /></td></tr>

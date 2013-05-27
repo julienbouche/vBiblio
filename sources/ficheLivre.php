@@ -30,7 +30,7 @@ if(isset($_GET['id']) ){
 
 <html>
 <head>
-	<title><?echo $bouquin->titreLong()?>: <? echo $auteur->fullname()?> sur vBiblio</title> 
+	<title><?=$bouquin->titreLong()?> : <?=$auteur->fullname()?> sur vBiblio</title> 
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<script type="text/javascript" src="js/jquery/lib/jquery.js"></script>
 	<script type='text/javascript' src='js/jquery/lib/jquery.bgiframe.min.js'></script>
@@ -40,8 +40,8 @@ if(isset($_GET['id']) ){
 	
 	<script type='text/javascript' src='js/core/vbiblio_ajax.js'></script>
 	<script type='text/javascript' src='js/core/user_functions.js'></script>
-		<script type='text/javascript' src='js/gui/insidepopup.js'></script>
-			<script type='text/javascript' src='js/gui/livre_gui.js'></script>
+	<script type='text/javascript' src='js/gui/insidepopup.js'></script>
+	<script type='text/javascript' src='js/gui/livre_gui.js'></script>
 	
 	<link rel="stylesheet" type="text/css" href="js/jquery/jquery.autocomplete.css" />
 	<link rel="stylesheet" type="text/css" href="js/jquery/lib/thickbox.css" />
@@ -50,12 +50,15 @@ if(isset($_GET['id']) ){
 
 	<!--link href='http://fonts.googleapis.com/css?family=Lancelot' rel='stylesheet' type='text/css'-->
 	<link href='http://fonts.googleapis.com/css?family=Donegal+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+	<!-- google APIs-->
+	<script type="text/javascript" src="//www.google.com/jsapi"></script>
+	<script type="text/javascript" src="js/gui/ggBooksPreview_gui.js"></script>
+
 </head>
 <body>
 <div id="vBibContenu">
-<?
-	include('header.php');
-?>
+	<? include('header.php'); ?>
 
 	<div id="vBibDisplay">
 
@@ -65,33 +68,34 @@ if(isset($_GET['id']) ){
 	<div class="insideWindowContent" >
 	<form >
 	<input type="hidden" name="idbook" value="<?=$_GET['id']?>" />
+
 <?
 	$buddys = $utilisateur->recupererListeAmis();
-	
-	if(count($buddys)>0){
-		echo "<table class=\"vBibTablePret\" id=\"formAdviseFriends\">\n";
-		$i = 0;
-		foreach($buddys as $buddy){
-			//TODO eventuellement griser les utilisateurs ayant déjà "noté" qq part ce bouquin (TRL ou vBiblio).
-			$utilisateurPossedeDeja = $buddy->aDansUneListe($bouquin);
-			
-			echo "<tr";
-			
-			if($utilisateurPossedeDeja) echo " title=\"Cet utilisateur connait d&eacute;j&agrave; ce livre\" ";
-			
-			echo "><td style=\"width:10%;\"><a class=\"vBibLink\" href=\"userProfil.php?user=".$buddy->getID()."\"><img src=\"".$buddy->cheminFichierAvatar()."\" /></a></td><td style=\"width:90%;text-align:left;\"><a class=\"vBibLink\" href=\"userProfil.php?user=".$buddy->getID()."\">".$buddy->getFullname()."</a></td>";
-			echo "<td><input type=\"checkbox\" name=\"friend$i\" value=\"".$buddy->getID()."\" ";
-			
-			if($utilisateurPossedeDeja) echo "disabled";
-			
-			echo "/></td>";
-			echo "</tr>";
-			$i++;
-		}
-		echo "</table>\n";
-	}
-
 ?>
+	<?php if (count($buddys)>0) : $i=0 ?>
+		<table class="vBibTablePret" id="formAdviseFriends">
+		<?php foreach ($buddys as $buddy) : $utilisateurPossedeDeja = $buddy->aDansUneListe($bouquin);  ?>
+			<?php if ($utilisateurPossedeDeja) : ?>
+			<tr title="Cet utilisateur connait d&eacute;j&agrave; ce livre">
+			<?php else : ?>
+			<tr>
+			<?php endif; ?>
+				<td style="width:10%;">
+					<a class="vBibLink" href="userProfil.php?user=<?=$buddy->getID()?>">
+						<img src="<?=$buddy->cheminFichierAvatar()?>" />
+					</a>
+				</td>
+				<td style="width:90%;text-align:left;">
+					<a class="vBibLink" href="userProfil.php?user=<?=$buddy->getID()?>"><?=$buddy->getFullname()?></a>
+				</td>	
+
+				<td>
+					<input type="checkbox" name="friend<?=$i?>" value="<?=$buddy->getID()?>" />
+				</td>
+			</tr>
+		<?php $i++; endforeach; ?>
+		</table>
+	<?php endif; ?>
 
 	</form>
 	</div>
@@ -103,58 +107,46 @@ if(isset($_GET['id']) ){
 
 
 
+<?php if(isset($_GET['id']) ) : ?>
 <?
-if(isset($_GET['id']) ){
-	
 	//on a initialise la variable $bouquin plus haut !
-
-
 ?>
 
-<div style="float:right;max-width:250px;">
+<div style="float:right;width:200px;">
 	<div class="vBibBoite" style="left:-20px;width:100%">
-			<div class="vBibBoiteTitre">Rechercher ce livre :</div>
-			<div class="vBibBoiteContenu" style="padding-left:20px;">
-	<li><a class="vBibLink" href="http://www.leboncoin.fr/livres/offres/ile_de_france/occasions/?f=a&th=1&q=<?echo str_replace(' ','+',$bouquin->TitreCourt())." ".$auteur->fullname();?>">Leboncoin.fr</a></li>
-	<li><a class="vBibLink" href="http://fr.wikipedia.org/wiki/Special:Search?search=<?echo str_replace(' ','+',$bouquin->TitreCourt())." ".$auteur->fullname();?>">Wikip&eacute;dia</a></li>
-	<li><a class="vBibLink" href="http://www.amazon.fr/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=<?echo "".str_replace(' ','+',$bouquin->TitreCourt());?>">Amazon.fr</a></li>
-	<li><a class="vBibLink" href="http://www.priceminister.com/nav/Livres/kw/<?echo "".str_replace(' ','+',urlencode($bouquin->TitreCourt()));?>">Price Minister</a></li>
-	<li><a class="vBibLink" href='http://www.google.fr/#hl=fr&q="<?echo "".str_replace(' ','+',$bouquin->TitreCourt())."\" ".$auteur->fullname();?>'>Google</a></li>
-	<li><a class="vBibLink" href="http://recherche.fnac.com/r/<?=$bouquin->TitreCourt()?>?SCat=2!1">Fnac.com</a></li>
-	</div>
+		<div class="vBibBoiteTitre">Rechercher ce livre :</div>
+		<div class="vBibBoiteContenu" style="padding-left:20px;">
+			<li><a class="vBibLink" href="http://www.leboncoin.fr/livres/offres/ile_de_france/occasions/?f=a&th=1&q=<?echo str_replace(' ','+',$bouquin->TitreCourt())." ".$auteur->fullname();?>">Leboncoin.fr</a></li>
+			<li><a class="vBibLink" href="http://fr.wikipedia.org/wiki/Special:Search?search=<?echo str_replace(' ','+',$bouquin->TitreCourt())." ".$auteur->fullname();?>">Wikip&eacute;dia</a></li>
+			<li><a class="vBibLink" href="http://www.amazon.fr/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=<?echo "".str_replace(' ','+',$bouquin->TitreCourt());?>">Amazon.fr</a></li>
+			<li><a class="vBibLink" href="http://www.priceminister.com/nav/Livres/kw/<?echo "".str_replace(' ','+',urlencode($bouquin->TitreCourt()));?>">Price Minister</a></li>
+			<li><a class="vBibLink" href="http://www.google.fr/#hl=fr&q=<?=str_replace(' ','+',urlencode($bouquin->TitreCourt().' '.$auteur->fullname()));?>">Google</a></li>
+			<li><a class="vBibLink" href="http://recherche.fnac.com/r/<?=$bouquin->TitreCourt()?>?SCat=2!1">Fnac.com</a></li>
+		</div>
 	</div>
 
-<?
-	if( isUserKnown()){
-		$buddyListWhoGotThisBook = $utilisateur->recupererListeAmisQuiPossedent($bouquin);
-		if($buddyListWhoGotThisBook != null){
-?>
+<?php if(isUserKnown()) : $buddyListWhoGotThisBook = $utilisateur->recupererListeAmisQuiPossedent($bouquin) ?>
+	<?php if($buddyListWhoGotThisBook != null) : ?>
 	<div class="vBibBoite" style="left:-20px;width:100%">
-			<div class="vBibBoiteTitre">Vos amis l'ont d&eacute;j&agrave;:</div>
-			<div class="vBibBoiteContenu" style="padding-left:20px;">
-			<?
-			foreach($buddyListWhoGotThisBook as $buddyGTB){
-			?>
-				<a href="userBooks.php?user=<?=$buddyGTB->getID()?>" title="<?=$buddyGTB->getFullname()?>"><img src="<?=$buddyGTB->cheminFichierAvatar()?>"  /></a>
-			<?
-			}
-			?>
+		<div class="vBibBoiteTitre">Vos amis l'ont d&eacute;j&agrave;:</div>
+		<div class="vBibBoiteContenu" style="padding-left:20px;">
+		<? foreach($buddyListWhoGotThisBook as $buddyGTB) : ?>
+			<a href="userBooks.php?user=<?=$buddyGTB->getID()?>" title="<?=$buddyGTB->getFullname()?>"><img src="<?=$buddyGTB->cheminFichierAvatar()?>"  /></a>
+		<?php endforeach; ?>
 			<br/>
+		</div>
 	</div>
-	</div>
-<?
-		}
-	}
-?>
-</div>
+	<?php endif; ?>
+<?php endif; ?>
+</div> <!-- FIN COLONNE DROITE -->
 
 
-<table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;max-width:600px;">  
+<table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;width:580px;">  
    <tr>
-	<td rowspan="7"><img src="images/covers/no_cover2.jpg" width="169px" height="225px"/> </td><td class="tdTitleProfil" colspan="2">Informations :</td>
+	<td rowspan="7" width="180px" align="center"><img src="<?=$bouquin->getAvatarPath()?>" width="169px" height="225px"/> </td><td class="tdTitleProfil" colspan="2">Informations :</td>
    </tr>
    <tr>  
-       <td align="left">  
+       <td align="right" width="50px">  
            <p>Titre:</p>  
        </td>  
        <td align="left">
@@ -162,55 +154,44 @@ if(isset($_GET['id']) ){
        </td>  
    </tr>  
    <tr>  
-       <td align="left">  
+       <td align="right">  
            <p>Auteur:</p>  
        </td>  
        <td>
-	<? echo "<a href=\"ficheAuteur.php?id=".$auteur->getID()."\" class=\"vBibLink\">".$auteur->fullname()."</a>";?>
+		<a href="ficheAuteur.php?id=<?=$auteur->getID()?>" class="vBibLink"><?=$auteur->fullname()?></a>
        </td>  
    </tr>
    <tr>  
-       <td align="left">  
+       <td align="right">  
            <!--p>Date de sortie:</p-->  
        </td>  
        <td>      
        </td>  
    </tr>
 
-<?
-	if($bouquin->dansUnCycle()){
-?>
+<?php if($bouquin->dansUnCycle()) : ?>
    <tr>  
-       <td align="left">
+       <td align="right">
 	<p>Cycle: </p>
 	</td>
 	<td><?=$bouquin->retournerNomCycle()?></td>
    </tr>
    <tr>  
-       <td align="left"><p>Tome:</p></td>  
+       <td align="right"><p>Tome:</p></td>  
        <td>
-<?
-	if($bouquin->hasPrevious()){
-		$nextBook = $bouquin->getPrevious();
-		echo "<a href=\"".$nextBook->retournerURL()."\" class=\"vBibLink\"><img src=\"images/arrow2.png\" style=\"-moz-transform:scale(0.5);\" title=\"".$nextBook->TitreCourt()."\"/></a>\n";
-	}
-?>
-<?=$bouquin->retournerNumeroTome()?>/<?=$bouquin->retournerMaxTomesCycle()?>
-<?
-	if($bouquin->hasNext()){
-		$nextBook = $bouquin->getNext();
-		echo "<a href=\"ficheLivre.php?id=".$nextBook->getID()."\" class=\"vBibLink\"><img src=\"images/arrow1.png\" style=\"-moz-transform:scale(0.5);\" title=\"".$nextBook->TitreCourt()."\"/></a>\n";
-	}
-?>
+	<?php if($bouquin->hasPrevious()) : $prevBook = $bouquin->getPrevious();?>
+		<a href="<?=$prevBook->retournerURL()?>" class="vBibLink">
+			<img src="images/arrow2.png" style="-moz-transform:scale(0.5);" title="<?=$prevBook->TitreCourt()?>"/>
+		</a>
+	<?php endif; ?>
+	<?=$bouquin->retournerNumeroTome()?>/<?=$bouquin->retournerMaxTomesCycle()?>
+		<?php if($bouquin->hasNext()) : $nextBook = $bouquin->getNext() ?>
+		<a href="ficheLivre.php?id=<?=$nextBook->getID()?>" class="vBibLink">
+			<img src="images/arrow1.png" style="-moz-transform:scale(0.5);" title="<?=$nextBook->TitreCourt()?>"/></a>
+	<?php endif; ?>
 	</td>  
    </tr>
-<?
-
-	}
-	else{
-
-?>	  
-      
+<?php else: ?>	  
    <tr>  
        <td align="left"><p>&nbsp;</p></td>  
        <td>&nbsp;</td>  
@@ -219,49 +200,35 @@ if(isset($_GET['id']) ){
        <td align="left"><p>&nbsp;</p></td>  
        <td>&nbsp;</td>  
    </tr>
-<?
-
-	}
-	
-?>
+<?php endif; ?>
    <tr>  
-       <td align="left"><p>ISBN : </p></td>  
+       <td align="right"><p>ISBN : </p></td>  
        <td><?=$bouquin->retournerISBN();?></td>  
    </tr>
 <tr>
-<td colspan="3">
-<?
-	//rendant la page publique, on affiche les interactions avec les autres utilisateurs que si l'utilisateur est connecté
-	if( isUserKnown()){
-	?>
-	<a href="" onclick="javascript:popinside_show('fenetreConseilAmi');return false;" class="vBibLink">Conseiller &agrave; un ami</a>
-	&nbsp;&nbsp;&nbsp;<a href="" onclick="javascript:DisplayFenetreTag();return false;" class="vBibLink">Taguer</a> 
-	<?
-	}
-?>
+<td align="center">
+	<?php if( isUserKnown()) : ?>
+		<?//rendant la page publique, on affiche les interactions avec les autres utilisateurs que si l'utilisateur est connecté ?>
+		<a href="" onclick="javascript:popinside_show('fenetreConseilAmi');return false;" class="vBibLink"><img src="images/recommander.png" alt="Conseiller ce livre" title="Conseiller ce livre" style="border:1px solid gray;padding:2px;" width="18" height="18"/></a>
+		<a href="" onclick="javascript:DisplayFenetreTag();return false;" class="vBibLink"><img src="images/addTag.png" alt="Taguer" title="Taguer" style="border:1px solid gray;padding:2px;" width="18" height="18"/></a>
+		<?php if($bouquin->retournerISBN() != "") : ?>
+        		<a href="javascript:togglePreview();" class="vBibLink"><img src="images/open-book.png" alt="Pr&eacute;visualiser" title="Pr&eacute;visualiser" style="border:1px solid gray;padding:2px;" id="toggleGGPreviewButton"/></a>
+		<?php endif; ?>
+		<?php if($utilisateur->aDansUneListe($bouquin)) : ?>
+		<img src="images/simpleList.png" title="Ce Livre est d&eacute;j&agrave; dans votre vBiblio" width="18px" height="18px" style="border:1px solid gray;padding:2px;"/>
+		<?php else : ?>
+		<img class="ImgAction" onclick="addToMyVBiblio(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/addToList2.png" title="Ajouter &agrave; ma vBiblio" width="18px" height="18px" style="border:1px solid gray;padding:2px;"/>
+		<img class="ImgAction" onclick="addToMyTRL(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/AddToTRL2.png" title="Ajouter &agrave; ma ToRead List" width="18px" height="18px" style="border:1px solid gray;padding:2px;"/>
+		<?php endif; ?>
+	<?php endif; ?>
 </td>
+<td colspan="2"></td>
 </tr>
 <!-- En dessous de l'avatar-->
 <tr>
-<?
-//rendant la page publique, on affiche les interactions avec les autres utilisateurs que si l'utilisateur est connecté
-	//est-ce que l'utilisateur possède déjà ce livre 
-	if( isUserKnown()){
-		if($utilisateur->aDansUneListe($bouquin)){
-
-			?>
-				<td colspan="3"><img class="ImgAction" src="images/inList.png" title="Ce Livre est d&eacute;j&agrave; dans votre vBiblio" width="20px" height="20px"/>
-			<?
-				}
-				else{
-
-			?>
-			<td colspan="3"><img class="ImgAction" onclick="addToMyVBiblio(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/AddToList.png" title="Ajouter &agrave; ma vBiblio" width="20px" height="20px"/>&nbsp;<img class="ImgAction" onclick="addToMyTRL(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/AddToTRL.png" title="Ajouter &agrave; ma ToRead List" width="20px" height="20px"/>
-
-	<?
-		}
-	}
-	?>
+<?php if( isUserKnown()) : ?>
+	<td colspan="3">
+	
 		<div style="display:inline;">
 			<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
 			(lang:'fr')
@@ -269,6 +236,9 @@ if(isset($_GET['id']) ){
 			&nbsp;<g:plusone size="small" ></g:plusone>
 		</div>
 	</td>
+<?php else : ?>
+	<td colspan="3"></td>
+<?php endif; ?>
 </tr>
 <tr>
 	<td class="tdTitleProfil" colspan="3">Description:</td>
@@ -277,12 +247,13 @@ if(isset($_GET['id']) ){
 	<td colspan="3" style="text-align:justify;font-family: 'Donegal One', cursive;">
 <?
 	$description = $bouquin->retournerDescription();
-	if($description==""){
-		echo "Nous n'avons pas encore de r&eacute;sum&eacute; pour ce livre.";
-	}
-	else echo nl2br(htmlentities($description));
-
 ?>
+
+<?php if($bouquin->retournerDescription() == "") : ?>
+	Nous n'avons pas encore de r&eacute;sum&eacute; pour ce livre.
+<?php else : ?>
+	<?=nl2br(htmlentities($bouquin->retournerDescription()))?>
+<?php endif; ?>
 
 </td>
 
@@ -291,80 +262,92 @@ if(isset($_GET['id']) ){
 <tr><td colspan="3"></td></tr>
 <tr><td colspan="3"></td></tr>
 <tr>
-	<td class="tdTitleProfil" colspan="3">Note des utilisateurs: <?
+	<td class="tdTitleProfil" colspan="3">Note des utilisateurs: 
+<?
 	$nb_votes = $bouquin->retournerNbVotants();
-if (isset($nb_votes) && $nb_votes!=0)
-	echo "".$bouquin->retournerNote()."/10 ";
-else echo "";
-if(intval($nb_votes)==0) echo "(aucun vote)";
-else if(intval($nb_votes==1) ) echo "(1 vote)";
-else echo "($nb_votes votes)";
-?></td>
-</tr>
-<tr><td colspan="3">
-<?
-if( isUserKnown()){
 ?>
-		Votez : 
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 0);" title="Nul !" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 1);" title="Tr&egrave;s mauvais" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 2);" title="Mauvais" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 3);" title="Pas terrible" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 4);" title="Bof..." />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 5);" title="Moyen" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 6);" title="Pas mal" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 7);" title="Bon" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 8);" title="Tr&egrave;s bon" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 9);" title="Excellent!" />
-			<img src="images/star1.png" class="vote" height=20 width=20 onclick="javascript:vote(<?=$bouquin->getID()?>, 10);" title="G&eacute;nialissime!" />	
-	<?
-	}else {
-		?>
-		Pour pouvoir voter, vous devez &ecirc;tre connect&eacute;. <a href="formLogin.php" class="vBibLink">Se connecter</a>
-		<?
-	}
-	?>
-</td></tr>
-<tr><td colspan="3">
-
-</td></tr>
-<tr>
-	<td class="tdTitleProfil" colspan="3">Autres livres du m&ecirc;me auteur:</td>
+	<?php if (isset($nb_votes) && $nb_votes!=0) : $actualRating = $bouquin->retournerNote() ?>
+		<?=$actualRating?>/10 
+	<?php else : $actualRating=-1 ?>
+	<?php endif; ?>
+	
+	<?php if(intval($nb_votes)==0) : ?> 
+	(aucun vote, soyez le premier !)
+	<?php else : ?>
+		<?php if(intval($nb_votes==1)) : ?>
+		(1 seul vote)
+		<?php else : ?>
+		(<?=$nb_votes?> votes)
+		<?php endif; ?>
+	<?php endif; ?>
+	
+	</td>
 </tr>
 <tr>
-<td colspan="3">
+	<td colspan="3">
+<?php if( isUserKnown()) : ?>
+		Votez : <div onMouseOut="ratingOutGlobal(this)" style="display:inline">
+	<?php for($cptRating=0; $cptRating<11; $cptRating++) : ?>
+		<?php if($cptRating<=$actualRating) : ?>
+			<img src="images/star-rating-full.png" id="rating<?=$cptRating?>" class="vote" height=20 width=20 onMouseOver="javascript:ratingOverFnct(this, <?=$cptRating?>)" onMouseOut="ratingOutFnct(this, 'images/star-rating-full.png')" onclick="javascript:vote(<?=$bouquin->getID()?>, <?=$cptRating?>);" title="<?=$cptRating?> / 10" />
+		<?php else : ?>		
+			<img src="images/star1.png" id="rating<?=$cptRating?>" class="vote" height=20 width=20 onmouseover="javascript:ratingOverFnct(this, <?=$cptRating?>)" onMouseOut="ratingOutFnct(this, 'images/star1.png')" onclick="javascript:vote(<?=$bouquin->getID()?>, <?=$cptRating?>);" title="<?=$cptRating?> / 10" />
+		<?php endif; ?>
+	<?php endfor; ?>
+		</div>
+<?php else : ?>
+	Pour pouvoir voter, vous devez &ecirc;tre connect&eacute;. <a href="formLogin.php" class="vBibLink">Se connecter</a>
+<?php endif; ?>
+	</td>
+</tr>
+<tr>
+	<td colspan="3">
+	</td>
+</tr>
 
 <?
-
 	$livres = $bouquin->retournerAutresLivresMemeAuteur();
-
-	if(count($livres)){
-		echo "	<div class=\"vBibList\">";	
-		echo "<ul>";
-		
-		foreach($livres as $livre){
-			echo "<li>\n<a href=\"ficheLivre.php?id=".$livre->getID()."\" class=\"vBibLink\">";
-		
-			echo $livre->titreLong()."</a></li>\n";
-		}
-		echo "</ul>";
-		echo "</div>";
-	}
 ?>
-</td>
-</tr>
+
+<?php if(count($livres)>0) : ?>
+	<tr>
+		<td class="tdTitleProfil" colspan="3">Autres livres du m&ecirc;me auteur:</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+
+			<div class="vBibList">
+				<ul>
+				<?php foreach($livres as $livre) : ?>
+					<li>
+						<a href="ficheLivre.php?id=<?=$livre->getID()?>" class="vBibLink"><?=$livre->titreLong()?></a>
+					</li>
+				<?php endforeach; ?>
+		</td>
+	</tr>
+<?php endif; ?>	
+	
 <tr>
 	<td class="tdTitleProfil" colspan="3">Tags associ&eacute;s &agrave; ce livre: </td>
 </tr>
 </table>
+<? $listeTags = $bouquin->getTagsOrdered(); ?>
 
-
-
-
-<?
-include("scripts/libTags.php");
-writeTags($bouquin->getID());
-?>
+<div style="padding-left:20px;">
+<?php if(count($listeTags)>0) : ?>
+	<ul id="vBiblio_tagcloud">
+	<?php foreach($listeTags as $tag) : ?>
+		<li class="tag">
+			<div style="display:inline-block;">
+				<a href="searchByTag.php?idtag=<?=$tag->getID()?>" class="vBibLink" title="Rechercher d'autres livres"><?=$tag->getName()?></a>
+			</div>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+<?php else : ?>
+Aucun tag associ&eacute; &agrave; ce livre
+</div>
+<?php endif; ?>
 
 
 <!-- Fin Affichage pour les étiquettes --> 
@@ -389,17 +372,21 @@ writeTags($bouquin->getID());
 <br/>
 <br/>
 
+<!-- Fin Affichage pour les étiquettes --> 
 
-<?
 
-}
-else echo "Ce livre ne semble pas exister dans notre r&eacute;f&eacute;rentiel ou a &eacute;t&eacute; supprim&eacute;.";
-?>
+<div id="fenetrePreviewGG" class="insideWindow" style="width:610px;height:555px;left:100px;top:50px;" >
+	<span class="insideWindowTitle">Google Livres</span><span class="insideWindowCloser" onclick="togglePreview()">X</span>
+
+	<div id="viewerCanvas" style="padding:5px; width: 600px; height: 500px; display:none"></div>
+</div>
+
+<?php else: ?>
+	Ce livre ne semble pas exister dans notre r&eacute;f&eacute;rentiel ou a &eacute;t&eacute; supprim&eacute;
+<?php endif; ?>
 	
-<?
-if(isUserKnown()==false){
-?>
-<div >
+<?php if(isUserKnown()==false) : ?>
+<div>
 <div style="float:left;width:90%;padding-left:20px;text-align:justify">Ce site est destin&eacute; &agrave; vous aider &agrave; g&eacute;rer simplement votre biblioth&egrave;que.	<br/>
 	Vous pourrez g&eacute;rer simplement les livres que vous poss&eacute;dez, ceux que vous avez lus, 
   garder une trace de ceux que vous avez pr&ecirc;t&eacute;s ou encore de ceux qu'on vous a pr&ecirc;t&eacute;s...<br/><br/>
@@ -416,9 +403,7 @@ if(isUserKnown()==false){
 <div style="clear:both"></div>
 </div>
 
-<?
-}
-?>	
+<?php endif; ?>	
 	
 </div>
 <?
@@ -426,7 +411,7 @@ if(isUserKnown()==false){
 ?>
 
 </div>
-
+<script src="https://encrypted.google.com/books?jscmd=viewapi&bibkeys=ISBN:<?=$bouquin->retournerISBN()?>&callback=processDynamicLinksResponse"></script>
 </body>
 <?
   }

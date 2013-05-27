@@ -25,7 +25,6 @@ function acceptRequest(idRequest, my_id, id_user, executeCallback){
 		xhr.onreadystatechange = function(){
 			if ( xhr.readyState == 4 ){
 				// j'affiche dans la DIV un retour pour l'utilisateur
-				//document.getElementsByName("request"+idRequest)[0].style.visibility = "hidden";
 				if(executeCallback)document.getElementsByName("request"+idRequest)[0].innerHTML = "<td></td><td>"+xhr.responseText+"</td>";
 				else document.getElementById("Req"+idRequest).style.visibility = "hidden";
 			}

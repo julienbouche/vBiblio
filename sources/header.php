@@ -1,19 +1,16 @@
 <?php
 require_once("classes/Utilisateur.php");
-$rootPath = "/vBiblio";
+$rootPath = "";
 
 ?>
 	<div id="header">
 		<div id="vBibHeader">
-<?
-	if(isset($_SESSION['fullname'])){
-		$utilisateur = new Utilisateur($_SESSION['uid']);
-?>		
+<?php if(isset($_SESSION['fullname'])) : $utilisateur = new Utilisateur($_SESSION['uid']) ?>		
 			<div class="vBibDeconn">
 				<div class="vBibProfilDisplayMenu">
 					<?=$_SESSION['fullname']?>
 					<a href="<?=$rootPath?>/disconnect.php" class="vBibDeconn" title="me d&eacute;connecter (<?=$_SESSION['fullname']?>)">
-						<img src="<?=$rootPath?>/images/logout.png" heigth="32px" width="32px" />
+						<img src="<?=$rootPath?>/images/logout.png" height="32px" width="32px" />
 					</a>
 				</div>
 				<div class="vBibProfilDisplay"><? include('ssmenuProfil.php');?></div>
@@ -21,9 +18,7 @@ $rootPath = "/vBiblio";
 
 			<ul id="vBibMenu">
 			<li><div id="enseigne"><a href="<?=$rootPath?>/index.php">vBiblio</a></div></li>
-<?
-	}else{
-?>
+<?php else : ?>
 			<div style="display:inline;float:right; margin-top:10px;">
 				<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
 				(lang:'fr')
@@ -40,29 +35,21 @@ $rootPath = "/vBiblio";
 					<input type="submit" name="submitok" class="darkblue" value="Connexion" /> 
 				</form>
 			</li>
+<?php endif; ?>
 <?
-	}
 	if(isset($_SESSION['fullname'])){
 		//$utilisateur = new Utilisateur($_SESSION['uid']);
 		$mytableId = $utilisateur->getID();
 
-		//récupérer le nombre de demandes d'amis en attente de traitement
-		$sql = "SELECT COUNT(*) as nb FROM vBiblio_demande WHERE type like '%FRIENDS_REQUEST%' AND id_user_requested ='$mytableId' ";
+		?>
+		
 
-		$result = mysql_query($sql);
-		$pendingRequest = "";
+<?
 
-		if($result && mysql_num_rows($result)>0 ){
-			$row = mysql_fetch_assoc($result);
-			if($row['nb']=="0") $affMesAmis = "Mes Amis";
-			else $affMesAmis = "<b>Mes Amis</b>";
-		}
-
-		//récupérer le nombre de demandes d'amis en attente de traitement
+		//récupérer le nombre de demandes de prets de livre en attente de traitement
 		$sql = "SELECT COUNT(*) as nb FROM vBiblio_demande WHERE type='BOOK_REQUEST' AND id_user_requested ='$mytableId' ";
 
 		$result = mysql_query($sql);
-		$pendingRequest = "";
 
 		if($result && mysql_num_rows($result)>0 ){
 			$row = mysql_fetch_assoc($result);
@@ -73,10 +60,15 @@ $rootPath = "/vBiblio";
 ?>
 
 
-			<li><a class="MenuItem" href="<?=$rootPath?>/index.php">Accueil</a></li>
-			<!--li><a class="MenuItem" href="<?=$rootPath?>/userProfil.php">Profil</a></li-->
+			<!--li><a class="MenuItem" href="<?=$rootPath?>/index.php">Accueil</a></li-->
 			<li class="MenuContainer">
-				<a class="MenuItem" href="<?=$rootPath?>/myBooks.php"><?=$affMesLivres?></a>
+				<a class="MenuItem" href="<?=$rootPath?>/myBooks.php">
+				<?php if($utilisateur->recupererNombreDemandesDePretEnAttente()>0) : ?>
+					<img src="<?=$rootPath?>/images/new_book_icon.png" title="Mes Livres"/>
+				<?php else : ?>
+					<img src="<?=$rootPath?>/images/new_book_icon.png" title="Mes Livres"/>
+				<?php endif; ?>
+				</a>
 				<div class="SubMenuItem">
 					<?
 					include('ssmenuLivres.php');
@@ -84,7 +76,13 @@ $rootPath = "/vBiblio";
 				</div>
 			</li>
 			<li class="MenuContainer"> 
-				<a class="MenuItem" href="<?=$rootPath?>/friends.php"><?=$affMesAmis?></a>
+				<a class="MenuItem" href="<?=$rootPath?>/friends.php">
+				<?php if($utilisateur->recupererNombreDemandesDeContactEnAttente()>0) : ?>
+					<img src="<?=$rootPath?>/images/new_friends_icon.png" title="Mes Amis"/>
+				<?php else : ?>
+					<img src="<?=$rootPath?>/images/new_friends_icon.png" title="Mes Amis"/>
+				<?php endif; ?>
+				</a>
 				<div class="SubMenuItem">
 					<?
 					include('ssMenuAmis.php');
@@ -92,8 +90,8 @@ $rootPath = "/vBiblio";
 				</div>
 			</li>
 			<li>
-				<form method="POST" action="addBooks.php">
-					<input type="text" name="searchText" placeholder="Recherche..." size="30" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;margin-left:60px"/>
+				<form method="POST" action="addBooks.php" >
+					<input type="text" name="searchText" placeholder="Recherche..." size="40" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;margin-left:30px; "/>
 				</form>
 			</li>
 

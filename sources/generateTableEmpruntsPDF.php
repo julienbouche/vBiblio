@@ -1,11 +1,9 @@
 <?php
 require('mysql_table_pdf.php');
 include('accesscontrol.php');
-//include('scripts/db/db.php');
 
 checkSecurity();
 
-//dbConnect();
 $uid = $_SESSION['uid'];
 $sql = "SELECT tableuserid FROM vBiblio_user WHERE userid='$uid'";
 $result = mysql_query($sql);
@@ -13,7 +11,20 @@ if($result && mysql_num_rows($result)){
 	$row = mysql_fetch_assoc($result);
 	$mytableId = $row['tableuserid'];
 
-$reqSQL = "SELECT vBiblio_user.fullname, titre FROM vBiblio_user, vBiblio_pret, vBiblio_book WHERE vBiblio_pret.id_emprunteur='$mytableId' AND vBiblio_pret.id_preteur=vBiblio_user.tableuserid AND vBiblio_pret.id_book=vBiblio_book.id_book order by vBiblio_book.id_author";
+//TODO trouver un moyen de faire un order by et un union!
+$reqSQL = "SELECT vBiblio_user.fullname as fullname, titre 
+	FROM vBiblio_user, vBiblio_pret, vBiblio_book 
+	WHERE vBiblio_pret.id_emprunteur='$mytableId' 
+	AND vBiblio_pret.id_preteur=vBiblio_user.tableuserid 
+	AND vBiblio_pret.id_book=vBiblio_book.id_book 
+	AND vBiblio_pret.id_preteur <> 0
+	UNION
+	SELECT nom_emprunteur as fullname, titre 
+	FROM vBiblio_user, vBiblio_pret, vBiblio_book 
+	WHERE vBiblio_pret.id_emprunteur='$mytableId' 
+	AND vBiblio_pret.id_preteur=vBiblio_user.tableuserid 
+	AND vBiblio_pret.id_book=vBiblio_book.id_book
+	AND vBiblio_pret.id_preteur = 0";
 
 
 

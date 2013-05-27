@@ -17,7 +17,7 @@ if(!isset($_POST['submitok'])){
  <body>    
 
 <div id="vBibContenu"> 
- <?
+<?
 	include('header.php');
 ?>
 <br/>
@@ -92,14 +92,14 @@ if(!isset($_POST['submitok'])){
    </tr>  
    <tr>  
        <td align="right" colspan="2">
-       <br/>
-<br/>
-<p style="font-size:small" ><font color="orangered" ><tt><b>*</b></tt></font> champs obligatoires</p>  
+	<br/>
+	<br/>
+	<p style="font-size:small" ><font color="orangered" ><tt><b>*</b></tt></font> champs obligatoires</p>  
 
-<br/>
-<br/>
-	   <input type="reset" value="Remettre &agrave; z&eacute;ro" style="margin-right:50px" />  
-           <input class="vert" type="submit" name="submitok" value="   OK   " />  
+	<br/>
+	<br/>
+	<input type="reset" value="Remettre &agrave; z&eacute;ro" style="margin-right:50px" />  
+	<input class="vert" type="submit" name="submitok" value="   OK   " />  
        </td>  
    </tr>  
 </table>  
@@ -107,9 +107,7 @@ if(!isset($_POST['submitok'])){
 <div style="font-size:small;color:red;">Votre adresse e-mail sera utilis&eacute;e pour vous envoyer votre mot de passe. 
 Vous pourrez par la suite changer votre mot de passe dans la page de votre profil.</div>
 
-<?
-	include('footer.php');
-?>
+<? include('footer.php'); ?>
 
 </div>
 

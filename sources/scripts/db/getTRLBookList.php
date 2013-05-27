@@ -1,6 +1,6 @@
 <?php
 include('../../accesscontrol.php');
-include('../../scripts/db/db.php');
+require_once('../../scripts/db/db.php');
 include('../../scripts/common.php');
 
 checkSecurity();

@@ -1,9 +1,7 @@
 <?php
 include('accesscontrol.php');
-//include('scripts/db/db.php');
 
 checkSecurity();
-//dbConnect();
 
 $uid = $_SESSION['uid'];
 
@@ -43,7 +41,7 @@ if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['aute
   Julien, votre Webmaster.
   ";
   $message = utf8_decode($message);
-  mail("vbiblio@free.fr","[vBiblio] Nouveau livre saisi", $message, "From:Notification vBiblio <vbiblio@free.fr>");
+  //mail("vbiblio@free.fr","[vBiblio] Nouveau livre saisi", $message, "From:Notification vBiblio <vbiblio@free.fr>");
   
 }
 else {
@@ -77,20 +75,19 @@ if($result && mysql_num_rows($result)){
 </head>
 <body>
 <div id="vBibContenu">
-<?
-	include('header.php');
-?>
+	<? include('header.php'); ?>
 
 	<div id="vBibDisplay">
-<?
-	include('ssmenuHelpUs.php');
-?>
+	<? include('ssmenuHelpUs.php'); ?>
 
 Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est pas d&eacute;j&agrave; pr&eacute;sent dans notre r&eacute;f&eacute;rentiel:
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return validateForm();">
 		<fieldset>
 			<table style="font-size:inherit;">
-			<tr><td>Auteur :</td><td> <select name="auteur" onchange="javascript:reloadBookTitles(this);">
+			<tr>
+				<td>Auteur :</td>
+				<td>
+					<select name="auteur" onchange="javascript:reloadBookTitles(this);">
 
 <?
 	$sql = "SELECT nom, prenom, id_author FROM vBiblio_author ORDER BY nom ASC";
@@ -108,15 +105,36 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 	}
 
 ?>
-			</select></td></tr>
+					</select>
+				</td>
+			</tr>
 
-			<tr><td>Titre :</td><td> <input type="text" max-length="100" size="25" name="addBookTitle" /></td></tr>
-			<tr><td>ISBN :</td><td> <input type="text" max-length="13" size="25" name="addBookISBN" onchange="javascript:validateISBN(this);"/></td></tr>
-			<tr><td valign="top">Description :</td><td> <textarea  cols="50" rows="10" name="desc" ></textarea></tr>
-			<tr><td>S&eacute;rie:</td><td> <input type="checkbox" onchange="javascript:enableSeries()" name="seriesEnabled"/>
-			Titre : <select id="seriesList" name="series" disabled><option></option><option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option></select> 
-			Num&eacute;ro du tome: <input type="text" name="idTome" disabled/></td></tr>
-			<tr><td></td><td><input type="submit" value="Ajouter" /></td></tr>
+			<tr>
+				<td>Titre :</td>
+				<td><input type="text" max-length="100" size="25" name="addBookTitle" /></td>
+			</tr>
+			<tr>
+				<td>ISBN :</td>
+				<td><input type="text" max-length="13" size="25" name="addBookISBN" onchange="javascript:validateISBN(this);"/></td>
+			</tr>
+			<tr>
+				<td valign="top">Description :</td>
+				<td><textarea  cols="50" rows="10" name="desc" ></textarea>
+			</tr>
+			<tr>
+				<td>S&eacute;rie:</td>
+				<td><input type="checkbox" onchange="javascript:switchSeriesState()" name="seriesEnabled"/>
+				Titre : <select id="seriesList" name="series" disabled>
+						<option></option>
+						<option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+					</select> 
+				Num&eacute;ro du tome: <input type="text" name="idTome" disabled/>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Ajouter" /></td>
+			</tr>
 			</table>
 		</fieldset>
 	</form>
@@ -135,10 +153,8 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 
 	mysql_close();
 ?>
-</div>
-<?
-	include('footer.php');
-?>
+	</div>
+	<? include('footer.php'); ?>
 
 </div>
 

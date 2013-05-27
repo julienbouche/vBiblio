@@ -1,9 +1,7 @@
 <?php
 include('accesscontrol.php');
-//include('scripts/db/db.php');
 require_once('classes/Utilisateur.php');
 
-//dbConnect();
 checkSecurity();
 
 
@@ -11,7 +9,6 @@ $uid = $_SESSION['uid'];
 $utilisateur = new Utilisateur($uid);
 
 //ajouter un pret
-
 if(isset($_POST['id_book']) && isset($_POST['id_user']) ){
 	$today = date('Y-m-d H:i:s');
 	$idNewBookPret = $_POST['id_book'];
@@ -61,9 +58,7 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 </head>
 <body>
 <div id="vBibContenu">
-<?
-	include('header.php');
-?>
+	<? include('header.php'); ?>
 
 	<div id="vBibDisplay">	
 
@@ -78,37 +73,36 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 	<fieldset>
 	<table>
 	<tr>
-	<td>Le livre</td>
-	<td><select name="id_book">
+		<td>Le livre</td>
+		<td>
+			<select name="id_book">
 <?
-
 	$bouquins = $utilisateur->retournerListeLivresDispos();
-	
-	foreach($bouquins as $bouquin){
-		$concatStr =$bouquin->TitreLongAsShortNames()." de ".$bouquin->retournerAuteur()->getShortName();
-		echo "<option value=\"".$bouquin->getID()."\" title=\"".$bouquin->titreLong()."\">$concatStr</option>";
-	}
-
-
 ?>
 	
-	</select></td>
+	<?php foreach($bouquins as $bouquin) : ?>
+			<option value="<?=$bouquin->getID()?>" title="<?=$bouquin->titreLong()?>"><?=$bouquin->TitreLongAsShortNames()?> de <?=$bouquin->retournerAuteur()->getShortName()?></option>
+	<?php endforeach; ?>
+
+			</select>
+		</td>
 	</tr>
-	<tr><td>
-	&agrave;
-	</td>
-	<td>
-	<select name="id_user">
+	<tr>
+		<td>&agrave;</td>
+		<td>
+			<select name="id_user">
 <?
 	$friends = $utilisateur->recupererListeAmis();
-	foreach($friends as $friend){
-		echo "<option value=\"".$friend->getID()."\">".$friend->getFullname()."</option>";
-	}
+?>
+	<?php foreach($friends as $friend) : ?>
+				<option value="<?=$friend->getID()?>"><?=$friend->getFullname()?></option>
+	<?php endforeach; ?>
 	
 ?>
-</select></td>
+			</select>
+		</td>
 	</tr>
-		<tr>
+	<tr>
 		<td></td>
 		<td style="text-align:left;">Autre: <input name="outsideUser" type="checkbox" onchange="javascript:changeUserChoice(this);"/> <input name="vUsername" type="text" size=25 disabled/></td>
 
@@ -130,14 +124,37 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 	</div>
 	<br/><br/><br/>
 <?
-	$utilisateur->afficherListePretsEncours();
-?>
+	$prets = $utilisateur->retournerListePretsEnCours();
 
-</div>
-<?
-	include('footer.php');
 ?>
+	<?php if(count($prets)>0) : ?>
+	<a href="generateTablePretsPDF.php?type=2" target="_blank" style="float:right;" ><img src="images/adobe-pdf-logo.png" width="32" height="32" title="T&eacute;l&eacute;charger la liste"/></a>
+		<br/><br/>
+		<table class="vBibTablePret">
+		<?php foreach($prets as $pret) : $bouquin = $pret[0]; $nomEmprunteur = $pret[2]; $idEmprunteur = $pret[1]; ?>
+			<tr>
+				<td></td>
+				<td><a href="ficheLivre.php?id=<?=$bouquin->getID()?>" class="vBibLink"><?=$bouquin->titreLong()?></a> a &eacute;t&eacute; pr&ecirc;t&eacute; &agrave; 
 
+				<?php if($idEmprunteur!="0") : ?>
+					<a class="vBibLink" href="userProfil.php?user=<?=$idEmprunteur?>">
+				<?php else : ?> 
+					<a class="vBibLink" style="color:black">
+				<?php endif; ?>
+						<b><?=$nomEmprunteur?></b>
+					</a>
+				</td>
+				<td>
+					<input type="button" value="Ok, il me l'a rendu!" onclick="javascript:retourPret(this,<?=$utilisateur->getID()?>, <?=$idEmprunteur?>, <?=$bouquin->getID()?>);"/>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+		</table>
+	<?php else : ?>
+	Vous n'avez pr&ecirc;t&eacute; aucun livre, en ce moment.
+	<?php endif; ?>
+	</div>
+	<? include('footer.php'); ?>
 </div>
 </body>
 </html>

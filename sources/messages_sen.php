@@ -1,15 +1,11 @@
 <?php
 require_once('accesscontrol.php');
-//require_once('scripts/db/db.php');
 require_once('scripts/dateFunctions.php');
 require_once('scripts/common.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Message.php');
 
-//dbConnect();
 checkSecurityHome();
-
-
 
 $uid = $_SESSION['uid'];
 $utilisateur = new Utilisateur($uid);
@@ -41,10 +37,6 @@ if ( isset($_POST['directMessage']) and $_POST['directMessage']!='' and isset($_
 			notifyUser($tableID, "[vBiblio] Notification de nouveau message", $mailMessage);
 		}
 	}
-	//notifyUser($tableID, "Vous avez reçu un nouveau message sur vBiblio", $mailMessage);
-
-
-  
 
 	$msgSendMsg = "<a style=\"color:red;\">Votre message a bien &eacute;t&eacute; envoy&eacute;.</a>";
 	}
@@ -93,48 +85,35 @@ function AfficherFormReponse($caller, $id_mess){
     <?
     //$utilisateur->afficherDerniersMessages();
     $ListeMessages = $utilisateur->recupererListeTousMessagesEnvoyes();
-    
-    if(sizeof($ListeMessages)>0){
-	
-	?>
-	<ul id="vBibMessages">
-	<?
-    	foreach($ListeMessages as $Message){
-		$Destinataire = $Message->getDestinataire();
-		if($Destinataire->aUnAvatar()){ 
-		?>
-<li class="vBibMessage" style="background: url(<?=$Destinataire->cheminFichierAvatar()?>) no-repeat 0 1.45em;min-height:70px;" >
-	 	<?
-   		}
-	 	else{
-	 	?>
-<li class="vBibMessage" style="margin-right:52px;" >
-		<?
-   		}
-		?>
-<div>
-	Envoy&eacute; &agrave; <a href="userProfil.php?user=<?=$Destinataire->getID()?>" title="Voir le profil" class="vBibLink"><b><?=$Destinataire->getPrenom()?></b></a>:&nbsp;<span class="vBibMessageDate">le <?=dateh_lettres($Message->getDate())?></span>
-</div>
-<div></div>
-<div class="vBibMessageContent"  style="margin: 0 4em;">
-	<?=nl2br(htmlentities($Message->getContent()))?>
-	<br/>&nbsp;
-</div>
-</li>
-<?
-	}
-?>
-	</ul>
-<?
-
-    }
-    else echo "<br/>Vous n'avez envoy&eacute; aucun message.";
-
     ?>
+	<?php if(sizeof($ListeMessages)>0) : ?>
+	
+	<ul id="vBibMessages">
+	<?php foreach($ListeMessages as $Message) : $Destinataire = $Message->getDestinataire() ?>
+		<?php if($Destinataire->exists()) : ?>
+			<?php if($Destinataire->aUnAvatar()) : ?>
+		<li class="vBibMessage" style="background: url(<?=$Destinataire->cheminFichierAvatar()?>) no-repeat 0 1.45em;min-height:70px;" >
+	 		<?php else : ?>
+		<li class="vBibMessage" style="" >
+			<?php endif; ?>
+			<div>
+			Envoy&eacute; &agrave; <a href="userProfil.php?user=<?=$Destinataire->getID()?>" title="Voir le profil" class="vBibLink"><b><?=$Destinataire->getPrenom()?></b></a>:&nbsp;<span class="vBibMessageDate">le <?=dateh_lettres($Message->getDate())?></span>
+			</div>
+			<div></div>
+			<div class="vBibMessageContent"  style="margin-left: 4em;border-radius:10px 10px 0px 10px;">
+				<?=nl2br(htmlentities($Message->getContent()))?>
+				<br/>&nbsp;
+			</div>
+		</li>
+		<?php endif; ?>
+	<?php endforeach; ?>
+	</ul>
+<?php else : ?>
+	<br/>Vous n'avez envoy&eacute; aucun message.
+<?php endif; ?>
 	</div>	
-<?
-	include('footer.php');
-?>
+
+	<? include('footer.php'); ?>
 
 </div>
 </body>

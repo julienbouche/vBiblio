@@ -1,12 +1,10 @@
 <?php
 require_once('accesscontrol.php');
-//require_once('scripts/db/db.php');
 require_once('scripts/dateFunctions.php');
 require_once('scripts/common.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Message.php');
 
-//dbConnect();
 checkSecurityHome();
 
 
@@ -43,9 +41,6 @@ if ( isset($_POST['directMessage']) and $_POST['directMessage']!='' and isset($_
 		}
 	}
 	//notifyUser($tableID, "Vous avez reçu un nouveau message sur vBiblio", $mailMessage);
-
-
-  
 
 	$msgSendMsg = "<a style=\"color:red;\">Votre message a bien &eacute;t&eacute; envoy&eacute;.</a>";
 	}
@@ -85,54 +80,69 @@ function AfficherFormReponse($caller, $id_mess){
 </head>
 <body>
 <div id="vBibContenu">
-<?
-	include('header.php');
-?>
+	<? include('header.php'); ?>
 
 	<div id="vBibDisplay">
-
 	<p><a href="addNewBook.php" class="vBibLink" >Aidez-nous</a> &agrave; augmenter notre r&eacute;f&eacute;rentiel.</p>
 
+	<div class="BookmarkN1">
+		<div class="BMCorner" style=""></div>
+		<div class="BMCornerLink" style=""></div>
+		<div class="BMMessage" style="">Les Derni&egrave;res Infos</div>
+	</div>
 
-<!-- AJOUT JBO TEST -->
-<div class="BookmarkN1">
-	<div class="BMCorner" style=""></div>
-	<div class="BMCornerLink" style=""></div>
-	<div class="BMMessage" style="">Les Derni&egrave;res Infos</div>
-</div>
-<!-- FIN AJOUT TEST -->
 
 	<br/>
 	<br/>
 	<br/>
-
-	<!--b>Les derni&egrave;res infos</b-->
 	<br/>
 	<br/>
 	<div class="colonneGauche">
 	<div class="vBibBoite">
 		<div class="vBibBoiteTitre">Derni&egrave;res demandes</div>
 		<div class="vBibBoiteContenu">
-		
-<?
-	$utilisateur->afficherDernieresDemandes();
-?>
-
+		<? $listeDemandes = $utilisateur->recupererListeResumeDernieresDemandes(); ?>
+		<?php if(count($listeDemandes)>0) : ?>
+			<ul>
+			<?php foreach($listeDemandes as $demande) : ?>
+				<li>
+				<?php if($demande[0]=="FRIENDS_REQUEST") : ?>
+					<span><a href="friendsRequest.php" class="vBibLink"><b><?=$demande[1]?></b> souhaite vous ajouter &agrave; ses amis</a></span>
+				<?php else : ?>
+					<?php if ($demande[0]=="BOOK_REQUEST") : ?>
+					<span><a href="manageBooksRequest.php" class="vBibLink"><b><?=$demande[1]?></b> souhaite vous emprunter un livre</a></span>
+					<?php endif; ?>
+				<?php endif; ?>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+		<?php else : ?>
+		Aucune demande en attente
+		<?php endif; ?>
 		</div>
 	</div>
 
-<!-- DEBUT AJOUT -->
-<div class="vBibBoite">
+	<div class="vBibBoite">
 		<div class="vBibBoiteTitre">Suggestions de vos amis</div>
 		<div class="vBibBoiteContenu">
-		
-<?
-$utilisateur->afficherResumeSuggestions();
-?>
-
+		<? $listeSuggestions = $utilisateur->recupererListeResumeSuggestions(); ?>
+		<?php if(count($listeSuggestions)>0) : ?>
+			<ul>
+			<?php foreach($listeSuggestions as $suggestion) : $buddy = $suggestion[0]; $book = $suggestion[1]?>
+				<li>
+					<span>
+						<a href="manageBooksSuggest.php" class="vBibLink">
+							<b><?=$buddy->getFullname()?></b> vous sugg&egrave;re de lire <?=$book->TitreCourt()?>
+						</a>
+					</span>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+		<?php else : ?>
+			Aucune suggestion actuellement
+		<?php endif; ?>
 		</div>
 	</div>
-<!-- FIN AJOUT -->
 
 
 
@@ -141,88 +151,85 @@ $utilisateur->afficherResumeSuggestions();
 
 	<div class="colonneDroite">
 
-	<div class="vBibBoite">
-		<div class="vBibBoiteTitre">Derniers ajouts dans votre <a href="myBooks.php" class="vBibLink" >biblioth&egrave;que</a></div>
-		<div class="vBibBoiteContenu">
-<?
-  $utilisateur->afficherDerniersAjouts();
-?>
+		<div class="vBibBoite">
+			<div class="vBibBoiteTitre">Derniers ajouts dans votre <a href="myBooks.php" class="vBibLink" >biblioth&egrave;que</a></div>
+			<div class="vBibBoiteContenu">
+			
+			<? $listeAjoutsLivre = $utilisateur->retournerListeDerniersAjouts(); ?>
+
+			<?php if(count($listeAjoutsLivre)>0) : ?>
+				<ul>
+				<?php foreach($listeAjoutsLivre as $livre) : $auteur=$livre->retournerAuteur() ?>
+					<li>
+						<span>
+							<a href="<?=$livre->retournerURL()?>" class="vBibLink"><?=$livre->titreLong()?></a>
+							de <a href="ficheAuteur.php?id=<?=$auteur->getID()?>" class="vBibLink"><?=$auteur->fullname()?></a>
+						</span>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+			<?php else : ?>
+			<br/>
+			Vous n'avez pas ajout&eacute; de livre dans votre <a href="myBooks.php" class="vBibLink">biblioth&egrave;que</a> r&eacute;cemment.
+			<?php endif; ?>
+			</div>
 		</div>
 	</div>
-	</div>
-<br/>
-<br/>
+	<br/>
+	<br/>
 
-		<div id="vBibActus">
+	<div id="vBibActus">
 
-<!-- AJOUT JBO TEST -->
-<div class="BookmarkN1">
-	<div class="BMCorner"></div>
-	<div class="BMCornerLink"></div>
-	<div class="BMMessage">Derniers Messages</div>
-</div>
-<!-- FIN AJOUT TEST -->
+		<div class="BookmarkN1">
+			<div class="BMCorner"></div>
+			<div class="BMCornerLink"></div>
+			<div class="BMMessage">Derniers Messages</div>
+		</div>
 
-<br/><br/><br/><br/>
-		<!--b>Derniers messages</b-->
+		<br/><br/><br/><br/>
+		
     <?
-    //$utilisateur->afficherDerniersMessages();
     $ListeMessages = $utilisateur->recupererListeDerniersMessages();
-    
-    if(sizeof($ListeMessages)>0){
-	
-	?>
-	<ul id="vBibMessages">
-	<?
-    	foreach($ListeMessages as $Message){
-		$Expediteur = $Message->getExpediteur();
-		if($Expediteur->aUnAvatar()){ 
-		?>
-<li class="vBibMessage" style="background: url(<?=$Expediteur->cheminFichierAvatar()?>) no-repeat 0 1.45em;min-height:70px;" >
-	 	<?
-   		}
-	 	else{
-	 	?>
-<li class="vBibMessage" style="margin-right:52px;" >
-		<?
-   		}
-		?>
-<div>
-   <div class="vBibMessageAuthor">
-	<a href="userProfil.php?user=<?=$Expediteur->getID()?>" title="Voir le profil" class="vBibLink"><b><?=$Expediteur->getPrenom()?></b></a>
-   </div>&nbsp;a &eacute;crit:&nbsp;<span class="vBibMessageDate">le <?=dateh_lettres($Message->getDate())?></span>
-</div>
-<div></div>
-<div class="vBibMessageContent"  style="margin: 0 4em;">
-	<?=nl2br(htmlentities($Message->getContent()))?>
-	<br/>&nbsp;
-	<input type="button" value="R&eacute;pondre" style="float:right;" onclick="AfficherFormReponse(this,<?=$Message->getID()?>);"/>
-</div>
-
-<div id="ReponseMessage<?=$Message->getID()?>" style="display:none;">
-	<form name="formDirectMessage" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-		<input type="hidden" value="<?=$Message->getExpediteur()->getID()?>" name="user_to" /> 
-		<textarea id="TAReponseMessage<?=$Message->getID()?>" wrap="soft" name="directMessage" rows="5" cols="60" style="float:right;"></textarea>
-		<input type="submit" value="Envoyer" style="float:right;" />
-	</form>
-</div>
-
-</li>
-<?
-	}
-?>
-	</ul>
-<?
-
-    }
-    else echo "<br/>Vous n'avez aucun message.";
-
     ?>
-		</div>
+    <?php if(sizeof($ListeMessages)>0) : ?>
+	
+	<ul id="vBibMessages">
+	<?php foreach($ListeMessages as $Message) : $Expediteur = $Message->getExpediteur() ?>
+		<?php if($Expediteur->aUnAvatar()) : ?>
+		<li class="vBibMessage" style="background: url(<?=$Expediteur->cheminFichierAvatar()?>) no-repeat 0 1.45em;min-height:70px;" >
+	 	<?php else : ?>
+		<li class="vBibMessage" style="" >
+		<?php endif; ?>
+			<div>
+	   			<div class="vBibMessageAuthor">
+				<a href="userProfil.php?user=<?=$Expediteur->getID()?>" title="Voir le profil" class="vBibLink"><b>
+					<?=$Expediteur->getPrenom()?></b>
+				</a>
+	 			</div>&nbsp;a &eacute;crit:&nbsp;
+				<span class="vBibMessageDate">le <?=dateh_lettres($Message->getDate())?></span>
+			</div>
+			<div></div>
+			<div class="vBibMessageContent"  style="margin: 0 4em;border-radius:0px 10px 10px 10px;">
+				<?=nl2br(htmlentities($Message->getContent()))?>
+				<br/>&nbsp;
+				<input type="button" value="R&eacute;pondre" style="float:right;" onclick="AfficherFormReponse(this,<?=$Message->getID()?>);"/>
+			</div>
+			<div id="ReponseMessage<?=$Message->getID()?>" style="display:none;">
+				<form name="formDirectMessage" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+					<input type="hidden" value="<?=$Message->getExpediteur()->getID()?>" name="user_to" /> 
+					<textarea id="TAReponseMessage<?=$Message->getID()?>" wrap="soft" name="directMessage" rows="5" cols="60" style="float:right;"></textarea>
+					<input type="submit" value="Envoyer" style="float:right;" />
+				</form>
+			</div>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+<?php else : ?>
+	<br/>Vous n'avez aucun message.";
+<?php endif; ?>
+	</div>
 	</div>	
-<?
-	include('footer.php');
-?>
+	<? include('footer.php'); ?>
 
 </div>
 </body>
