@@ -1,0 +1,2 @@
+INSERT INTO `vBiblio_user` (`tableuserid`, `userid`, `password`, `fullname`, `email`, `date_naiss`, `sexe`, `prenom`, `nom`, `id_pref_book`, `prefBookStyle`, `website`, `notification_active`, `active_public_page`) VALUES
+(0, 'personne', '', '', '', '0000-00-00 00:00:00', 0, '', '', 0, '', '', 0, 0);
