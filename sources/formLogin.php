@@ -18,6 +18,7 @@ if( !isset($_POST['uid']) ){
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="keywords" content="gerer votre bibliotheque, site web, gestion, gerer vos livres, livres, bibliotheque virtuelle, prêts" />  
 	<link rel="stylesheet" type="text/css" href="css/vBiblio.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/github_ribbon.css" media="screen" />
 </head>  
 <body>
 
@@ -71,6 +72,15 @@ if( !isset($_POST['uid']) ){
 ?>
 
 </div>
+
+<!-- GITHUB FORK ME -->
+    <div class="github-fork-ribbon-wrapper right-bottom">
+        <div class="github-fork-ribbon">
+            <a href="https://github.com/julienbouche/vBiblio" target="_blank">Fork Moi Sur GitHub</a>
+        </div>
+    </div>
+
+
 </body>  
 </html>
 <?	
