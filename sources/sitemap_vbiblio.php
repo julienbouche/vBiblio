@@ -1,19 +1,13 @@
-<?header('Content-Type: text/xml');
+<?
+require_once('scripts/db/db.php');
+
+header('Content-Type: text/xml');
 echo "<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">";
 
 ?>
 <urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
 <?
-$serveur = "http://sql.free.fr";
-$login = "vBiblio" ;
-$mdp = "********";
-
-$bdname = "vBiblio";
-
-//connexion  au serveur sql
-$db = mysql_connect($serveur, $login, $mdp);
-
-mysql_select_db($bdname, $db);
+dbConnect();
 
 
 $requete="SELECT user.userid, date_ajout
