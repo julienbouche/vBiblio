@@ -9,14 +9,47 @@ if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['aute
 	$desc = trim($_POST['desc']);
 	$isbn = $_POST['addBookISBN'];
 	
-	if (isset($_POST['seriesEnabled']) and isset($_POST['idTome']) and isset($_POST['series']) and $_POST['idTome']!=''  ){
-		$idtome = $_POST['idTome'];
-		$serie = $_POST['series'];
-		$sql = "INSERT INTO vBiblio_book (titre, id_author, id_cycle, numero_cycle, description, isbn) VALUES ('$title', '$id_auteur', '$serie', '$idtome', '$desc', '$isbn');";
+	//TODO vérifier que l'isbn n'existe pas déjà dans la base
+	$sql = "SELECT titre FROM vBiblio_book WHERE isbn='$isbn'";
+	$result = mysql_query($sql);
+	
+	if(mysql_num_rows($result)==0){ //l'isbn n'existe pas dans la base
+		if (isset($_POST['seriesEnabled']) and isset($_POST['idTome']) and isset($_POST['series']) and $_POST['idTome']!=''  ){
+			$idtome = $_POST['idTome'];
+			$serie = $_POST['series'];
+			$sql = "INSERT INTO vBiblio_book (titre, id_author, id_cycle, numero_cycle, description, isbn) VALUES ('$title', '$id_auteur', '$serie', '$idtome', '$desc', '$isbn');";
+		}
+		else $sql = "INSERT INTO vBiblio_book (titre, id_author, description, isbn) VALUES ('$title', '$id_auteur', '$desc', '$isbn');";
+	
+		mysql_query($sql);
+		
+		$sql = "SELECT prenom, nom FROM vBiblio_author WHERE id_author=$id_auteur";
+		$result = mysql_query($sql);
+		if($result){
+			$row = mysql_fetch_assoc($result);
+			$nomAuteurPourNotif = $row['nom'];
+			$prenomAuteurPourNotif = $row['prenom'];
+		}
+		
+		$message ="Bonjour,
+  
+  L'utilisateur $uid a inséré un nouveau livre dans la base de données:
+    Titre: ".utf8_encode(str_replace('\\', '',$title))."
+  	Auteur : $prenomAuteurPourNotif $nomAuteurPourNotif
+    Description : 
+    ".utf8_encode(str_replace('\\', '',$desc))."
+	
+  Cordialement,
+  Julien, votre Webmaster.
+  ";
+		$message = utf8_decode($message);
+		mail("vbiblio@free.fr","[vBiblio] Nouveau livre saisi", $message, "From:Notification vBiblio <vbiblio@free.fr>");
 	}
-	else $sql = "INSERT INTO vBiblio_book (titre, id_author, description, isbn) VALUES ('$title', '$id_auteur', '$desc', '$isbn');";
-
-	mysql_query($sql);
+	else{
+		$row = mysql_fetch_assoc($result);
+		$titre = $row['titre'];
+		$error = "<a style=\"color:red;\">L'ISBN indiqué est déjà dans notre base pour le livre $titre</a>";
+	}
 }
 else {
 	if (isset($_POST['addBookTitle']) ) {

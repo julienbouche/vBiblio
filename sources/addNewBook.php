@@ -41,7 +41,7 @@ if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['aute
   Julien, votre Webmaster.
   ";
   $message = utf8_decode($message);
-  //mail("vbiblio@free.fr","[vBiblio] Nouveau livre saisi", $message, "From:Notification vBiblio <vbiblio@free.fr>");
+  mail("vbiblio@free.fr","[vBiblio] Nouveau livre saisi", $message, "From:Notification vBiblio <vbiblio@free.fr>");
   
 }
 else {
