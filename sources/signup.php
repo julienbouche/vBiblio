@@ -44,7 +44,16 @@ if(!isset($_POST['submitok'])){
            <input name="newid" type="text" maxlength="100" size="25" value="<?=$_SESSION['uid']?>" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
-   </tr>  
+   </tr>
+   <tr style="display:none">  
+       <td align="right">  
+           <p>Nickname</p>  
+       </td>  
+       <td>  
+           <input name="nick" class="required" type="text" maxlength="100" size="25" value="" />  
+           <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
+       </td>  
+   </tr>
    <tr>  
        <td align="right">  
            <p>Votre nom</p>  
@@ -71,6 +80,15 @@ if(!isset($_POST['submitok'])){
            <input name="newemail" type="text" maxlength="100" size="25" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
+   </tr>
+   <tr style="display: none">  
+       <td align="right">  
+           <p>Votre adresse e-mail</p>  
+       </td>  
+       <td>  
+           <input name="email" type="text" maxlength="100" size="25" value="" />  
+           <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
+       </td>  
    </tr>  
   <tr>  
        <td align="right">  
@@ -79,17 +97,36 @@ if(!isset($_POST['submitok'])){
        <td>
 		<input type="text" name="dateNaiss" id="DPC_edit1_DD/MM/YYYY" placeholder="jj/mm/aaaa" value="" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>   
        </td>  
+   </tr>
+     <tr style="display: none">  
+       <td align="right">  
+           <p>Votre anniversaire</p>  
+       </td>  
+       <td>  
+           <input name="bday" class="required" type="text" maxlength="100" size="25" value="" />  
+           <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
+       </td>  
    </tr>  
   <tr>  
        <td align="right">  
            <p>Votre sexe</p>  
        </td>  
        <td>  
-       	Homme : <INPUT type=radio name="sexe" value="0" checked />
-	<br>Femme : <INPUT type=radio name="sexe" value="1" />
+       	<INPUT type=radio name="sexe" value="0" checked /> Homme
+	<br><INPUT type=radio name="sexe" value="1" /> Femme
     
        </td>  
+   </tr>
+       <tr style="display: none">  
+       <td align="right">  
+           <p>Votre adresse</p>  
+       </td>  
+       <td>  
+           <input name="address" class="required" type="text" maxlength="100" size="25" value="" />  
+           <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
+       </td>  
    </tr>  
+
    <tr>  
        <td align="right" colspan="2">
 	<br/>
@@ -101,7 +138,8 @@ if(!isset($_POST['submitok'])){
 	<input type="reset" value="Remettre &agrave; z&eacute;ro" style="margin-right:50px" />  
 	<input class="vert" type="submit" name="submitok" value="   OK   " />  
        </td>  
-   </tr>  
+   </tr>
+   
 </table>  
 </form>
 <div style="font-size:small;color:red;">Votre adresse e-mail sera utilis&eacute;e pour vous envoyer votre mot de passe. 
@@ -131,6 +169,12 @@ else{//process sign up submission
 			$errorMsg = $errorMsg."E-mail\\n";		
 		error("Vous n'avez pas saisi le(s) champ(s) suivant(s):\\n".$errorMsg);
 	}
+	
+	if($_POST['email']!='' || $_POST['nick']!='' || $_POST['bday']!='' || $_POST['address']!=''){
+		//si l'un des champs cachés est rempli, robot spam !
+		die("Une erreur est survenue. Merci de ré-essayer plus tard.");
+	}
+	
 	dbConnect();
 	
 	// Check for existing user with the new id  
@@ -180,7 +224,7 @@ Cordialement,
 Julien, votre Webmaster  
 ";  
  
-	mail($_POST['newemail'],"Confirmation d'inscription sur vBiblio", $message, "From:Webmaster vBiblio <vbiblio@free.fr>");
+	/*mail($_POST['newemail'],"Confirmation d'inscription sur vBiblio", $message, "From:Webmaster vBiblio <vbiblio@free.fr>");
 	  mail("vbiblio@free.fr","[vBiblio] Nouvelle inscription", "Bonjour,
   
   Un nouvel utilisateur vient de s'inscrire :
@@ -190,7 +234,8 @@ Julien, votre Webmaster
   Julien, votre Webmaster.
   ", "From:Notification vBiblio <vbiblio@free.fr>");
 
-	//echo $message;
+	
+	*/
 	header('Location:formLogin.php');
 
 }
