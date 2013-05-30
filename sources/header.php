@@ -64,9 +64,9 @@ $rootPath = "";
 			<li class="MenuContainer">
 				<a class="MenuItem" href="<?=$rootPath?>/myBooks.php">
 				<?php if($utilisateur->recupererNombreDemandesDePretEnAttente()>0) : ?>
-					<img src="<?=$rootPath?>/images/new_book_icon.png" title="Mes Livres"/>
+					<img src="<?=$rootPath?>/images/new_book_icon.png" title="Mes Livres" alt="Mes Livres"/>
 				<?php else : ?>
-					<img src="<?=$rootPath?>/images/new_book_icon.png" title="Mes Livres"/>
+					<img src="<?=$rootPath?>/images/new_book_icon.png" title="Mes Livres" alt="Mes Livres"/>
 				<?php endif; ?>
 				</a>
 				<div class="SubMenuItem">
@@ -78,9 +78,9 @@ $rootPath = "";
 			<li class="MenuContainer"> 
 				<a class="MenuItem" href="<?=$rootPath?>/friends.php">
 				<?php if($utilisateur->recupererNombreDemandesDeContactEnAttente()>0) : ?>
-					<img src="<?=$rootPath?>/images/new_friends_icon.png" title="Mes Amis"/>
+					<img src="<?=$rootPath?>/images/new_friends_icon.png" title="Mes Amis" alt="Mes Amis"/>
 				<?php else : ?>
-					<img src="<?=$rootPath?>/images/new_friends_icon.png" title="Mes Amis"/>
+					<img src="<?=$rootPath?>/images/new_friends_icon.png" title="Mes Amis" alt="Mes Amis"/>
 				<?php endif; ?>
 				</a>
 				<div class="SubMenuItem">
