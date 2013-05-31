@@ -225,7 +225,7 @@ function AfficherFormReponse($caller, $id_mess){
 	<?php endforeach; ?>
 	</ul>
 <?php else : ?>
-	<br/>Vous n'avez aucun message.";
+	<br/>Vous n'avez aucun message.
 <?php endif; ?>
 	</div>
 	</div>	
