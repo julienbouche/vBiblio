@@ -141,6 +141,14 @@ input[type="submit"][disabled]{
 	color:#BBB;
 }
 
+input[type="text"]{
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
 #vBibContenu {
 	position:relative;
 	top:0;
