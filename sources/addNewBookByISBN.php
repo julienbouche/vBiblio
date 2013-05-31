@@ -9,8 +9,8 @@ if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['aute
 	$desc = trim($_POST['desc']);
 	$isbn = $_POST['addBookISBN'];
 	
-	//TODO vérifier que l'isbn n'existe pas déjà dans la base
-	$sql = "SELECT titre FROM vBiblio_book WHERE isbn='$isbn'";
+	//vérifier que l'isbn n'existe pas déjà dans la base
+	$sql = "SELECT titre FROM vBiblio_book WHERE isbn=$isbn";
 	$result = mysql_query($sql);
 	
 	if(mysql_num_rows($result)==0){ //l'isbn n'existe pas dans la base
@@ -48,7 +48,7 @@ if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['aute
 	else{
 		$row = mysql_fetch_assoc($result);
 		$titre = $row['titre'];
-		$error = "<a style=\"color:red;\">L'ISBN indiqué est déjà dans notre base pour le livre $titre</a>";
+		$error = "<a style=\"color:red;\">L'ISBN indiqu&eacute; existe d&eacute;j&agrave; dans notre base pour le livre $titre</a>";
 	}
 }
 else {
@@ -126,7 +126,7 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 	</form>
 
 <?
-	
+	echo $error;
 
 	mysql_close();
 ?>
