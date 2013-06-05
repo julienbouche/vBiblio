@@ -50,9 +50,6 @@ $uid = $_SESSION['uid'];
 	<br/>
 <?
 	$livresAAjouter = $utilisateur->rechercherLivresAAjouter($searchText);
-	/*if(isset($searchText) ){
-		$utilisateur->afficherRechercheLivresAAjouter($searchText);	
-	}*/
 ?>
 
 <?php if(count($livresAAjouter)>0) : ?>
