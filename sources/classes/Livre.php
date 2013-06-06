@@ -23,7 +23,7 @@ class Livre{
 	private $previousBookID;
   
   function __construct($idBook){
-    $this->id=$idBook;
+    $this->id=intval($idBook);
     //récupérer les valeurs du livre
     $sql = "SELECT titre, id_author, id_cycle, numero_cycle, isbn, description, total_votes, nb_votes
             FROM vBiblio_book

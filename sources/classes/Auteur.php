@@ -10,7 +10,7 @@ class Auteur{
 	
 
 	public function __construct($idA){
-		$this->id = $idA;
+		$this->id = intval($idA);
 
 		$sql = "SELECT nom, prenom, description from vBiblio_author WHERE id_author=$idA";
 

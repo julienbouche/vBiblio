@@ -23,7 +23,7 @@ class Utilisateur{
 	*/
 
 	public function initializeByID($tableuserid){
-		$this->identifiant = $tableuserid;
+		$this->identifiant = intval($tableuserid);
 		$this->exists = false;
 		//rÃ©cupÃ©rer les infos de l'utilisateur
 		$sql = "SELECT userid, fullname, email, nom, prenom, notification_active, active_public_page, website, sexe FROM vBiblio_user WHERE tableuserid='".$this->identifiant."'";
@@ -48,7 +48,7 @@ class Utilisateur{
 	}
 
 	public function __construct($iduser){
-		$this->pseudo = $iduser;
+		$this->pseudo = mysql_real_escape_string($iduser);
 		$this->exists = false;
 		//récupérer les infos de l'utilisateur
 		$sql = "SELECT tableuserid, fullname, email, nom, prenom, notification_active, active_public_page, website, sexe FROM vBiblio_user WHERE userid='".$this->pseudo."'";
@@ -449,9 +449,10 @@ class Utilisateur{
 		if($result && mysql_num_rows($result) > 0){
 			while($row = mysql_fetch_assoc($result)){
 				$listeLivres[$nbLivres++] = new Livre($row['id_book']);
+				
 			}
 		}
-		
+		//echo "$sql";
 		return $listeLivres;
 	}
 	

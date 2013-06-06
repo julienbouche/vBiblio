@@ -11,6 +11,8 @@ class Cycle{
     private $exist;
 
     public function __construct($idCycle){
+        $idCycle = intval($idCycle);
+        
         $sql="SELECT titre, nb_tomes, id_author FROM vBiblio_cycle WHERE id_cycle=$idCycle";
         $result = mysql_query($sql);
         
