@@ -149,14 +149,14 @@ input[type="text"]{
 	padding-right:5px;
 }
 
-#vBibContenu {
+#vBibContenu{
 	position:relative;
 	top:0;
 	margin:auto;
 	min-height: 100%;
 	
 	width:800px;
-	background-color:#DDF; 
+	background-color:#DDF;
 }
 
 div#vBibDisplay{
@@ -168,6 +168,7 @@ div#vBibDisplay{
 	bottom:0px;
 	background-color:#DDF; 
 	padding:4em 0 1.5em 0;
+	
 }
 
 
@@ -485,11 +486,11 @@ div>a.SubMenuItem:last-of-type{
 
 a.vBibLink{
 	text-decoration:none;
-	color:blue;
+	/*color:blue;*/
 }
 
 a.vBibLink:visited{
-	color:blue;
+	/*color:blue;*/
 }
 
 #vBibActus{
@@ -576,7 +577,7 @@ a img{
 }
 
 #vBibDisplay a:link{
-	color:#22F;
+	/*olor:#22F;*/
 }
 
 #vBibDisplay a:visited{
@@ -689,18 +690,19 @@ tr.infobulle:hover span.menuContextuel{
 **************************************/
 #vBiblio_tagcloud li { 
 	display: inline;
-	font-size:14px;	
+	font-size:14px;
 }
 
 #vBiblio_tagcloud{
 	position:relative;
+	
 }
 
 #vBiblio_tagcloud a{
 	position:relative;
 	padding:0 10px 0 14px;
 	background:#0089e0;
-	color:#fff;
+	
 	font-weight:bold;
 	text-decoration:none;
 
@@ -715,6 +717,7 @@ tr.infobulle:hover span.menuContextuel{
 	-webkit-border-top-right-radius:4px;
 	border-top-right-radius:4px;
 }
+
 
 #vBiblio_tagcloud a:before{
   content:"";
@@ -733,7 +736,7 @@ tr.infobulle:hover span.menuContextuel{
   border-bottom: 7px solid #DDF;
 }
 
-#vBiblio_tagcloud a:after{
+#vBiblio_tagcloud li a:after{
   content:"";
   position:absolute;
   top:6px;
@@ -750,12 +753,6 @@ tr.infobulle:hover span.menuContextuel{
   box-shadow:-1px -1px 2px #004977;
 }
 
-/*#vBiblio_tagcloud a:hover{
-	-moz-transform:rotate(5deg); //firefox
-	-webkit-transform:rotate(5deg); //Chrome, Safari
-	-o-transform:rotate(5deg);
-}*/
-
 #vBiblio_tagcloud li.low{
 	font-size: 1em; font-weight: 100;
 }
@@ -768,6 +765,9 @@ tr.infobulle:hover span.menuContextuel{
 	font-size: 2em; font-weight: 900;
 }
 
+a.Atag{
+	color: #FFF;
+}
 
 /* Buddy list */
 div.BuddyList{

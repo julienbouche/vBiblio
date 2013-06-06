@@ -174,7 +174,7 @@ if(isset($_GET['id']) ){
        <td align="right">
 	<p>Cycle: </p>
 	</td>
-	<td><?=$bouquin->retournerNomCycle()?></td>
+	<td><a href="cycle.php?id=<?=$bouquin->getIDCycle()?>" class="vBibLink" ><?=$bouquin->retournerNomCycle()?></a></td>
    </tr>
    <tr>  
        <td align="right"><p>Tome:</p></td>  
@@ -339,7 +339,7 @@ if(isset($_GET['id']) ){
 	<?php foreach($listeTags as $tag) : ?>
 		<li class="tag">
 			<div style="display:inline-block;">
-				<a href="searchByTag.php?idtag=<?=$tag->getID()?>" class="vBibLink" title="Rechercher d'autres livres"><?=$tag->getName()?></a>
+				<a href="searchByTag.php?idtag=<?=$tag->getID()?>" style="color:#FFF" title="Rechercher d'autres livres"><?=$tag->getName()?></a>
 			</div>
 		</li>
 	<?php endforeach; ?>

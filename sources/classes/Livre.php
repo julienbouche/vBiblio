@@ -63,9 +63,10 @@ class Livre{
     }else $this->exists=false;
   }
 
-  function TitreLong(){
-	return $this->titreLong;
-  }
+	function TitreLong(){
+		return $this->titreLong;
+	}
+	
 	public function TitreLongAsShortNames(){
 			if($this->belongToCycle){
 				$str = (strlen($this->nomCycle)>20) ? substr($this->nomCycle, 0, 20)."..." : $this->nomCycle;
@@ -76,17 +77,17 @@ class Livre{
 				$str .= (strlen($this->titreCourt)>40) ? substr($this->titreCourt, 0, 40)."..." : $this->titreCourt;
 			return $str;
 	}
-  public function TitreCourt(){
-    return $this->titreCourt;
-  }
+	public function TitreCourt(){
+		return $this->titreCourt;
+	}
 
 	function getID(){
 			return $this->id;
 	}
   
-  function retournerDescription(){
-    return $this->description;
-  }
+	function retournerDescription(){
+		return $this->description;
+	}
   
   //deprecated ?
   function afficherDescription(){
@@ -184,7 +185,6 @@ class Livre{
 		
 		$results = mysql_query($sqlReq) or die("erreur".mysql_error());
 		$listTags = array();
-
 	
 		if($results && mysql_num_rows($results)>0 ) {
 			$cpt = 0;
@@ -242,7 +242,16 @@ class Livre{
 	}
 
 	public function getAvatarPath(){
+		$strImgPath = "images/covers/book-".$this->id.".png";
+		if(file_exists($strImgPath)){
+			return $strImgPath;
+		}
+		
 		return "images/covers/no_cover2.jpg";
+	}
+	
+	public function getIDCycle(){
+		return $this->idCycle;
 	}
 }
 
