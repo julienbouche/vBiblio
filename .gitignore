@@ -166,3 +166,5 @@ pip-log.txt
 #temp win files
 *.*~
 
+#fichier images
+sources/images/covers
