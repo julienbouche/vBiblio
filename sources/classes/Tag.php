@@ -9,7 +9,7 @@ class Tag{
 		CONSTRUCTOR
 	*/
 	public function __construct($id_tag){
-		$this->identifiant = $id_tag;
+		$this->identifiant = intval($id_tag);
 		$this->exist = false;
 
 		$sql = "SELECT value FROM vBiblio_tag WHERE id_tag=".$id_tag;
