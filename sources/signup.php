@@ -11,8 +11,11 @@ if(!isset($_POST['submitok'])){
 	<title>vBiblio - Formulaire d'inscription</title>  
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<link rel="stylesheet" type="text/css" href="css/vBiblio.css" media="screen" />
-	<script type="text/javascript" src="scripts/datepickercontrol/datepickercontrol.js"></script>
 	<link type="text/css" rel="stylesheet" href="scripts/datepickercontrol/datepickercontrol.css">
+	
+	<script type="text/javascript" src="scripts/datepickercontrol/datepickercontrol.js"></script>
+	<script type='text/javascript' src='js/core/vbiblio_ajax.js'></script>
+	<script type="text/javascript" src="js/gui/signup_gui.js"></script>
  </head>    
  <body>    
 
@@ -41,7 +44,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre pseudo</p>  
        </td>  
        <td>  
-           <input name="newid" type="text" maxlength="100" size="25" value="<?=$_SESSION['uid']?>" />  
+           <input name="newid" type="text" maxlength="100" size="25" value="<?=$_SESSION['uid']?>" onload="javascript:validate_pseudo(this);" onkeyup="javascript:validate_pseudo(this);"/>  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>
