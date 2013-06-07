@@ -7,14 +7,14 @@ $uid = $_SESSION['uid'];
 
 //ajout du bouquin si l'utilisateur a décidé d'ajouter un livre
 if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['auteur']) && $_POST['auteur'] && $_POST['addBookISBN']){
-	$title = $_POST['addBookTitle'];
-	$id_auteur =  $_POST['auteur'];
-	$desc = trim($_POST['desc']);
-	$isbn_number = $_POST['addBookISBN'];
+	$title = mysql_real_escape_string($_POST['addBookTitle']);
+	$id_auteur = intval($_POST['auteur']);
+	$desc = trim(mysql_real_escape_string($_POST['desc']));
+	$isbn_number = mysql_real_escape_string($_POST['addBookISBN']);
 	
 	if (isset($_POST['seriesEnabled']) and isset($_POST['idTome']) and isset($_POST['series']) and $_POST['idTome']!=''  ){
-		$idtome = $_POST['idTome'];
-		$serie = $_POST['series'];
+		$idtome = intval($_POST['idTome']);
+		$serie = intval($_POST['series']);
 		$sql = "INSERT INTO vBiblio_book (titre, id_author, id_cycle, numero_cycle, description, isbn) VALUES ('$title', '$id_auteur', '$serie', '$idtome', '$desc', '$isbn_number');";
 	}
 	else $sql = "INSERT INTO vBiblio_book (titre, id_author, description, isbn) VALUES ('$title', '$id_auteur', '$desc', '$isbn_number');";
@@ -24,10 +24,10 @@ if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['aute
 	$sql = "SELECT prenom, nom FROM vBiblio_author WHERE id_author=$id_auteur";
 	$result = mysql_query($sql);
 	if($result){
-    $row = mysql_fetch_assoc($result);
-    $nomAuteurPourNotif = $row['nom'];
-    $prenomAuteurPourNotif = $row['prenom'];
-  }
+		$row = mysql_fetch_assoc($result);
+		$nomAuteurPourNotif = $row['nom'];
+		$prenomAuteurPourNotif = $row['prenom'];
+	}
 	
 	$message ="Bonjour,
   
