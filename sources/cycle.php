@@ -4,7 +4,7 @@ require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 require_once('classes/Cycle.php');
 
-checkSecurity();
+//checkSecurity();
 
 
 $uid= $_SESSION['uid'];
@@ -40,7 +40,7 @@ $utilisateur = new Utilisateur($uid);
 			
 			<?php endif; ?>
 			<h2 style="text-align:<?=$horizontalAlign?>;margin:5px;">Tome <?=$book->retournerNumeroTome()?> : <?=$book->TitreCourt()?></h2>
-			<img src="<?=$book->getAvatarPath()?>" style="float:<?=$horizontalAlign?>; padding:5px 5px 5px 5px;" width="169px" height="225px" />
+			<a href="<?=$book->retournerURL()?>" ><img src="<?=$book->getAvatarPath()?>" style="float:<?=$horizontalAlign?>; padding:5px 5px 5px 5px;" width="169px" height="225px" /></a>
 			<p style="text-align: justify;margin:10px 10px 10px 10px;"><?=$book->retournerDescription()?></p>
 			<br/>
 			
@@ -48,7 +48,7 @@ $utilisateur = new Utilisateur($uid);
 			
 			<?php $calcTags = $cycle->getCalculatedTags(); ?>
 			<?php if(count($calcTags)) : ?>
-			<ul id="vBiblio_tagcloud">
+			<ul id="vBiblio_tagcloud" style="clear:both;">
 				<?php foreach($calcTags as $tag) : ?>
 				<li class="tag">
 					<div style="display:inline-block;">
