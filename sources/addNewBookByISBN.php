@@ -4,9 +4,9 @@ checkSecurity();
 
 //ajout du bouquin si l'utilisateur a décidé d'ajouter un livre
 if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['auteur']) && $_POST['auteur'] ){
-	$title = $_POST['addBookTitle'];
-	$id_auteur =  $_POST['auteur'];
-	$desc = trim($_POST['desc']);
+	$title = mysql_real_escape_string($_POST['addBookTitle']);
+	$id_auteur =  intval($_POST['auteur']);
+	$desc = trim(mysql_real_escape_string($_POST['desc']));
 	$isbn = $_POST['addBookISBN'];
 	
 	//vérifier que l'isbn n'existe pas déjà dans la base
