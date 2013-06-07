@@ -7,9 +7,9 @@ if(isset($_GET['user1']) && isset($_GET['user2']) && isset($_GET['idRequest']) )
 	dbConnect();
 
 	//mettre à jour la table.
-	$user1 = $_GET['user1'];
-	$user2 = $_GET['user2'];
-	$idRequest = $_GET['idRequest'];
+	$user1 = intval($_GET['user1']);
+	$user2 = intval($_GET['user2']);
+	$idRequest = intval($_GET['idRequest']);
 	
 	$sql = "INSERT INTO vBiblio_amis (id_user1, id_user2) VALUES ( '$user1', '$user2') ";
 

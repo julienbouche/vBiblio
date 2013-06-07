@@ -12,19 +12,33 @@ dbConnect();
 
 $uid = $_SESSION['uid'];
 $myTUID = getTableUserId($uid);
-$userProfilId = $_GET['u'];
+$userProfilId = mysql_real_escape_string($_GET['u']);
 ?>
 
 	
 	
 <?
 	if(isset($_GET['sort']) && $_GET['sort']=="Title" && isset($_GET['sortOrder']) ){
-	$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_toReadList.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_toReadList, vBiblio_user WHERE vBiblio_toReadList.id_user = vBiblio_user.tableuserid AND vBiblio_user.tableuserid='$userProfilId' AND vBiblio_toReadList.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author ORDER BY vBiblio_book.titre ".$_GET['sortOrder'].", vBiblio_author.nom, id_cycle, numero_cycle ASC"; 
-	//echo "$sql <br/>";
+		$sortOrder=mysql_real_escape_string($_GET['sortOrder']);
+		$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_toReadList.id_book as id_book, vBiblio_author.id_author
+			FROM vBiblio_author, vBiblio_book, vBiblio_toReadList, vBiblio_user
+			WHERE vBiblio_toReadList.id_user = vBiblio_user.tableuserid
+			AND vBiblio_user.tableuserid='$userProfilId'
+			AND vBiblio_toReadList.id_book = vBiblio_book.id_book
+			AND vBiblio_book.id_author=vBiblio_author.id_author
+			ORDER BY vBiblio_book.titre $sortOrder, vBiblio_author.nom, id_cycle, numero_cycle ASC"; 
+	
 	}
 	else{
 		if(isset($_GET['sort']) && $_GET['sort']=="Author" && isset($_GET['sortOrder']) ){
-			$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_toReadList.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_toReadList, vBiblio_user WHERE vBiblio_toReadList.id_user = vBiblio_user.tableuserid AND vBiblio_user.tableuserid='$userProfilId' AND vBiblio_toReadList.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author ORDER BY vBiblio_author.nom ".$_GET['sortOrder'].",vBiblio_author.prenom ".$_GET['sortOrder'].", id_cycle, numero_cycle ASC"; 
+			$sortOrder=mysql_real_escape_string($_GET['sortOrder']);
+			$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_toReadList.id_book as id_book, vBiblio_author.id_author
+				FROM vBiblio_author, vBiblio_book, vBiblio_toReadList, vBiblio_user
+				WHERE vBiblio_toReadList.id_user = vBiblio_user.tableuserid
+				AND vBiblio_user.tableuserid='$userProfilId'
+				AND vBiblio_toReadList.id_book = vBiblio_book.id_book
+				AND vBiblio_book.id_author=vBiblio_author.id_author
+				ORDER BY vBiblio_author.nom $sortOrder,vBiblio_author.prenom $sortOrder, id_cycle, numero_cycle ASC"; 
 		}
 
 	}
@@ -53,7 +67,6 @@ $userProfilId = $_GET['u'];
 			$sql_cycle= "SELECT vBiblio_cycle.titre, nb_tomes FROM vBiblio_cycle, vBiblio_book WHERE vBiblio_book.id_cycle=vBiblio_cycle.id_cycle AND vBiblio_book.id_book=$idbook";
 			
 			$returnMsg = $returnMsg."<tr class=\"$style\">";
-			//echo $returnMsg;
 			$returnMsg = $returnMsg .  "<td class=\"vBibBookTitle\">";
 			$returnMsg = $returnMsg .  "<a href=\"ficheLivre.php?id=$idbook\" class=\"vBibLink\" name=\"bookTitle\">";
 			$cycles = mysql_query($sql_cycle);
@@ -80,14 +93,10 @@ $userProfilId = $_GET['u'];
 				
 			}
 			
-			
-
-
 			$returnMsg = $returnMsg .  "</td>";
 			$returnMsg = $returnMsg .  "<td><a href=\"ficheAuteur.php?id=$idAuthor\" class=\"vBibLink\" name=\"authorName\">$prenom_auteur $nom_auteur</a></td>";
 
 			$returnMsg = $returnMsg .  "</tr>";
-			//echo $returnMsg;
 		}
 	}
 	echo utf8_encode($returnMsg);

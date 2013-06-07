@@ -1,25 +1,23 @@
 <?php
 include('../../scripts/db/db.php');
 
-//echo $_POST['tags']." et ".$_POST['idbook'];
 if(isset($_POST['tags']) && isset($_POST['idbook']) && $_POST['idbook']!='' && $_POST['tags']!=''){
 	dbConnect();
 
 	$values = $_POST['tags'];
-	$idBook_param = $_POST['idbook'];
-	//echo "Valeurs !!! : ".$values;
+	$idBook_param = intval($_POST['idbook']);
 
 	//split values to return each value
 	$separated_values = my_split($values);
 
 	foreach($separated_values as $val){
-		$val = trim($val);
+		$val = trim(mysql_real_escape_string($val));
 		if(strlen($val)>1){
 			//tester chaque valeur pour savoir si elle existe en base
 			$val = utf8_decode($val);
 			$existReqSQL = "SELECT id_tag FROM vBiblio_tag WHERE UCASE(value)=UCASE(\"".$val."\")";
-			//echo $existReqSQL; 
 			$resExist = mysql_query($existReqSQL);
+
 			if($resExist && mysql_num_rows($resExist)>0){//le tag existe, y'a-t-il déjà une asso avec ce bouquin?
 				if($row = mysql_fetch_assoc($resExist)){
 					$idTag = $row['id_tag'];

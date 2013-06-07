@@ -7,10 +7,10 @@ if(isset($_GET['user1']) && isset($_GET['user2']) && isset($_GET['idRequest']) &
 	dbConnect();
 
 	//mettre à jour la table.
-	$user1 = $_GET['user1'];
-	$user2 = $_GET['user2'];
-	$idRequest = $_GET['idRequest'];
-	$id_book = $_GET['id_book'];
+	$user1 = intval($_GET['user1']);
+	$user2 = intval($_GET['user2']);
+	$idRequest = intval($_GET['idRequest']);
+	$id_book = intval($_GET['id_book']);
 	$sysdate = date('Y-m-d H:i:s');
 	
 	$sql= "SELECT fullname FROM vBiblio_user WHERE tableuserid='$user2'";

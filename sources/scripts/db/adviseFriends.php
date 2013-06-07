@@ -5,17 +5,18 @@ include('../common.php');
 if(isset($_POST['idbook']) && isset($_POST['id_from']) ){
 	dbConnect();
 
-	$user1 = $_POST['id_from'];
+	$user1 = intval($_POST['id_from']);
 	$i=0;
-	$idBook = $_POST['idbook'];
+	$idBook = intval($_POST['idbook']);
 	$sysdate = date('Y-m-d H:i:s');
 
 	while ( isset($_POST['friend'.$i])){
 		
-		$user_to = $_POST['friend'.$i];
+		$user_to = intval($_POST['friend'.$i]);
 		if($user_to!=''){	
-			$sqlQuery = "INSERT INTO vBiblio_suggest(id_from, id_to, id_book, date_suggest) VALUES('$user1', '$user_to', '$idBook', '$sysdate')";
-			$str .= "$sqlQuery";
+			$sqlQuery = "INSERT INTO vBiblio_suggest(id_from, id_to, id_book, date_suggest)
+					VALUES('$user1', '$user_to', '$idBook', '$sysdate')";
+			
 			mysql_query($sqlQuery);
 			
 			$sqlFrom = "SELECT fullname FROM vBiblio_user WHERE tableuserid='$user1'";

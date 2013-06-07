@@ -7,8 +7,8 @@ if(isset($_GET['idbook']) && isset($_GET['id_user']) ){
 	dbConnect();
 
 	//mettre à jour la table.
-	$idbook = $_GET['idbook'];
-	$id_user = $_GET['id_user'];
+	$idbook = intval($_GET['idbook']);
+	$id_user = intval($_GET['id_user']);
 	$sysd = date('Y-m-d H:i:s');
 
 	//on test si le livre est présent dans la TRL de l'utilisateur...
@@ -26,7 +26,7 @@ if(isset($_GET['idbook']) && isset($_GET['id_user']) ){
 	
 	//si l'utilisateur ajoute le livre depuis la page de suggestion, on supprime la suggestion
 	if(isset($_GET['idSuggest']) ){
-		$idSuggest= $_GET['idSuggest'];
+		$idSuggest= intval($_GET['idSuggest']);
 		//alors on supprime la suggestion...
 		$sql = "DELETE FROM vBiblio_suggest WHERE id_suggest=$idSuggest";
 		mysql_query($sql);

@@ -6,7 +6,7 @@ include('db.php');
 if(isset($_GET['note']) && isset($_GET['idbook']) ){
 	dbConnect();
 
-	$id_book = $_GET['idbook'];
+	$id_book = intval($_GET['idbook']);
 	$note = intval($_GET['note']);
 	
 	$sql = "SELECT nb_votes, total_votes FROM vBiblio_book WHERE id_book=$id_book";
