@@ -41,7 +41,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre pseudo</p>  
        </td>  
        <td>  
-           <input name="newid" type="text" maxlength="100" size="25" value="<?=$_SESSION['uid']?>" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
+           <input name="newid" type="text" maxlength="100" size="25" value="<?=$_SESSION['uid']?>" />  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>
@@ -59,7 +59,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre nom</p>  
        </td>  
        <td>  
-           <input name="nom" type="text" maxlength="100" size="25" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
+           <input name="nom" type="text" maxlength="100" size="25" />  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>  
@@ -68,7 +68,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre pr&eacute;nom</p>  
        </td>  
        <td>  
-           <input name="prenom" type="text" maxlength="100" size="25" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
+           <input name="prenom" type="text" maxlength="100" size="25" />  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>
@@ -77,7 +77,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre adresse e-mail</p>  
        </td>  
        <td>  
-           <input name="newemail" type="text" maxlength="100" size="25" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>  
+           <input name="newemail" type="text" maxlength="100" size="25" />  
            <font color="orangered" size="+1"><tt><b>*</b></tt></font>  
        </td>  
    </tr>
@@ -95,7 +95,7 @@ if(!isset($_POST['submitok'])){
            <p>Votre date de naissance</p>  
        </td>  
        <td>
-		<input type="text" name="dateNaiss" id="DPC_edit1_DD/MM/YYYY" placeholder="jj/mm/aaaa" value="" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>   
+		<input type="text" name="dateNaiss" id="DPC_edit1_DD/MM/YYYY" placeholder="jj/mm/aaaa" value="" />   
        </td>  
    </tr>
      <tr style="display: none">  
