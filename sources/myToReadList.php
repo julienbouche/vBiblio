@@ -72,10 +72,10 @@ $utilisateur = new Utilisateur($uid);
 			<td class="vBibBookTitle">
 				<a href="ficheLivre.php?id=<?=$bouquin->getID()?>" class="vBibLink" name="bookTitle"><?=$bouquin->titreLong()?></a>
 				<span class="menuContextuel">
-					<img class="ImgAction" onclick="addToMyVBiblio(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/addToList2.png" title="Ajouter &agrave; ma vBiblio" width="20px" height="20px" style="border:1px solid gray;padding:2px;"/>
-					<img class="ImgAction" onclick="suppBookFromList(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/supp.png" title="Supprimer" width="20px" height="20px" style="border:1px solid gray;padding:2px;"/>
+					<img class="ImgAction" onclick="addToMyVBiblio(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/addToList2.png" title="Ajouter &agrave; ma vBiblio" width="20px" height="20px" />
+					<img class="ImgAction" onclick="suppBookFromList(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/supp.png" title="Supprimer" width="20px" height="20px" />
 					<a target="_blank" href="emprunts.php?q=<?=$bouquin->titreLong()?>">
-					<img class="ImgAction" onclick="" src="images/recherche.png" title="Rechercher qui peut vous pr&ecirc;ter ce livre" width="20px" height="20px" style="border:1px solid gray;padding:2px;"/>
+						<img class="ImgAction" onclick="" src="images/recherche.png" title="Rechercher qui peut vous pr&ecirc;ter ce livre" width="20px" height="20px" />
 					</a>
 				</span>
 			</td>

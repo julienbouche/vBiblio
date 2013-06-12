@@ -79,8 +79,13 @@ $userProfilId = mysql_real_escape_string($_GET['u']);
 			}
 
 			$returnMsg = $returnMsg .  "$titre</a>";
-			$returnMsg = $returnMsg . "<span class=\"menuContextuel\" style=\"\"><img class=\"ImgAction\" onclick=\"suppBookFromList($idbook, $myTUID);\" src=\"images/supp.png\" title=\"Enlever de ma liste de livres\" width=\"20px\" height=\"20px\"/></span>";
-
+			$returnMsg = $returnMsg . "<span class=\"menuContextuel\">";
+			$returnMsg = $returnMsg . "<a target=\"_blank\" href=\"marquer_emprunt.php?q=$idbook\">";
+			$returnMsg = $returnMsg . "<img class=\"ImgAction\" src=\"images/bookmark.png\" title=\"Marquer ce livre comme emprunt...\" width=\"20px\" height=\"20px\" />";
+			$returnMsg = $returnMsg . "</a>&nbsp;";
+			$returnMsg = $returnMsg . "<img class=\"ImgAction\" onclick=\"suppBookFromList($idbook, $myTUID);\" src=\"images/supp.png\" title=\"Enlever de ma liste de livres\" width=\"20px\" height=\"20px\" />";
+			$returnMsg = $returnMsg . "</span>";
+			
 			$returnMsg = $returnMsg .  "</td>";
 			$returnMsg = $returnMsg .  "<td><a href=\"ficheAuteur.php?id=$idAuthor\" class=\"vBibLink\" name=\"authorName\">$prenom_auteur $nom_auteur</a></td>";
 			$returnMsg = $returnMsg .  "<td style=\"text-align:center;\"><input name=\"".$idbook."Possede\" type=\"checkbox\" title=\"je l'ai\" onchange=\"javascript:updatePossede('$uid', $idbook )\" ";

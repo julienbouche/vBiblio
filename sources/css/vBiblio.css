@@ -176,7 +176,6 @@ div#vBibFooter {
 	position:fixed;
 	margin:auto;
 	bottom:0px;
-	clear:both;
 	width:800px;	
 	background-color:#EEE; 	
 	font-size:smaller;	
@@ -658,6 +657,9 @@ tr.infobulle:hover span.menuContextuel{
 	cursor:pointer;
 }
 
+.infobulle img{
+	border:1px solid gray;padding:2px;
+}
 
 .btn {
 	display:block;

@@ -74,7 +74,14 @@ $myTUID = getTableUserId($uid);
 			}
 
 			$returnMsg = $returnMsg .  "$titre</a>";
-			$returnMsg = $returnMsg . "<span class=\"menuContextuel\"><img class=\"ImgAction\" onclick=\"addToMyVBiblio($idbook, $myTUID);\" src=\"images/AddToList.png\" title=\"Ajouter &agrave; ma vBiblio\" width=\"20px\" height=\"20px\"/>&nbsp;<img class=\"ImgAction\" onclick=\"suppBookFromList($idbook, $myTUID);\" src=\"images/supp.png\" title=\"Supprimer\" width=\"20px\" height=\"20px\"/><a target=\"_blank\" href=\"emprunts.php?q=".$titre."\"><img class=\"ImgAction\" onclick=\"\" src=\"images/recherche.png\" title=\"Rechercher qui peut vous pr&ecirc;ter ce livre\" width=\"20px\" height=\"19px\" /></a></span>";
+			$returnMsg = $returnMsg . "<span class=\"menuContextuel\">";
+			$returnMsg = $returnMsg . "<img class=\"ImgAction\" onclick=\"addToMyVBiblio($idbook, $myTUID);\" src=\"images/addToList2.png\" title=\"Ajouter &agrave; ma vBiblio\" width=\"20px\" height=\"20px\" />&nbsp;";
+			$returnMsg = $returnMsg . "<img class=\"ImgAction\" onclick=\"suppBookFromList($idbook, $myTUID);\" src=\"images/supp.png\" title=\"Supprimer\" width=\"20px\" height=\"20px\" />&nbsp;";
+			$returnMsg = $returnMsg . "<a target=\"_blank\" href=\"emprunts.php?q=".$titre."\">";
+			$returnMsg = $returnMsg . "<img class=\"ImgAction\" onclick=\"\" src=\"images/recherche.png\" title=\"Rechercher qui peut vous pr&ecirc;ter ce livre\" width=\"20px\" height=\"20px\" />";
+			$returnMsg = $returnMsg . "</a></span>";
+				
+				
 			$returnMsg = $returnMsg .  "</td>";
 			$returnMsg = $returnMsg .  "<td><a href=\"ficheAuteur.php?id=$idAuthor\" class=\"vBibLink\" name=\"authorName\">$prenom_auteur $nom_auteur</a></td>";
 

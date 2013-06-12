@@ -99,9 +99,8 @@ $utilisateur = new Utilisateur($uid);
 				<td class="vBibBookTitle">
 					<a href="ficheLivre.php?id=<?=$bouquin->getID()?>" class="vBibLink" name="bookTitle"><?=$bouquin->titreLong()?></a>
 					<span class="menuContextuel">
-						<a target="_blank" href="marquer_emprunt.php?q=<?=$bouquin->getID()?>">
-							<img class="ImgAction" onclick="" src="images/bookmark.png" title="Marquer ce livre comme emprunt..." width="20px" height="20px" style="border:1px solid gray;padding:2px;" /></a>
-						<img class="ImgAction" onclick="suppBookFromList(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/supp.png" title="Enlever de ma liste de livres" width="20px" height="20px" style="border:1px solid gray;padding:2px;"/>
+						<a target="_blank" href="marquer_emprunt.php?q=<?=$bouquin->getID()?>"><img class="ImgAction" onclick="" src="images/bookmark.png" title="Marquer ce livre comme emprunt..." width="20px" height="20px"/></a>
+						<img class="ImgAction" onclick="suppBookFromList(<?=$bouquin->getID()?>, <?=$utilisateur->getID()?>);" src="images/supp.png" title="Enlever de ma liste de livres" width="20px" height="20px"/>
 					</span>
 				</td>
 				<td>
