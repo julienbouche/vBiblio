@@ -52,7 +52,7 @@ if(isset($_GET['id']) ){
 	<link href='http://fonts.googleapis.com/css?family=Donegal+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
 	<!-- google APIs-->
-	<script type="text/javascript" src="//www.google.com/jsapi"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="js/gui/ggBooksPreview_gui.js"></script>
 
 </head>
