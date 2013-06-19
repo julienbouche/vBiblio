@@ -64,9 +64,9 @@ if(isset($_GET['user']) ){
 				<a href="ficheLivre.php?id=<?=$bouquin->getID()?>" class="vBibLink" name="bookTitle"><?=$bouquin->titreLong()?></a>
 				<?php if(!$utilisateur->aDansUneListe($bouquin)) : ?>
 				<span class="menuContextuel">
-					<img class="ImgAction" onclick="javascript:addBookToMyVBiblio(this, <?=$bouquin->getID()?>, <?=$utilisateur->getID()?> );" src="images/addToList2.png" title="Ajouter &agrave; ma vBiblio" width="20px" height="20px" style="border:1px solid gray;padding:2px;"/>
-					<img class="ImgAction" onclick="javascript:addBookToMyTRL(this, <?=$bouquin->getID()?>, <?=$utilisateur->getID()?> );" src="images/AddToTRL2.png" title="Ajouter &agrave; ma ToRead List" width="20px" height="20px" style="border:1px solid gray;padding:2px;"/>
-					<a target="_blank" href="emprunts.php?q=<?=$bouquin->titreLong()?>"><img class="ImgAction" onclick="" src="images/recherche.png" title="Rechercher qui peut vous pr&ecirc;ter ce livre" width="20px" height="20px" style="border:1px solid gray;padding:2px;"/></a>
+					<img class="ImgAction" onclick="javascript:addBookToMyVBiblio(this, <?=$bouquin->getID()?>, <?=$utilisateur->getID()?> );" src="images/addToList2.png" title="Ajouter &agrave; ma vBiblio" width="20px" height="20px" />
+					<img class="ImgAction" onclick="javascript:addBookToMyTRL(this, <?=$bouquin->getID()?>, <?=$utilisateur->getID()?> );" src="images/AddToTRL2.png" title="Ajouter &agrave; ma ToRead List" width="20px" height="20px" />
+					<a target="_blank" href="emprunts.php?q=<?=$bouquin->titreLong()?>"><img class="ImgAction" onclick="" src="images/recherche.png" title="Rechercher qui peut vous pr&ecirc;ter ce livre" width="20px" height="20px" /></a>
 				</span>
 				<?php endif; ?>
 			</td>
