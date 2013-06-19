@@ -24,8 +24,15 @@ function processDynamicLinksError(){
 }
 
 function loadPreview() {
-	var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-	viewer.load(isbn);
+	try {
+		var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+		viewer.load(isbn);
+	} catch(e) {
+		togglePreview(); //on cache l'affichage
+		processDynamicLinksError(); //et on cache le bouton ... 
+		alert('Désolé, il semblerait finalement que Google Livres n\'ait pas de pr\351visualisation pour ce livre');
+	}
+	
 }
 
 function togglePreview() {
