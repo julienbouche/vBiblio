@@ -30,7 +30,7 @@ function loadPreview() {
 	} catch(e) {
 		togglePreview(); //on cache l'affichage
 		processDynamicLinksError(); //et on cache le bouton ... 
-		alert('Désolé, il semblerait finalement que Google Livres n\'ait pas de pr\351visualisation pour ce livre');
+		alert('D\351sol\351, il semblerait finalement que Google Livres n\'ait pas de pr\351visualisation pour ce livre');
 	}
 	
 }
