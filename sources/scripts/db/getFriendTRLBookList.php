@@ -85,8 +85,8 @@ $userProfilId = mysql_real_escape_string($_GET['u']);
 			if(!$utilisateur->aDansUneListe($bouquin)){
 			//ajout du menu contextuel (au survol)
 			
-			$returnMsg = $returnMsg . "<span class=\"menuContextuel\"><img class=\"ImgAction\" onclick=\"addToMyVBiblio($idbook, $myTUID);\" src=\"images/AddToList.png\" title=\"Ajouter &agrave; ma vBiblio\" width=\"20px\" height=\"20px\"/>&nbsp;
-				<img class=\"ImgAction\" onclick=\"javascript:addBookToMyTRL(this, ".$bouquin->getID().", ".$utilisateur->getID().");\" src=\"images/AddToTRL.png\" title=\"Ajouter &agrave; ma ToRead List\" width=\"20px\" height=\"20px\" />
+			$returnMsg = $returnMsg . "<span class=\"menuContextuel\"><img class=\"ImgAction\" onclick=\"addToMyVBiblio($idbook, $myTUID);\" src=\"images/addToList2.png\" title=\"Ajouter &agrave; ma vBiblio\" width=\"20px\" height=\"20px\"/>
+				<img class=\"ImgAction\" onclick=\"javascript:addBookToMyTRL(this, ".$bouquin->getID().", ".$utilisateur->getID().");\" src=\"images/AddToTRL2.png\" title=\"Ajouter &agrave; ma ToRead List\" width=\"20px\" height=\"20px\" />
 				<img class=\"ImgAction\" onclick=\"\" src=\"images/recherche.png\" title=\"Rechercher qui peut vous pr&ecirc;ter ce livre\" width=\"20px\" height=\"19px\" /></a></span>";
 
 
