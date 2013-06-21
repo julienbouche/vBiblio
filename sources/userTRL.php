@@ -79,7 +79,7 @@ if(isset($_GET['user']) ){
 	</table>
 
 	<?php else : ?>
-		<?=$buddy->getPronom()?> n'a aucun livre dans sa liste de livres &agrave; lire.";
+		<?=$buddy->getPronom()?> n'a aucun livre dans sa liste de livres &agrave; lire.
 	<?php endif; ?>
 
 	<?php else : ?>
