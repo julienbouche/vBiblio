@@ -115,6 +115,36 @@ $message="";
 		<?php if(!$limitedAccess) : include('ssMenuPageAmi.php') ?>
 		<?php endif; ?>
 
+	<div style="float:right;width:200px;">
+		<?
+		$buddy = new Utilisateur("");
+		$buddy->initializeByID($tableID);
+		$compatibility = $utilisateur->calculerCompatibiliteAmi($buddy);
+		?>
+		<meter value="<?=$compatibility?>" min="0" max="100" title="Votre compatibilit&eacute; est <? if($compatibility<20){echo "faible"; }elseif($compatibility<60){ echo "moyenne"; }else {echo "&eacute;lev&eacute;e";}?>"><?=$compatibility?>%</meter>
+		<br/><br/>
+		
+		
+		<div class="vBibBoite" style="left:-20px;width:100%">
+			<div class="vBibBoiteTitre">Rechercher ce livre :</div>
+			<div class="vBibBoiteContenu" style="padding:0px;">
+				<?$tags = $buddy->getAllTagsFromBooks(); ?>
+				<?php if(count($tags)>0) : ?>
+				<ul id="vBiblio_tagcloud">	
+					<?php foreach($tags as $tag) : ?>
+					<li class="tag">
+						<div style="padding-bottom: 5px;font-size:10px;">
+							<a href="searchByTag.php?idtag=<?=$tag->getID()?>" style="color:#FFF" title="Rechercher d'autres livres"><?=$tag->getName()?></a>
+						</div>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+				<?php endif; ?>
+			</div>
+		</div>
+		
+	</div>
+	
 	<table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;">  
 		<tr>
 			<td class="tdTitleProfil" colspan="3" style="text-align:center;">Informations g&eacute;n&eacute;rales</td>

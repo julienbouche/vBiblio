@@ -587,6 +587,55 @@ class Utilisateur{
 		return 0;
 	}
 	
+	
+	/** FONCTIONS POUR LES SIMILARITES **/
+	public function calculerCompatibiliteAmi($buddy){
+		$total_mes_livres = $this->NbBooksInLibrary();
+		$total_ses_livres = $buddy->NbBooksInLibrary();
+		
+		$compat = 0;
+		
+		$sql = "SELECT COUNT(DISTINCT id_book) as nb
+			FROM vBiblio_poss
+			WHERE userid='".$this->identifiant."'
+			AND id_book IN (SELECT DISTINCT id_book FROM vBiblio_poss WHERE userid='".$buddy->identifiant."')";
+		
+		$result = mysql_query($sql);
+		$livres_communs = 0;
+		
+		if($result && mysql_num_rows($result)>0 ){
+			$row = mysql_fetch_assoc($result);
+			$livres_communs = $row['nb'];
+		}
+		
+		//éviter la division par 0
+		if(($total_mes_livres+$total_ses_livres-$livres_communs)!=0){
+			$compat = ($livres_communs / ($total_mes_livres+$total_ses_livres-$livres_communs))*100;
+		}
+		return $compat;
+	}
+	
+	
+	public function getAllTagsFromBooks(){
+		$sql = "SELECT id_tag, SUM(count) as SOMME
+			FROM vBiblio_tag_book, vBiblio_poss
+			WHERE userid='".$this->identifiant."'
+			AND vBiblio_tag_book.id_book=vBiblio_poss.id_book
+			GROUP BY vBiblio_tag_book.id_book
+			ORDER BY SOMME";
+		$result = mysql_query($sql);
+		if($result && mysql_num_rows($result)>0 ){
+			$listTags = array();
+			$idxTags = 0;
+			
+			while($row = mysql_fetch_assoc($result)){
+				$listTags[$idxTags] = new Tag($row['id_tag']);
+				$idxTags++;
+			}
+			
+		}
+		return $listTags;
+	}
 
 	/* 
 		GETTER 
