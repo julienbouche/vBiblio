@@ -127,15 +127,15 @@ else{
 			<img class="ImgAction" id="Req<?=$idReq?>" src="images/checkmark.png" title="Accepter la demande" width="18px" height="18px" style="border:1px solid gray;padding:2px;float:right;" onclick="javascript:acceptRequest(<?=$idReq?>, <?=$buddy->getID()?>, <?=$utilisateur->getID()?>, false);return false;"/>
 			<a name="request<?=$idReq?>"></a>
 		</div>
-				<?php else : ?>
+			<?php else : ?>
 		<div class="BuddyBox" style="">
 			<a class="vBibLink" href="userProfil.php?user=<?=$buddy->getID()?>"><img src="<?=$buddy->cheminFichierAvatar()?>" /></a>
 			<a class="vBibLink" href="userProfil.php?user=<?=$buddy->getID()?>" style="position:absolute;margin:auto;padding-left:10px;"><?=$buddy->getFullname()?></a>
 			<img class="ImgAction" id="Req<?=$idReq?>" src="images/buddyPlus.png" title="Envoyer une demande" width="18px" height="18px" style="border:1px solid gray;padding:2px;float:right;" onclick="javascript:sendBuddyRequest(this,<?=$utilisateur->getID()?>, <?=$buddy->getID()?>);return false;"/>
 			<a name="feedback<?=$buddy->getID()?>"></a>
 </div>
-				<?php endif; ?>
 			<?php endif; ?>
+		<?php endif; ?>
 		
 	<?php endwhile; ?>
 	</div>
