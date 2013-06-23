@@ -193,9 +193,8 @@ div#vBibFooter {
 	z-index:2000; /*eviter que le menu se retrouve "sous" un élément du contenu (les coins des titres par ex.)*/
 	/*opacity:0.7;*/
 	background-color:#AAF;
-	-moz-border-radius:0px 0px 5px 5px;
-	-moz-box-shadow:0px 2px 10px 2px #669;
-	box-shadow: 0px 2px 10px 2px #669;
+	-moz-box-shadow:0px 2px 3px 2px #669;
+	box-shadow: 0px 1px 3px 2px #669;
 }
 
 #vBibHeader:hover{
@@ -212,6 +211,7 @@ div#vBibFooter {
 	margin:0;
 	padding:0;
 	margin:5px;
+	bottom:0px;
 
 	display:-moz-inline-stack;
 	display:inline-block;
@@ -232,20 +232,6 @@ div#vBibFooter {
 	font-variant:small-caps;
 	font-weight:600;
 }
-/*
-#vBibMenu li #enseigne:hover{
-	background-color:#AAF;
-}*/
-
-a.MenuItem{
-	color:black;
-	font-variant:small-caps;
-	
-	/*astuce pour arriver au menu avec la souris*/
-	padding-bottom:14px;
-}
-
-
 
 div.vBibDeconn{
 	float:right;
@@ -297,6 +283,11 @@ div.vBibProfilDisplay{
 	text-align:right;
 	border-radius:10px 0px 10px 10px;
 	box-shadow: 2px 2px 2px 0px #999;
+	
+	-moz-transition: opacity 1s ease;
+	-webkit-transition: opacity ease;
+	-o-transition:opacity 1s ease;
+	transition:opacity 1s ease;
 }
 
 div.vBibDeconn:hover>div.vBibProfilDisplayMenu{
@@ -306,12 +297,6 @@ div.vBibDeconn:hover>div.vBibProfilDisplayMenu{
 div.vBibDeconn:hover>div.vBibProfilDisplay{
 	visibility:visible;
 	opacity:1;
-}
-
-div.vBibDeconn>div.vBibProfilDisplay, div.vBibDeconn:hover>div.vBibProfilDisplay{
-	-moz-transition: opacity 1s ease;
-	-webkit-transition: opacity ease;
-	-o-transition:opacity 1s ease;
 }
 
 div.MessagerieMenuItem{
@@ -336,37 +321,60 @@ div.vBibProfilDisplay a{
 	background-color:#CCE;
 }
 
-/*div.vBibProfilDisplay a:hover{
-	background-color:#DDF;
-}*/
 div.vBibProfilDisplay a,div.vBibProfilDisplay a:hover{
 	-moz-transition: background-color 0.4s ease;
 	-webkit-transition: background-color 0.4s ease;
 	-o-transition: background-color 0.4s ease;
 }
 
+li.MenuContainer{
+	top:8px;
+	position:relative;
+}
+li.MenuContainer img{
+	height:18px;
+	margin-bottom:5px;
+}
+
 div.SubMenuItem{
 	position:absolute;
-	/*width:100px;*/
-	border-radius:0px 0px 10px 10px;
-	box-shadow: 2px 10px 10px 0px #669;
-	margin-top:5px;
-	visibility:hidden;
-	background-color:#AAF;
+	top:15px;
+	left:-10px;
+
+	white-space: nowrap;
 	z-index:1;
 	padding:5px;
+
+	line-height:0em;
+	
+	-moz-transition: all 0.2s ease-in-out;
+	-webkit-transition: all ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+div.SubMenuItemContainer{
+	border-radius:0px 0px 10px 10px;
+	box-shadow: 0px 2px 2px 0px #669;
+	background-color:#AAF;
+	margin-top:5px;
+	padding:1px;
+}
+
+a.MenuItem{
+	color:black;
+	font-variant:small-caps;
+	
+	/*astuce pour arriver au menu avec la souris*/
+	margin-bottom:14px;
 }
 
 a.SubMenuItem{
 	margin-top:2px;
 	display:block;
+	position:relative;
 	background-color:#AAF;
 	border-radius:5px 5px 5px 5px;
 	padding:2px;
-}
-
-a.SubMenuItem:before{
-		content:"";
 }
 
 li.MenuContainer>div.SubMenuItem{
@@ -377,30 +385,31 @@ li.MenuContainer>div.SubMenuItem{
 li.MenuContainer:hover>div.SubMenuItem{
 	visibility:visible;
 	opacity:1;
+	line-height:1.2em;
+	font-size:1em;
 }
 
 a.SubMenuItem:hover{
-	visibility:visible;
 	background-color:#CCF;
 }
 
-/*Animation du menu*/
-li.MenuContainer>div.SubMenuItem, li.MenuContainer:hover>div.SubMenuItem{
-	-moz-transition: opacity 1s ease;
-	-webkit-transition: opacity ease;
-	-o-transition:opacity 1s ease;
-}
+
 a.SubMenuItem, a.SubMenuItem:hover{
 	-moz-transition: background-color 0.5s ease;
 	-webkit-transition: background-color 0.5s ease;
 	-o-transition: background-color 0.5s ease;
 }
 
+input[type="text"].awesomeBar{
+	position:absolute;
+	top:10px;
+	width:35%;
+	left:0px;
+	right:0px;
+	margin:auto;
+}
 
-/*
-div>a.SubMenuItem:last-of-type{
-	border-radius:0px 0px 5px 5px;
-}*/
+
 
 /********************************************
  *

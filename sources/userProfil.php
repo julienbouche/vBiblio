@@ -126,7 +126,7 @@ $message="";
 		
 		
 		<div class="vBibBoite" style="left:-20px;width:100%">
-			<div class="vBibBoiteTitre">Rechercher ce livre :</div>
+			<div class="vBibBoiteTitre">Styles de lecture:</div>
 			<div class="vBibBoiteContenu" style="padding:0px;">
 				<?$tags = $buddy->getAllTagsFromBooks(); ?>
 				<?php if(count($tags)>0) : ?>
@@ -134,7 +134,7 @@ $message="";
 					<?php foreach($tags as $tag) : ?>
 					<li class="tag">
 						<div style="padding-bottom: 5px;font-size:10px;">
-							<a href="searchByTag.php?idtag=<?=$tag->getID()?>" style="color:#FFF" title="Rechercher d'autres livres"><?=$tag->getName()?></a>
+							<a href="searchByTag.php?idtag=<?=$tag->getID()?>" style="color:#FFF" title="Rechercher des livres dans ce style"><?=$tag->getName()?></a>
 						</div>
 					</li>
 					<?php endforeach; ?>
