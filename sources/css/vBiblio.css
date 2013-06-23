@@ -402,11 +402,35 @@ a.SubMenuItem, a.SubMenuItem:hover{
 
 input[type="text"].awesomeBar{
 	position:absolute;
-	top:10px;
+	top:5px;
 	width:35%;
 	left:0px;
 	right:0px;
 	margin:auto;
+	padding: 2px 26px 2px 5px;
+	color:#555;
+	filter:alpha(opacity=.5);
+	background: #DDF url('../images/recherche.png') no-repeat;
+	background-position: right 6px top 1px;
+}
+
+
+input[type="text"].awesomeBar::-webkit-input-placeholder { /* WebKit browsers */
+  color: #555;
+  font-style: italic;
+}
+input[type="text"].awesomeBar:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #555;
+  font-style: italic;
+}
+input[type="text"].awesomeBar::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #555;
+  
+  font-style: italic;
+}
+input[type="text"].awesomeBar:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #555 !important;
+  font-style: italic;  
 }
 
 

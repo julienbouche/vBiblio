@@ -61,7 +61,7 @@ $rootPath = "";
 
 
 			<!--li><a class="MenuItem" href="<?=$rootPath?>/index.php">Accueil</a></li-->
-			<li class="MenuContainer">
+			<li class="MenuContainer" >
 				<a class="MenuItem" href="<?=$rootPath?>/myBooks.php">
 				<?php if($utilisateur->recupererNombreDemandesDePretEnAttente()>0) : ?>
 					<img src="<?=$rootPath?>/images/new_book_icon.png" title="Mes Livres" alt="Mes Livres"/>
@@ -70,9 +70,11 @@ $rootPath = "";
 				<?php endif; ?>
 				</a>
 				<div class="SubMenuItem">
+					<div class="SubMenuItemContainer">
 					<?
 					include('ssmenuLivres.php');
 					?>
+					</div>
 				</div>
 			</li>
 			<li class="MenuContainer"> 
@@ -84,16 +86,18 @@ $rootPath = "";
 				<?php endif; ?>
 				</a>
 				<div class="SubMenuItem">
+					<div class="SubMenuItemContainer">
 					<?
 					include('ssMenuAmis.php');
 					?>
+					</div>
 				</div>
 			</li>
-			<li>
+			<!--li-->
 				<form method="POST" action="addBooks.php" >
-					<input type="text" name="searchText" placeholder="Recherche..." size="40" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;margin-left:30px; "/>
+					<input type="text" name="searchText" placeholder="Recherche..." class="awesomeBar" />
 				</form>
-			</li>
+			<!--/li-->
 
 <?
 	}
