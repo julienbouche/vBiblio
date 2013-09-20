@@ -31,6 +31,7 @@ if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['aute
 			$prenomAuteurPourNotif = $row['prenom'];
 		}
 		
+		//TODO remplacer par un appel à envoyermail (scripts/commo)
 		$message ="Bonjour,
   
   L'utilisateur $uid a inséré un nouveau livre dans la base de données:
@@ -80,6 +81,8 @@ header('Access-Control-Allow-Origin: http://xisbn.worldcat.org/');
 	<link rel="stylesheet" type="text/css" href="css/vBiblio.css" media="screen" />
 	<script type="text/javascript" src="js/core/vbiblio_ajax.js"></script>
 	<script type="text/javascript" src="js/gui/bookForm_gui.js"></script>
+	<script type="text/javascript" src="js/core/string_functions.js"></script>
+	
 </head>
 <body>
 <div id="vBibContenu">

@@ -36,6 +36,7 @@ class Tag{
 			$cpt=0;
 			while($row=mysql_fetch_assoc($result)){
 				$ListeLivres[$cpt] = new Livre($row['id_book']);
+				$cpt++;
 			}
 		}
 		return $ListeLivres;
