@@ -137,14 +137,25 @@ function validateISBNandPopulateBookInformations(dom_isbn){
 		xhr = createXHR();
 		
 		if(xhr!=null) {
-			xhr.open("GET","scripts/ISBNSearch.php?isbn="+isbn, true);
+			xhr.open("GET","https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn, true);
 			xhr.onreadystatechange = function(){
 				if ( xhr.readyState == 4 ){
 					//indiquer qu'une requete est faite sur le serveur (petite icone de chargement ?)
 					text = xhr.responseText;
+					//alert(text);
 					book = JSON.parse(text);
+					//alert(book.items[0].volumeInfo.title);
 					//TODO : trouver comment renseigner les champs tome & nom du cycle : non dispo sur gg books ?
-					displayBookInformation(isbn,book.titre,book.description,'','',book.auteur);					
+					try {
+						if (book.totalItems>0) {
+							displayBookInformation(isbn,book.items[0].volumeInfo.title,
+										book.items[0].volumeInfo.description,'','',book.items[0].volumeInfo.authors[0]);						
+						}
+						
+					} catch(e) {
+						alert(e);
+					}
+					
 				}
 			};
 			xhr.send(null);
@@ -169,7 +180,10 @@ function displayBookInformation(isbn,titre,description, tome, cycle, auteur){
 	//sélectionner l'auteur 
 	var dom_auteur = document.getElementsByName('auteur')[0];
 	var auteurTrouve = false;
-
+	var current_min_dist_lev=5; //distance maximum acceptable
+	var idx_chaine_plus_proche = -1;
+	
+	//recherche de l'auteur
 	for (var increment=0;increment<dom_auteur.options.length;increment++){
 		//alert(dom_auteur.options[increment].text+" == "+auteur);
 		if(dom_auteur.options[increment].text==auteur){
@@ -179,9 +193,26 @@ function displayBookInformation(isbn,titre,description, tome, cycle, auteur){
 			//permet de recharger la liste des séries de l'auteur récemment sélectionné par script si la case série est active
 			reloadBookTitles(dom_auteur);
 		}
+		else{
+			var test_dist = distance_levenshtein(dom_auteur.options[increment].text, auteur);
+			if (current_min_dist_lev>test_dist) {
+				idx_chaine_plus_proche = increment;
+				current_min_dist_lev = test_dist;
+			}
+		}
 	}
 	if(!auteurTrouve){
-		alert('L\'auteur '+auteur+' n\'a pas \351t\351 identifi\351 dans nos auteurs connus. Merci de l\'ajouter, s\'il n\'est pas pr\351sent ou de le s\351lectionner manuellement si vous pensez l\'identifier');
+		
+		
+		if (idx_chaine_plus_proche!=-1) {
+			dom_auteur.options[idx_chaine_plus_proche].selected = "selected";
+			reloadBookTitles(dom_auteur);
+			
+			alert('Nous ne sommes pas certains d\'avoir identifier le bon auteur. Merci de v\351rifier. ');
+		}
+		else{
+			alert('L\'auteur '+auteur+' n\'a pas \351t\351 identifi\351 dans nos auteurs connus. Merci de l\'ajouter, s\'il n\'est pas pr\351sent ou de le s\351lectionner manuellement si vous pensez l\'identifier');
+		}
 	}
 	
 	//que faire s'il n'existe pas ???
