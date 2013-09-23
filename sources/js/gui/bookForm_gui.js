@@ -168,16 +168,22 @@ fonction permettant de populer les champs à partir des informations renvoyées 
 */
 function displayBookInformation(isbn,titre,description, tome, cycle, auteur){
 	var dom_isbn = document.getElementsByName('addBookISBN')[0];
+	//TODO effectuer un nettoyage de l'isbn (ne conserver que les chiffres par ex)
+	
 
 	//affichage du titre
 	var dom_titre = document.getElementsByName('addBookTitle')[0];
 	dom_titre.value = titre;
 
-	//affichage de la description	
+	//affichage de la description
 	var dom_titre = document.getElementsByName('desc')[0];
-	dom_titre.value = description;
+	if(description) {
+		dom_titre.value = description;
+	}
+	else dom_titre.value = "Aucune description disponible.";
 
-	//sélectionner l'auteur 
+
+	//sélectionner automatiquement l'auteur 
 	var dom_auteur = document.getElementsByName('auteur')[0];
 	var auteurTrouve = false;
 	var current_min_dist_lev=5; //distance maximum acceptable
@@ -185,7 +191,7 @@ function displayBookInformation(isbn,titre,description, tome, cycle, auteur){
 	
 	//recherche de l'auteur
 	for (var increment=0;increment<dom_auteur.options.length;increment++){
-		//alert(dom_auteur.options[increment].text+" == "+auteur);
+		//on trouve exactement la même chaine de caractère (peu probable)
 		if(dom_auteur.options[increment].text==auteur){
 			dom_auteur.options[increment].selected ="selected";
 			auteurTrouve = true;
@@ -194,6 +200,8 @@ function displayBookInformation(isbn,titre,description, tome, cycle, auteur){
 			reloadBookTitles(dom_auteur);
 		}
 		else{
+			//on stocke le nom d'auteur se rapprochant le plus de celui renvoyé par le ws
+			//afin de le proposer à l'utilisateur
 			var test_dist = distance_levenshtein(dom_auteur.options[increment].text, auteur);
 			if (current_min_dist_lev>test_dist) {
 				idx_chaine_plus_proche = increment;
@@ -201,9 +209,8 @@ function displayBookInformation(isbn,titre,description, tome, cycle, auteur){
 			}
 		}
 	}
+	
 	if(!auteurTrouve){
-		
-		
 		if (idx_chaine_plus_proche!=-1) {
 			dom_auteur.options[idx_chaine_plus_proche].selected = "selected";
 			reloadBookTitles(dom_auteur);
