@@ -31,8 +31,8 @@ if(isset($_GET['user']) ){
 	}
 }
 else {
-$sql = "SELECT email, date_naiss, fullname, userid, sexe, id_pref_book, website, prefBookStyle FROM vBiblio_user WHERE userid = '$uid'";
-$SecuriteOK = true;
+	$sql = "SELECT email, date_naiss, fullname, userid, sexe, id_pref_book, website, prefBookStyle FROM vBiblio_user WHERE userid = '$uid'";
+	$SecuriteOK = true;
 } 
 	
 if ( isset($_POST['directMessage']) and $_POST['directMessage']!=''){
@@ -114,16 +114,14 @@ $message="";
 	<?php if($SecuriteOK) :  ?>
 		<?php if(!$limitedAccess) : include('ssMenuPageAmi.php') ?>
 		<?php endif; ?>
-
+		
+		<?php if(isset($_GET['user'])) : ?>
 	<div style="float:right;width:200px;">
 		<?
 		$buddy = new Utilisateur("");
 		$buddy->initializeByID($tableID);
 		$compatibility = $utilisateur->calculerCompatibiliteAmi($buddy);
 		?>
-		<meter value="<?=$compatibility?>" min="0" max="100" title="Votre compatibilit&eacute; est <? if($compatibility<20){echo "faible"; }elseif($compatibility<60){ echo "moyenne"; }else {echo "&eacute;lev&eacute;e";}?>"><?=$compatibility?>%</meter>
-		<br/><br/>
-		
 		
 		<div class="vBibBoite" style="left:-20px;width:100%">
 			<div class="vBibBoiteTitre">Styles de lecture:</div>
@@ -143,8 +141,12 @@ $message="";
 			</div>
 		</div>
 		
+		<br/>
+		<meter value="<?=$compatibility?>" min="0" max="100" title="Votre compatibilit&eacute; est <? if($compatibility<20){echo "faible"; }elseif($compatibility<60){ echo "moyenne"; }else {echo "&eacute;lev&eacute;e";}?>"><?=$compatibility?>%</meter>
+		<br/>
 	</div>
-	
+		<?php endif; ?>
+		
 	<table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;">  
 		<tr>
 			<td class="tdTitleProfil" colspan="3" style="text-align:center;">Informations g&eacute;n&eacute;rales</td>
