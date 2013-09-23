@@ -120,7 +120,11 @@ function validateISBN(dom_isbn){
   		}
 	}
 	showISBNValidationResult(dom_isbn);
-	
+
+	//on met à jour la valeur affichée, nettoyée
+	if (ISBNok) {
+		dom_isbn.value = isbn;
+	}
 	return ISBNok;
 }
 
