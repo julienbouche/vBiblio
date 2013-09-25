@@ -128,12 +128,11 @@ function filter(){
   //à l'aide d'une regex  
   if(searchTerms.indexOf("nonlu")>=0 ){
 	rechercheNonLus = true;
-	alert("Recherche Non Lus");
   } else {
 	  rechercheNonLus = false;
 	  if(searchTerms.indexOf("lu")>=0 ) {
 		rechercheLus = true;
-		alert("Recherche Lus");
+		
 	  } else rechercheLus = false;  
   } 
   var re= /(nonlu)|(lu)/gi ;
@@ -148,7 +147,6 @@ function filter(){
 	
     if(str.toLowerCase().indexOf(searchTerms)>=0 || str2.toLowerCase().indexOf(searchTerms)>=0 ){
 	   if(rechercheNonLus || rechercheLus){
-		alert(titles[cpt].parentNode.parentNode.childNodes[3].childNodes[0].getAttribute("name"));
 		/*if( (luChecked && rechercheLus) || (!luChecked && rechercheNonLus) ){
 			showAlternate(titles[cpt].parentNode.parentNode, alternateCssClass);
 			alternateCssClass++;

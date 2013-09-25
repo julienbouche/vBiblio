@@ -1,24 +1,56 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
-
 checkSecurity();
-dbConnect();
 
 //ajout du bouquin si l'utilisateur a décidé d'ajouter un livre
 if(isset($_POST['addBookTitle']) && $_POST['addBookTitle'] && isset($_POST['auteur']) && $_POST['auteur'] ){
-	$title = $_POST['addBookTitle'];
-	$id_auteur =  $_POST['auteur'];
-	$desc = trim($_POST['desc']);
+	$title = mysql_real_escape_string($_POST['addBookTitle']);
+	$id_auteur =  intval($_POST['auteur']);
+	$desc = trim(mysql_real_escape_string($_POST['desc']));
+	$isbn = $_POST['addBookISBN'];
 	
-	if (isset($_POST['seriesEnabled']) and isset($_POST['idTome']) and isset($_POST['series']) and $_POST['idTome']!=''  ){
-		$idtome = $_POST['idTome'];
-		$serie = $_POST['series'];
-		$sql = "INSERT INTO vBiblio_book (titre, id_author, id_cycle, numero_cycle, description) VALUES ('$title', '$id_auteur', '$serie', '$idtome', '$desc');";
+	//vérifier que l'isbn n'existe pas déjà dans la base
+	$sql = "SELECT titre FROM vBiblio_book WHERE isbn=$isbn";
+	$result = mysql_query($sql);
+	
+	if(mysql_num_rows($result)==0){ //l'isbn n'existe pas dans la base
+		if (isset($_POST['seriesEnabled']) and isset($_POST['idTome']) and isset($_POST['series']) and $_POST['idTome']!=''  ){
+			$idtome = $_POST['idTome'];
+			$serie = $_POST['series'];
+			$sql = "INSERT INTO vBiblio_book (titre, id_author, id_cycle, numero_cycle, description, isbn) VALUES ('$title', '$id_auteur', '$serie', '$idtome', '$desc', '$isbn');";
+		}
+		else $sql = "INSERT INTO vBiblio_book (titre, id_author, description, isbn) VALUES ('$title', '$id_auteur', '$desc', '$isbn');";
+	
+		mysql_query($sql);
+		
+		$sql = "SELECT prenom, nom FROM vBiblio_author WHERE id_author=$id_auteur";
+		$result = mysql_query($sql);
+		if($result){
+			$row = mysql_fetch_assoc($result);
+			$nomAuteurPourNotif = $row['nom'];
+			$prenomAuteurPourNotif = $row['prenom'];
+		}
+		
+		//TODO remplacer par un appel à envoyermail (scripts/commo)
+		$message ="Bonjour,
+  
+  L'utilisateur $uid a inséré un nouveau livre dans la base de données:
+    Titre: ".utf8_encode(str_replace('\\', '',$title))."
+  	Auteur : $prenomAuteurPourNotif $nomAuteurPourNotif
+    Description : 
+    ".utf8_encode(str_replace('\\', '',$desc))."
+	
+  Cordialement,
+  Julien, votre Webmaster.
+  ";
+		$message = utf8_decode($message);
+		mail("vbiblio@free.fr","[vBiblio] Nouveau livre saisi", $message, "From:Notification vBiblio <vbiblio@free.fr>");
 	}
-	else $sql = "INSERT INTO vBiblio_book (titre, id_author, description) VALUES ('$title', '$id_auteur', '$desc');";
-
-	mysql_query($sql);
+	else{
+		$row = mysql_fetch_assoc($result);
+		$titre = $row['titre'];
+		$error = "<a style=\"color:red;\">L'ISBN indiqu&eacute; existe d&eacute;j&agrave; dans notre base pour le livre $titre</a>";
+	}
 }
 else {
 	if (isset($_POST['addBookTitle']) ) {
@@ -44,113 +76,13 @@ header('Access-Control-Allow-Origin: http://xisbn.worldcat.org/');
 <html>
 <head>
 
-	<title>vBiblio - Vos Livres</title>  
+	<title>vBiblio - Formulaire d'ajout de livres</title>  
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<link rel="stylesheet" type="text/css" href="css/vBiblio.css" media="screen" />
-<script language="javascript">
-<!-- 
-function createXHR(){
-	var xhr;
-	if (window.XMLHttpRequest) {
-		xhr = new XMLHttpRequest();
-	}
-
-	//ie
-	else if (window.ActiveXObject) {
-		try {
-			xhr = new ActiveXObject("Msxml2.XMLHTTP");
-		}
-		catch (e) {
-			xhr = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-	} 
-	return xhr;
-}	
-
-
-function enableSeries(){
-	if(document.getElementsByName('series')[0].disabled){
-		document.getElementsByName('series')[0].disabled = false;
-		document.getElementsByName('idTome')[0].disabled = false;
-		//charger la liste des series de l'auteur
-		populateSeriesList(document.getElementsByName('auteur')[0]);		
-	}else{ //on désactive le choix de la série
-		document.getElementsByName('series')[0].disabled = true;
-		document.getElementsByName('idTome')[0].disabled = true;
-		//on met un élément vide
-		document.getElementsByName('series')[0].innerHTML="<option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>";
-	}
-}
-
-function reloadBookTitles(object){
-	populateSeriesList(object);
-}
-
-function populateSeriesList(authorChoice){
-	idAuteur = authorChoice.options[authorChoice.selectedIndex].value;
+	<script type="text/javascript" src="js/core/vbiblio_ajax.js"></script>
+	<script type="text/javascript" src="js/gui/bookForm_gui.js"></script>
+	<script type="text/javascript" src="js/core/string_functions.js"></script>
 	
-
-	xhr = createXHR();
-	if(xhr!=null) {
-		xhr.open("GET","http://localhost/vBiblio/scripts/db/reqAuthorSeries.php?author="+idAuteur, true);
-		xhr.onreadystatechange = function(){
-			if ( xhr.readyState == 4 ){
-				// j'affiche dans les series de l'auteur
-				if(document.getElementsByName('series')[0].disabled!=true){
-					seriesList = document.getElementById('seriesList');
-					seriesList.innerHTML = xhr.responseText;			
-				}
-			}
-		};
-		xhr.send(null);
-	}	
-
-}
-
-
-function validateFORM(){
-	
-
-	obj = document.getElementsByName('isbn')[0];
-	chaine= obj.value;	
-	xhr = createXHR();
-	if(xhr !=null ) {
-		alert("http://xisbn.worldcat.org/webservices/xid/isbn/"+chaine+"/metadata.js");
-		xhr.open("GET","http://xisbn.worldcat.org/webservices/xid/isbn/"+chaine+"/metadata.js", true);
-		xhr.onreadystatechange = function(){
-			if ( xhr.readyState == 4 ){
-				// j'affiche dans les series de l'auteur
-				alert(xhr.responseText);
-				/*if(document.getElementsByName('series')[0].disabled!=true){
-					seriesList = document.getElementById('seriesList');
-					seriesList.innerHTML = xhr.responseText;			
-				}*/
-			}
-		};
-		xhr.send(null);
-	}	
-	
-	return false;
-	
-}
-
-function validateNum(chaine){
-	retour = false;
-	if(chaine !=''){
-		reg = /^[0-9]+$/;
-		if(reg.test(chaine))retour = true;
-		else alert("Vous ne devez entrer que des chiffres pour le numero du tome");
-	}
-	else{
-		alert('Vous devez renseigner toutes les valeurs.');
-		retour = false;
-	}
-	return retour;
-}
-
-
--->
-</script>
 </head>
 <body>
 <div id="vBibContenu">
@@ -162,11 +94,13 @@ function validateNum(chaine){
 <?
 	include('ssmenuHelpUs.php');
 ?>
-<!--
+
 Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est pas d&eacute;j&agrave; pr&eacute;sent dans notre r&eacute;f&eacute;rentiel:
-	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return validateFORM();">
+	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return validateForm();">
 		<fieldset>
 			<table style="font-size:inherit;">
+			<tr><td>ISBN :</td><td><input type="text" size="25" name="addBookISBN" onchange="javascript:validateISBNandPopulateBookInformations(this);" /></td></tr>
+			<tr><td></td><td></td></tr>
 			<tr><td>Auteur :</td><td> <select name="auteur" onchange="javascript:reloadBookTitles(this);">
 
 <?
@@ -184,20 +118,18 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 
 ?>
 			</select></td></tr>
-			<tr><td>ISBN :</td><td><input type="text" size="25" name="isbn"/></td></tr>
 			<tr><td>Titre :</td><td> <input type="text" max-length="100" size="25" name="addBookTitle" /></td></tr>
 			<tr><td valign="top">Description :</td><td> <textarea  cols="50" rows="10" name="desc" ></textarea></tr>
-			<tr><td>S&eacute;rie:</td><td> <input type="checkbox" onchange="javascript:enableSeries()" name="seriesEnabled"/>
+			<tr><td>S&eacute;rie:</td><td> <input type="checkbox" onchange="javascript:switchSeriesState()" name="seriesEnabled"/>
 			Titre : <select id="seriesList" name="series" disabled><option></option><option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option></select> 
 			Num&eacute;ro du tome: <input type="text" name="idTome" disabled/></td></tr>
-			<tr><td></td><td><input type="submit" value="Ajouter"/></td></tr>
+			<tr><td></td><td><input type="submit" value="Ajouter"/><input type="button" value="R&eacute;initialiser le formulaire" onclick="resetISBNBookForm();"/></td></tr>
 			</table>
 		</fieldset>
 	</form>
--->
-Prochainement disponible...
+
 <?
-	
+	echo $error;
 
 	mysql_close();
 ?>

@@ -3,9 +3,6 @@ var AuthorAscending = 1;
 var TitleAscending = 1;
 
 /*fonction permettant le tri des résultats par Titre...
-  /\
- /!\ Penser à gérer le cas où l'utilisateur a déjà filtrer la liste...
-----
 */
 function sortByAuthor(user){
   bookList = document.getElementsByName("vBiblioBookList")[0];
@@ -48,9 +45,6 @@ function sortByAuthor(user){
 }
 
 /*fonction permettant le tri des résultats par Titre...
-  /\
- /!\ Penser à gérer le cas où l'utilisateur a déjà filtrer la liste...
-----
 */
 function sortByTitle(user){
 
@@ -82,7 +76,6 @@ function sortByTitle(user){
 	xhr.send(null);
 
   }
-  filter();
 }
 
 /**

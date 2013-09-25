@@ -5,9 +5,9 @@ include('db.php');
 
 if(isset($_GET['uid']) && isset($_GET['id_book']) && isset($_GET['idEmprunteur']) ){
 	dbConnect();
-	$uid=$_GET['uid'];
-	$id_book = $_GET['id_book'];
-	$idEmprunteur = $_GET['idEmprunteur'];
+	$uid=intval($_GET['uid']);
+	$id_book = intval($_GET['id_book']);
+	$idEmprunteur = intval($_GET['idEmprunteur']);
 	
 	//mis à jour des infos du livre
 	$sql="UPDATE vBiblio_poss SET pret=0 WHERE id_book=$id_book AND userid=$uid";

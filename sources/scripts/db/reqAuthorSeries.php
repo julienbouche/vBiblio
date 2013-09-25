@@ -7,7 +7,7 @@ if(isset($_GET['author'])){
 	dbConnect();
 
 	//mettre à jour la table.
-	$auteur = $_GET['author'];
+	$auteur = intval($_GET['author']);
 	
 	$sql = "SELECT titre, id_cycle FROM vBiblio_author, vBiblio_cycle WHERE vBiblio_author.id_author=$auteur AND vBiblio_author.id_author=vBiblio_cycle.id_author";
 	$result = mysql_query($sql);

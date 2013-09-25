@@ -1,6 +1,6 @@
 <?php
 include('../../accesscontrol.php');
-include('../../scripts/db/db.php');
+require_once('../../scripts/db/db.php');
 include('../../scripts/common.php');
 
 
@@ -10,19 +10,33 @@ dbConnect();
 
 $uid = $_SESSION['uid'];
 $myTUID = getTableUserId($uid);
-$userProfilId = $_GET['u'];
+$userProfilId = mysql_real_escape_string($_GET['u']);
 ?>
 
 	
 	
 <?
 	if(isset($_GET['sort']) && $_GET['sort']=="Title" && isset($_GET['sortOrder']) ){
-	$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user WHERE vBiblio_poss.userid = vBiblio_user.tableuserid AND vBiblio_user.userid='$uid' AND vBiblio_poss.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author ORDER BY vBiblio_book.titre ".$_GET['sortOrder'].", vBiblio_author.nom, id_cycle, numero_cycle ASC"; 
-	//echo "$sql <br/>";
+		$sortOrder = mysql_real_escape_string($_GET['sortOrder']);
+		$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author
+			FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user
+			WHERE vBiblio_poss.userid = vBiblio_user.tableuserid
+			AND vBiblio_user.userid='$uid'
+			AND vBiblio_poss.id_book = vBiblio_book.id_book
+			AND vBiblio_book.id_author=vBiblio_author.id_author
+			ORDER BY vBiblio_book.titre $sortOrder , vBiblio_author.nom, id_cycle, numero_cycle ASC"; 
+	
 	}
 	else{
 		if(isset($_GET['sort']) && $_GET['sort']=="Author" && isset($_GET['sortOrder']) ){
-			$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user WHERE vBiblio_poss.userid = vBiblio_user.tableuserid AND vBiblio_user.userid='$uid' AND vBiblio_poss.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author ORDER BY vBiblio_author.nom ".$_GET['sortOrder'].",vBiblio_author.prenom ".$_GET['sortOrder'].", id_cycle, numero_cycle ASC"; 
+			$sortOrder = mysql_real_escape_string($_GET['sortOrder']);
+			$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author
+				FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user
+				WHERE vBiblio_poss.userid = vBiblio_user.tableuserid
+				AND vBiblio_user.userid='$uid'
+				AND vBiblio_poss.id_book = vBiblio_book.id_book
+				AND vBiblio_book.id_author=vBiblio_author.id_author
+				ORDER BY vBiblio_author.nom $sortOrder,vBiblio_author.prenom $sortOrder, id_cycle, numero_cycle ASC"; 
 		}
 
 	}
@@ -65,8 +79,13 @@ $userProfilId = $_GET['u'];
 			}
 
 			$returnMsg = $returnMsg .  "$titre</a>";
-			$returnMsg = $returnMsg . "<span class=\"menuContextuel\" style=\"\"><img class=\"ImgAction\" onclick=\"suppBookFromList($idbook, $myTUID);\" src=\"images/supp.png\" title=\"Enlever de ma liste de livres\" width=\"20px\" height=\"20px\"/></span>";
-
+			$returnMsg = $returnMsg . "<span class=\"menuContextuel\">";
+			$returnMsg = $returnMsg . "<a target=\"_blank\" href=\"marquer_emprunt.php?q=$idbook\">";
+			$returnMsg = $returnMsg . "<img class=\"ImgAction\" src=\"images/bookmark.png\" title=\"Marquer ce livre comme emprunt...\" width=\"20px\" height=\"20px\" />";
+			$returnMsg = $returnMsg . "</a>&nbsp;";
+			$returnMsg = $returnMsg . "<img class=\"ImgAction\" onclick=\"suppBookFromList($idbook, $myTUID);\" src=\"images/supp.png\" title=\"Enlever de ma liste de livres\" width=\"20px\" height=\"20px\" />";
+			$returnMsg = $returnMsg . "</span>";
+			
 			$returnMsg = $returnMsg .  "</td>";
 			$returnMsg = $returnMsg .  "<td><a href=\"ficheAuteur.php?id=$idAuthor\" class=\"vBibLink\" name=\"authorName\">$prenom_auteur $nom_auteur</a></td>";
 			$returnMsg = $returnMsg .  "<td style=\"text-align:center;\"><input name=\"".$idbook."Possede\" type=\"checkbox\" title=\"je l'ai\" onchange=\"javascript:updatePossede('$uid', $idbook )\" ";

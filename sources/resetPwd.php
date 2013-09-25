@@ -3,6 +3,52 @@ include 'scripts/common.php';
 include 'scripts/db/db.php';
 
 if(!isset($_POST['submitok']) ){
+
+}
+else{
+  if( isset($_POST['uid']) && isset($_POST['umail']) && strlen($_POST['umail'])>0 && strlen($_POST['uid'])>0 ){
+    $uid = $_POST['uid'];
+    $umail = $_POST['umail'];
+    dbConnect();
+    
+    $sql = "SELECT vBiblio_user.fullname FROM vBiblio_user WHERE  userid='$uid' AND email='$umail' ";
+    $result = mysql_query($sql);
+
+	if($result and mysql_num_rows($result)>0){
+	    $newpass = substr(md5(time()),0,6);
+	    $sql="UPDATE vBiblio_user SET password = PASSWORD('$newpass') WHERE userid='$uid' AND email='$umail' ";
+	    
+	    $result = mysql_query($sql) or $feedback = "Une erreur est survenue dans le traitement de votre demande.";
+	    
+	    $message ="Cher $uid,
+Vous avez choisi de r√©initialiser votre mot de passe. 
+Voici donc vos nouveaux identifiants de connexion : 
+    Utilisateur : $uid
+    mot de passe : $newpass
+    
+Ce mot de passe a √©t√© g√©n√©r√© automatiquement. Nous vous conseillons de le changer sur la page de votre profil utilisateur.
+
+Si vous rencontrez des probl√®mes, n'h√©sitez pas √† nous contacter √† l'adresse suivante: vbiblio@free.fr 
+
+En esp√©rant que vous appr√©cierez nos services,
+ 
+Cordialement,
+Julien, votre Webmaster
+    ";
+	    //$message = utf8_decode($message);
+	    mail($umail,"R√©initialisation de vos identifiants", $message, "From:Notification vBiblio <vbiblio@free.fr>");
+	    //header('Location:formLogin.php');
+	    if($result){$feedback = "R&eacute;initialisation effectu&eacute;e. Merci de consulter votre boite mail.";}
+	}	
+	else {
+		$feedback = "Il semblerait que vous ayez mal renseign&eacute; un champs. Merci de r&eacute;-essayer. <br>Si le probl&egrave; persiste, merci de nous contacter √† l'adresse : <a href=\"mailto:vbiblio@free.fr\">vbiblio@free.fr</a>";
+	}	
+  }
+  else {
+    $feedback= "Vous n'avez pas correctement renseigner les champs. Merci de recommencer.";
+    //header("Location:".$_SERVER['PHP_SELF']);
+  }
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -29,7 +75,7 @@ if(!isset($_POST['submitok']) ){
 <br/><br/><br/><br/>
 	<br/><br/><br/><br/>
 
-
+<?=$feedback?>
 	
   <div name="resetBox" style="margin:auto;width:350px;border:1px black solid;">
 	<div style="background-color:#AAF;color:white;position:relative;top:0px;text-align:center;font-weight:bold;">R&eacute;initialisation du mot de passe</div>
@@ -38,9 +84,9 @@ if(!isset($_POST['submitok']) ){
 		<input name="uid" type="text" maxlength="100" size="25" /></p>
 
 		<p>E-mail:
-		<input name="umail" type="text" maxlength="100" size="25" title="Adresse que vous avez enregistrÈe dans votre profil"/></p>
+		<input name="umail" type="text" maxlength="100" size="25" title="Adresse que vous avez enregistr√©e dans votre profil"/></p>
 		
-    <input type="submit" name="submitok" value="RÈinitialiser" />
+    <input type="submit" name="submitok" value="R√©initialiser" />
      
 		<br/>
 	</form>
@@ -48,7 +94,7 @@ if(!isset($_POST['submitok']) ){
    
 	</div>
 	<br/>
-	<div style="color:red">Votre nouveau mot de passe vous sera envoyÈ par mail sur votre adresse.</div> 
+	<div style="color:red">Votre nouveau mot de passe vous sera envoy√© par mail sur votre adresse.</div> 
 
 	
 	
@@ -61,40 +107,5 @@ Site r&eacute;alis&eacute; par <i>Shifty</i>. En cas de besoin, <a href="mailto:
 </div>
 </body>  
 </html>
-<?
-}
-else{
-  if( isset($_POST['uid']) && isset($_POST['umail']) ){
-    $uid = $_POST['uid'];
-    $umail = $_POST['umail'];
-  
-	
-    $newpass = substr(md5(time()),0,6);
-    $sql="UPDATE vBiblio_user SET password = PASSWORD('$newpass') WHERE userid='$uid' AND email='$umail' ";
-    dbConnect();
-    mysql_query($sql);
-    
-    $message ="Cher $uid,
-Vous avez choisi de rÈinitialiser votre mot de passe. 
-Voici donc vos nouveaux identifiants de connexion : 
-    Utilisateur : $uid
-    mot de passe : $newpass
-    
-Ce mot de passe a ÈtÈ gÈnÈrÈ automatiquement. Nous vous conseillons de le changer sur la page de votre profil utilisateur.
 
-Si vous rencontrez des problËmes, n'hÈsitez pas ‡ me contacter ‡ l'adresse suivante: vbiblio@free.fr 
-
-En espÈrant que vous apprÈcierez nos services,
- 
-Cordialement,
-Julien, votre Webmaster
-    ";
-    //$message = utf8_decode($message);
-    mail($umail,"RÈinitialisation de vos identifiants", $message, "From:Notification vBiblio <vbiblio@free.fr>");
-    header('Location:formLogin.php');
-  }
-  else {
-    header("Location:".$_SERVER['PHP_SELF']);
-  }
-}
 ?>

@@ -1,11 +1,11 @@
 <?php
 include('db.php');
 
-$uid= $_GET['uid'];
-$id_book = $_GET['id_book'];
+$uid= mysql_real_escape_string($_GET['uid']);
+$id_book = intval($_GET['id_book']);
 
-$Prop = $_GET['Prop'];
-$Value= $_GET['Val'];
+$Prop = mysql_real_escape_string($_GET['Prop']);
+$Value= mysql_real_escape_string($_GET['Val']);
 
 //recuperer l'identifiant de l'utilisateur
 dbConnect();

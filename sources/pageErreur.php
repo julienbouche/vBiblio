@@ -1,10 +1,6 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
 require_once('classes/Utilisateur.php');
-
-//connexion à la bd
-dbConnect();
 
 
 $uid= $_SESSION['uid'];

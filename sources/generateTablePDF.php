@@ -1,9 +1,7 @@
 <?php
 require('mysql_table_pdf.php');
 include('accesscontrol.php');
-include('scripts/db/db.php');
 
-dbConnect();
 checkSecurity();
 
 

@@ -45,7 +45,7 @@ function sendTags(idbook){
 	//envoyer la requete 
 	doPOSTRequest("scripts/db/updateTags.php", getstr, true);
 
-	//cacher la fen�tre
+	//cacher la fenêtre
 	popinside_close('fenetreTags');
 	
 	//on rafrachit la page...
@@ -77,7 +77,7 @@ var avote = 0;
 
 
 function submitForm(obj, idbook, id_user){
-	//Récupérer les paramètres du formulaire
+	//RÃ©cupÃ©rer les paramÃ¨tres du formulaire
       var getstr = "";
       for (i=0; i<obj.getElementsByTagName("input").length; i++) {
         if (obj.getElementsByTagName("input")[i].type == "text") {
@@ -109,7 +109,7 @@ function submitForm(obj, idbook, id_user){
 	//envoyer la requete 
 	doPOSTRequest("scripts/db/adviseFriends.php", getstr, false);
 	
-	//cacher la fenêtre
+	//cacher la fenÃªtre
 	popinside_close('fenetreConseilAmi');
 	
 }
@@ -131,7 +131,7 @@ function doPOSTRequest(url, parameters, reload){
 
 function alertContentsWithReload(){
 	if (http_request.readyState == 4) {
-         if (http_request.status == 200 || http_request.status == 0) { // l'operation s'est correctement deroulée
+         if (http_request.status == 200 || http_request.status == 0) { // l'operation s'est correctement deroulÃ©e
 		window.location.reload();
          } else {
             alert('Une erreur (code:'+http_request.status+') est survenue pendant le traitement de votre demande.');
@@ -141,7 +141,7 @@ function alertContentsWithReload(){
 
 function alertContents(){
 	if (http_request.readyState == 4) {
-         if (http_request.status == 200 || http_request.status == 0) { // l'operation s'est correctement deroulée
+         if (http_request.status == 200 || http_request.status == 0) { // l'operation s'est correctement deroulÃ©e
             //alert(''+http_request.status+''+http_request.responseText);
             //result = http_request.responseText;
             //document.getElementById('myspan').innerHTML = result;            
@@ -162,3 +162,24 @@ function vote(idbook, note){
 		avote = 1;
 	}
 } 
+
+function ratingOverFnct(element, value){
+	element.src= "images/star-rating-full.png";
+	for(var i=0; i<=10;i++){
+		if(i<=value)document.getElementById('rating'+i).src="images/star-rating-full.png";
+		else document.getElementById('rating'+i).src="images/star1.png";
+	}
+}
+
+function ratingOutFnct(element, value){
+	element.src=value;
+}
+
+function ratingOutGlobal(){
+	
+	for(var i=0; i<=10;i++){
+		 document.getElementById('rating'+i).onmouseout();
+	}
+}
+
+

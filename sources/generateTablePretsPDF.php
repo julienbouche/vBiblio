@@ -1,11 +1,9 @@
 <?php
 require('mysql_table_pdf.php');
 include('accesscontrol.php');
-include('scripts/db/db.php');
 
 checkSecurity();
 
-dbConnect();
 $uid = $_SESSION['uid'];
 $sql = "SELECT tableuserid FROM vBiblio_user WHERE userid='$uid'";
 $result = mysql_query($sql);

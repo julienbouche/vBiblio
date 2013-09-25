@@ -45,3 +45,5 @@ function requestFriendBook(elt, me, tableuserid, idbook){
 function HideItem(element){
 	element.style.visibility="hidden";
 }
+
+

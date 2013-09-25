@@ -1,5 +1,5 @@
 <?php
-
+//cette fonction ne sert désormais plus à rien!
 function writeTags($idBook){
 	echo "<div style=\"padding-left:20px;\">";
 	$sqlReq = "SELECT value, vBiblio_tag.id_tag as idtag, count 

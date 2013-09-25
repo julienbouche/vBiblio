@@ -1,9 +1,7 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
 
 checkSecurity();
-dbConnect();
 
 //ajout du bouquin si l'utilisateur a décidé d'ajouter un livre
 if(isset($_POST['addBookCycle']) && isset($_POST['nbTomes']) && $_POST['addBookCycle']!='' && $_POST['nbTomes']!=''){
@@ -19,10 +17,10 @@ if(isset($_POST['addBookCycle']) && isset($_POST['nbTomes']) && $_POST['addBookC
 	$sql = "SELECT prenom, nom FROM vBiblio_author WHERE id_author=$id_auteur";
 	$result = mysql_query($sql);
 	if($result){
-    $row = mysql_fetch_assoc($result);
-    $nomAuteurPourNotif = $row['nom'];
-    $prenomAuteurPourNotif = $row['prenom'];
-  }
+    		$row = mysql_fetch_assoc($result);
+    		$nomAuteurPourNotif = $row['nom'];
+    		$prenomAuteurPourNotif = $row['prenom'];
+  	}
   
 	mail("vbiblio@free.fr","[vBiblio] Nouveau cycle saisi", "Bonjour,
   
@@ -38,15 +36,6 @@ if(isset($_POST['addBookCycle']) && isset($_POST['nbTomes']) && $_POST['addBookC
 }
 
 $uid = $_SESSION['uid'];
-$sql = "SELECT tableuserid FROM vBiblio_user WHERE userid='$uid'";
-$result = mysql_query($sql);
-if($result && mysql_num_rows($result)){
-	$row = mysql_fetch_assoc($result);
-	$mytableId = $row['tableuserid'];
-}
-
-
-
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -85,56 +74,58 @@ function validateNum(chaine){
 </head>
 <body>
 <div id="vBibContenu">
-<?
-	include('header.php');
-?>
+	<? include('header.php'); ?>
 
 	<div id="vBibDisplay">
-<?
-	include('ssmenuHelpUs.php');
-?>
+	<? include('ssmenuHelpUs.php'); ?>
 
 Vous avez la possibilit&eacute; d'ajouter un titre de cycle directement si celui-ci n'est pas d&eacute;j&agrave; pr&eacute;sent dans notre r&eacute;f&eacute;rentiel:
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return validateTomes();">
 		<fieldset>
 		<table style="font-size:inherit">
 		<tr>
-			<td>Auteur :</td><td> <select name="auteur">
+			<td>Auteur :</td>
+			<td>
+				<select name="auteur">
 <?
-	$sql = "SELECT nom, prenom, id_author FROM vBiblio_author ORDER BY nom ASC";
-	$result = mysql_query($sql);
-	if($result && mysql_num_rows($result)>0){
-		while($row = mysql_fetch_assoc($result)){
-			$nom = $row['nom'];
-			$prenom = $row['prenom'];
-			$idAut = $row['id_author'];
-			echo "<option value=\"$idAut\" >$prenom $nom</option>";
-		}
-
-	}
-
+			$sql = "SELECT nom, prenom, id_author FROM vBiblio_author ORDER BY nom ASC";
+			$result = mysql_query($sql);
 ?>
-			</select></td>
+	<?php if($result && mysql_num_rows($result)>0) : ?>
+		<?php while($row = mysql_fetch_assoc($result)) : ?>
+			<option value="<?=$row['id_author']?>" ><?=$row['nom']?>, <?=$row['prenom']?></option>
+		<?php endwhile; ?>
+	<?php endif; ?>
+				</select>
+			</td>
 		</tr>
 
-			<tr><td>Titre :</td><td> <input type="text" max-length="100" size="25" name="addBookCycle" /></td></tr>
-			<tr><td>Nombre de tomes:</td><td> <input type="text" max-length="10" size="10" name="nbTomes" /></td></tr>
-			<tr><td></td><td><input type="submit" value="Ajouter" /></td></tr>
+			<tr>
+				<td>Titre :</td>
+				<td> <input type="text" max-length="100" size="25" name="addBookCycle" /></td>
+			</tr>
+			<tr>
+				<td>Nombre de tomes:</td>
+				<td> <input type="text" max-length="10" size="10" name="nbTomes" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Ajouter" /></td>
+			</tr>
 		</table>
 		</fieldset>
 	</form>
 <?
 	//faire l'ajout du livre et afficher un message si reussi...
-
+	
 	mysql_close();
 ?>
 
-</div>
-<?
-	include('footer.php');
-?>
+	</div>
+	<? include('footer.php'); ?>
 
 </div>
 </body>
 </html>
 
+	

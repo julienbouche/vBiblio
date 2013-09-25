@@ -1,27 +1,40 @@
 <?php
 include('../../accesscontrol.php');
-include('../../scripts/db/db.php');
+require_once('../../scripts/db/db.php');
 include("../../classes/Utilisateur.php");
 require_once("../../classes/Livre.php");
 
-//checkSecurity();
 
 dbConnect();
 
 $uid = $_SESSION['uid'];
-$userProfilId = $_GET['u'];
+$userProfilId = intval($_GET['u']);
 ?>
 
 	
 	
 <?
 	if(isset($_GET['sort']) && $_GET['sort']=="Title" && isset($_GET['sortOrder']) ){
-	$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user WHERE vBiblio_poss.userid = vBiblio_user.tableuserid AND vBiblio_user.tableuserid='$userProfilId' AND vBiblio_poss.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author ORDER BY vBiblio_book.titre ".$_GET['sortOrder'].", vBiblio_author.nom, id_cycle, numero_cycle ASC"; 
-	//echo "$sql <br/>";
+		$sortOrder = mysql_real_escape_string($_GET['sortOrder']);
+		$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author
+			FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user
+			WHERE vBiblio_poss.userid = vBiblio_user.tableuserid
+			AND vBiblio_user.tableuserid='$userProfilId'
+			AND vBiblio_poss.id_book = vBiblio_book.id_book
+			AND vBiblio_book.id_author=vBiblio_author.id_author
+			ORDER BY vBiblio_book.titre $sortOrder, vBiblio_author.nom, id_cycle, numero_cycle ASC"; 
+	
 	}
 	else{
 		if(isset($_GET['sort']) && $_GET['sort']=="Author" && isset($_GET['sortOrder']) ){
-			$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user WHERE vBiblio_poss.userid = vBiblio_user.tableuserid AND vBiblio_user.tableuserid='$userProfilId' AND vBiblio_poss.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author ORDER BY vBiblio_author.nom ".$_GET['sortOrder'].",vBiblio_author.prenom ".$_GET['sortOrder'].", id_cycle, numero_cycle ASC"; 
+			$sortOrder = mysql_real_escape_string($_GET['sortOrder']);
+			$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author
+				FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user
+				WHERE vBiblio_poss.userid = vBiblio_user.tableuserid
+				AND vBiblio_user.tableuserid='$userProfilId'
+				AND vBiblio_poss.id_book = vBiblio_book.id_book
+				AND vBiblio_book.id_author=vBiblio_author.id_author
+				ORDER BY vBiblio_author.nom $sortOrder,vBiblio_author.prenom $sortOrder, id_cycle, numero_cycle ASC"; 
 		}
 
 	}
@@ -75,17 +88,16 @@ $userProfilId = $_GET['u'];
 			//ajout du menu contextuel (au survol)
 			$returnMsg = $returnMsg . "<span class=\"menuContextuel\">";
 			$returnMsg = $returnMsg . "
-				<img class=\"ImgAction\" onclick=\"javascript:addBookToMyVBiblio(this, ".$bouquin->getID().", ".$utilisateur->getID()." );\" src=\"images/AddToList.png\" title=\"Ajouter &agrave; ma vBiblio\" width=\"20px\" height=\"20px\" />
-				<img class=\"ImgAction\" onclick=\"javascript:addBookToMyTRL(this, ".$bouquin->getID().", ".$utilisateur->getID().");\" src=\"images/AddToTRL.png\" title=\"Ajouter &agrave; ma ToRead List\" width=\"20px\" height=\"20px\" />";
+				<img class=\"ImgAction\" onclick=\"javascript:addBookToMyVBiblio(this, ".$bouquin->getID().", ".$utilisateur->getID()." );\" src=\"images/addToList2.png\" title=\"Ajouter &agrave; ma vBiblio\" width=\"20px\" height=\"20px\" />
+				<img class=\"ImgAction\" onclick=\"javascript:addBookToMyTRL(this, ".$bouquin->getID().", ".$utilisateur->getID().");\" src=\"images/AddToTRL2.png\" title=\"Ajouter &agrave; ma ToRead List\" width=\"20px\" height=\"20px\" />";
 				
 				
 				if(!$bouquin->isRequested($utilisateur->getID(),$buddy->getID()) && !$buddy->aPrete($bouquin)){
 				$returnMsg = $returnMsg . "
-				<img class=\"ImgAction\" onclick=\"javascript:requestFriendBook(this, ".$utilisateur->getID().", ".$buddy->getID().", ".$bouquin->getID().");\" src=\"images/demande_pret.png\" title=\"Demander en pr&ecirc;t &agrave; ".$buddy->getPrenom()."\" width=\"20px\" height=\"18px\" />";
+				<img class=\"ImgAction\" onclick=\"javascript:requestFriendBook(this, ".$utilisateur->getID().", ".$buddy->getID().", ".$bouquin->getID().");\" src=\"images/demande_pret.png\" title=\"Demander en pr&ecirc;t &agrave; ".$buddy->getPrenom()."\" width=\"20px\" height=\"20px\" />";
 				}
 				
-				$returnMsg = $returnMsg . "<a target=\"_blank\" href=\"emprunts.php?q=".$bouquin->titreLong()."\">
-<img class=\"ImgAction\" onclick=\"\" src=\"images/recherche.png\" title=\"Rechercher qui peut vous pr&ecirc;ter ce livre\" width=\"20px\" height=\"19px\" /></a>
+				$returnMsg = $returnMsg . " <a target=\"_blank\" href=\"emprunts.php?q=".$bouquin->titreLong()."\"><img class=\"ImgAction\" onclick=\"\" src=\"images/recherche.png\" title=\"Rechercher qui peut vous pr&ecirc;ter ce livre\" width=\"20px\" height=\"20px\" /></a>
 				</span>";
 				
 			}

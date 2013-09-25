@@ -1,12 +1,9 @@
 <?php
 include('accesscontrol.php');
 include('scripts/common.php');
-include('scripts/db/db.php');
 include('scripts/dateFunctions.php');
 checkSecurity();
 
-//connexion    la bd
-dbConnect();
 
 $uid= $_SESSION['uid'];
 
@@ -175,7 +172,7 @@ if(isset($_POST['oldPwd'])){
 
 	$result = mysql_query($sql);
 	
-	//on a bien trouv © le compte de l'utilisateur
+	//on a bien trouv Â© le compte de l'utilisateur
 	if($result && mysql_num_rows($result)>0){
 		$sql = "UPDATE vBiblio_user SET password = PASSWORD('$newPwd') WHERE userid='$uid' AND password=PASSWORD('$oldPwd')";
 		
@@ -185,7 +182,7 @@ if(isset($_POST['oldPwd'])){
 	}
 }
 
-//v ©rifier l'autre formulaire
+//v Â©rifier l'autre formulaire
 if(isset($_POST['sexe']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['newemail']) && isset($_POST['dateNaiss']) ){
 	$updateNom = $_POST['nom'];
 	$updatePrenom = $_POST['prenom'];
@@ -213,7 +210,7 @@ if(isset($_POST['sexe']) && isset($_POST['nom']) && isset($_POST['prenom']) && i
 }
 
 
-//on r ©cup ¨re enfin les infos de la bdd ( ©ventuellement mis    jour juste au dessus)
+//on r Â©cup Â¨re enfin les infos de la bdd ( Â©ventuellement mis    jour juste au dessus)
 $sql = "SELECT email, date_naiss, sexe, nom, prenom, website, prefBookStyle, id_pref_book, notification_active, active_public_page	 FROM vBiblio_user WHERE userid = '$uid'";    
 
 $result = mysql_query($sql);

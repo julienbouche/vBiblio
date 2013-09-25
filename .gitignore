@@ -161,3 +161,14 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+
+#temp win files
+*.*~
+
+#fichier images
+sources/images/covers
+sources/images/avatars
+
+#fichier conf de la base de données
+sources/scripts/db/db.php

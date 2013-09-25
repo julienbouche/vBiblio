@@ -1,6 +1,6 @@
 <?php
 include('../accesscontrol.php');
-include('../scripts/db/db.php');
+require_once('../scripts/db/db.php');
 
 dbConnect();
 
@@ -71,7 +71,7 @@ if($user_login != "" ){
 
 <?
 
-//si l'utilisateur n'est pas connu, insérer de la pub !
+//si l'utilisateur n'est pas connu, insÃ©rer de la pub !
 if( isUserKnown()==false ) {
 ?>
 <div style="float:left;width:90%;padding-left:20px;text-align:justify">Ce site est destin&eacute; &agrave; vous aider &agrave; g&eacute;rer simplement votre biblioth&egrave;que.	<br/>
@@ -179,10 +179,10 @@ if( $userExist && $isPublicActivated){
 	<?
 }else {
   if(!$userExist){
-    echo "L'utilisateur ($user_login) que vous recherchez n'existe pas ou bien il/elle a supprimé son compte.";
+    echo "L'utilisateur ($user_login) que vous recherchez n'existe pas ou bien il/elle a supprimÃ© son compte.";
 	
   }
-  else echo $userProfilName." n'a pas activé sa page publique.";
+  else echo $userProfilName." n'a pas activÃ© sa page publique.";
 
 }
   

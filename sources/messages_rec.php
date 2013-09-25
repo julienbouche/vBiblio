@@ -1,12 +1,10 @@
 <?php
 require_once('accesscontrol.php');
-require_once('scripts/db/db.php');
 require_once('scripts/dateFunctions.php');
 require_once('scripts/common.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Message.php');
 
-dbConnect();
 checkSecurityHome();
 
 
@@ -103,33 +101,34 @@ function AfficherFormReponse($caller, $id_mess){
 		$Expediteur = $Message->getExpediteur();
 		if($Expediteur->aUnAvatar()){ 
 		?>
-<li class="vBibMessage" style="background: url(<?=$Expediteur->cheminFichierAvatar()?>) no-repeat 0 1.45em;min-height:70px;" >
+		<li class="vBibMessage" style="background: url(<?=$Expediteur->cheminFichierAvatar()?>) no-repeat 0 1.45em;min-height:70px;" >
 	 	<?
    		}
 	 	else{
 	 	?>
-<li class="vBibMessage" style="margin-right:52px;" >
+		<li class="vBibMessage" style="" >
 		<?
    		}
 		?>
-<div>
-   <div class="vBibMessageAuthor">
-	<a href="userProfil.php?user=<?=$Expediteur->getID()?>" title="Voir le profil" class="vBibLink"><b><?=$Expediteur->getPrenom()?></b></a>
-   </div>&nbsp;a &eacute;crit:&nbsp;<span class="vBibMessageDate">le <?=dateh_lettres($Message->getDate())?></span>
-</div>
-<div class="vBibMessageContent"  style="margin: 0 4em;">
-	<?=nl2br(htmlentities($Message->getContent()))?>
-	<br/>&nbsp;
-	<input type="button" value="R&eacute;pondre" style="float:right;" onclick="AfficherFormReponse(this,<?=$Message->getID()?>);"/>
-</div>
-<div id="ReponseMessage<?=$Message->getID()?>" style="display:none; position:relative;width:100%;margin:auto;">
-	<form name="formDirectMessage" method="POST" action="<?=$_SERVER['PHP_SELF']?>" style="display:block;padding-left:100px;">
-		<input type="hidden" value="<?=$Expediteur->getID()?>" name="user_to" /> 
-		<textarea id="TAReponseMessage<?=$Message->getID()?>" wrap="soft" name="directMessage" rows="5" cols="60" style="display:block;position:relative;right:0px;width:600px;"></textarea>
-		<input type="submit" value="Envoyer" style="display:block;position:relative;right:0px;" />
-	</form>
-</div>
-</li>
+		<div>
+   			<div class="vBibMessageAuthor">
+			<a href="userProfil.php?user=<?=$Expediteur->getID()?>" title="Voir le profil" class="vBibLink"><b><?=$Expediteur->getPrenom()?></b></a>
+   			</div>&nbsp;a &eacute;crit:&nbsp;
+			<span class="vBibMessageDate">le <?=dateh_lettres($Message->getDate())?></span>
+		</div>
+		<div class="vBibMessageContent"  style="margin: 0 4em;border-radius:0px 10px 10px 10px;">
+			<?=nl2br(htmlentities($Message->getContent()))?>
+			<br/>&nbsp;
+			<input type="button" value="R&eacute;pondre" style="float:right;" onclick="AfficherFormReponse(this,<?=$Message->getID()?>);"/>
+		</div>
+		<div id="ReponseMessage<?=$Message->getID()?>" style="display:none; position:relative;width:100%;margin:auto;">
+			<form name="formDirectMessage" method="POST" action="<?=$_SERVER['PHP_SELF']?>" style="display:block;padding-left:100px;">
+				<input type="hidden" value="<?=$Expediteur->getID()?>" name="user_to" /> 
+				<textarea id="TAReponseMessage<?=$Message->getID()?>" wrap="soft" name="directMessage" rows="5" cols="60" style="display:block;position:relative;right:0px;width:600px;" ></textarea>
+				<input type="submit" value="Envoyer" style="display:block;position:relative;right:0px;" />
+			</form>
+		</div>
+	</li>
 <?
 	}
 ?>
@@ -140,12 +139,8 @@ function AfficherFormReponse($caller, $id_mess){
     else echo "<br/>Vous n'avez aucun message.";
 
     ?>
-		</div>
-	
-<?
-	include('footer.php');
-?>
-
+	</div>	
+	<? include('footer.php'); ?>
 </div>
 </body>
 </html>

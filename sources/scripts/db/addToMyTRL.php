@@ -8,8 +8,8 @@ dbConnect();
 if(isset($_GET['idbook']) && isset($_GET['id_user']) ){
 
 	//mettre à jour la table.
-	$idbook = $_GET['idbook'];
-	$id_user = $_GET['id_user'];
+	$idbook = intval($_GET['idbook']);
+	$id_user = intval($_GET['id_user']);
 	$sysd = date('Y-m-d H:i:s');
 
 	$sql = "INSERT INTO vBiblio_toReadList (id_book, id_user, date_ajout) VALUES ('$idbook', '$id_user', '$sysd') ";

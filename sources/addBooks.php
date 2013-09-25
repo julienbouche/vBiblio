@@ -1,14 +1,11 @@
 <?php
 include('accesscontrol.php');
-include('scripts/db/db.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
-dbConnect();
 checkSecurity();
 
 $uid = $_SESSION['uid'];
-$utilisateur = new Utilisateur($uid);
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -25,18 +22,23 @@ $utilisateur = new Utilisateur($uid);
 <div id="vBibContenu">
 <?
 	include('header.php');
-?>
 
-	<div id="vBibDisplay">
-
-	Rechercher parmi notre r&eacute;f&eacute;rentiel un livre que vous souhaitez ajouter &agrave; votre biblioth&egrave;que :
-<?
-
-
+	
+	//récupération de la recherche de la searchBar et/ou des liens de recherche si on a navigué (Utilisateurs/Emprunts)
 	if(isset($_POST['searchText']) ){
 		$searchText = $_POST['searchText'];
+	}else{
+		$searchText = $_GET['q'];
 	}
 ?>
+	<div id="vBibDisplay">
+		<div align="center">
+			<div class="MessagerieMenuItem"><a href="addBooks.php?q=<?=$searchText?>" class="vBibLink" ><input class="vert" value="Livres" type="button" /></a></div>
+			<div class="MessagerieMenuItem"><a href="emprunts.php?q=<?=$searchText?>" class="vBibLink" ><input value="Emprunts" type="button" /></a></div>
+			<div class="MessagerieMenuItem"><a href="addFriends.php?q=<?=$searchText?>&attribut=fullname" class="vBibLink" ><input value="Utilisateurs" type="button" /></a></div>
+		</div>
+
+	Rechercher parmi notre r&eacute;f&eacute;rentiel un livre que vous souhaitez ajouter &agrave; votre biblioth&egrave;que :
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
 		<fieldset>
 			<input type="text" max-length="100" size="100" name="searchText" value="<? echo str_replace("\\", "" , $searchText);?>"/>
@@ -45,11 +47,50 @@ $utilisateur = new Utilisateur($uid);
 	</form>
 	<br/>
 <?
+	$livresAAjouter = $utilisateur->rechercherLivresAAjouter($searchText);
+?>
 
-	if(isset($_POST['searchText']) ){
-		$utilisateur->afficherRechercheLivresAAjouter($_POST['searchText']);	
-	}
+<?php if(count($livresAAjouter)>0) : ?>
+			<form name="addingBookList" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+				<table style="font-size:inherit;">
+					<tr>
+						<td></td>
+						<td></td>
+						<td style="text-align:center;">Dans votre vBiblio<br/><a href="#" class="vBibLink" onclick="javascript:selectAllBooks();">Tous</a> / <a href="#" class="vBibLink" onclick="javascript:unselectAllBooks();">Aucun</a>
+						</td>
+						<td style="text-align:center;">Dans votre ToRead List<br/><a href="#" class="vBibLink" onclick="javascript:selectAllBooksTRL();">Tous</a> / <a href="#" class="vBibLink" onclick="javascript:unselectAllBooksTRL();">Aucun</a>
+						</td>
+					</tr>
+			
+			<?php foreach($livresAAjouter as $bouquin) : $auteur = $bouquin->retournerAuteur(); ?>
+				
+					<tr>
+						<td></td>
+						<td>
+							<a href="ficheLivre.php?id=<?=$bouquin->getID()?>" class="vBibLink"><?=$bouquin->titreLong()?></a> de <a href="ficheAuteur.php?id=<?=$auteur->getID()?>" class="vBibLink" ><?=$auteur->fullname()?>
+						</td>
+						<td style="text-align:center;">
+							<input type="checkbox" name="booksToAdd[]" value="<?=$bouquin->getID()?>"/>
+						</td>
+						<td style="text-align:center;">
+							<input type="checkbox" name="booksToAddTRL[]" value="<?=$bouquin->getID()?>"/>
+						</td>		
+					</tr>
+			<?php endforeach; ?>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td style="text-align:center;"><input type="submit" value="Ajouter" /></td>
+					</tr>
+			</table>
+		</form>
+<?php endif; ?>
 
+
+	Note: Les livres &eacute;tant d&eacute;j&agrave; pr&eacute;sents dans vos listes ne sont pas affich&eacute;s dans cette recherche.
+<?
 	//gestion de l'enregistrement des livres sélectionnés
 	if(isset($_POST['booksToAdd']) ){
 		$bouquins = $_POST['booksToAdd'];
@@ -68,21 +109,15 @@ $utilisateur = new Utilisateur($uid);
 			$result = mysql_query($sql);
 		}
 	}
-
-
 ?>
 
 
 <br/>
-<?	
-	mysql_close();
-?>
+<? mysql_close(); ?>
 
 </div>
 
-<?
-	include('footer.php');
-?>
+<? include('footer.php'); ?>
 
 </div>
 </body>
