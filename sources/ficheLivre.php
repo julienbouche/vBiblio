@@ -1,21 +1,13 @@
 <?php
 include('accesscontrol.php');
-//include('scripts/db/db.php');
 include('scripts/common.php');
 include('scripts/dateFunctions.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
-//connexion à la bd
-//dbConnect();
-
-//ouverture des pages livres sans être connectés
-//checkSecurity();
 
 $uid= $_SESSION['uid'];
 $utilisateur = new Utilisateur($uid);
-
-//$userTUID = getTableUserId($uid);
 
 if(isset($_GET['id']) ){
 	$bouquin = new Livre($_GET['id']);
