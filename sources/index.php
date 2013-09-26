@@ -123,7 +123,7 @@ function AfficherFormReponse($caller, $id_mess){
 	</div>
 
 	<div class="vBibBoite">
-		<div class="vBibBoiteTitre">Suggestions de vos amis</div>
+		<div class="vBibBoiteTitre"><a href="manageBooksSuggest.php" class="vBibLink">Suggestions</a> de vos amis</div>
 		<div class="vBibBoiteContenu">
 		<? $listeSuggestions = $utilisateur->recupererListeResumeSuggestions(); ?>
 		<?php if(count($listeSuggestions)>0) : ?>
