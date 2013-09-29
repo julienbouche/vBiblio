@@ -859,6 +859,8 @@ div.BMCorner{
 	z-index:10;
 	border: 1px lightgrey solid;
 	border-right:none;
+	top:0px;
+	left:-1px;
 	height:9px;
 	width:9px;
 	-moz-border-radius:5px 0px 0px 5px;
@@ -868,6 +870,7 @@ div.BMCorner{
 div.BMCornerLink{
 	position:absolute;
 	top:5px;
+	left:-1px;
 	z-index:5;
 	float:left;
 	border: 1px lightgrey solid;
@@ -881,7 +884,7 @@ div.BMCornerLink{
 div.BMMessage{
 	position:relative;
 	height:30px;
-	margin-left:10px;
+	margin-left:9px;
 	margin-top:10px;
 	padding-left:10px;
 	padding-right:30px;
