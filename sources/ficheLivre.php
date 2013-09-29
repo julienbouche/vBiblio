@@ -135,7 +135,7 @@ if(isset($_GET['id']) ){
 
 <table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;width:580px;">  
    <tr>
-	<td rowspan="7" width="180px" align="center"><img src="<?=$bouquin->getAvatarPath()?>" width="169px" height="225px"/> </td><td class="tdTitleProfil" colspan="2">Informations :</td>
+	<td rowspan="7" width="180px" align="center"><img src="<?=$bouquin->getAvatarPath()?>" width="<?=$bouquin->getThumbsWidth()?>" height="<?=$bouquin->getThumbsHeight()?>"/> </td><td class="tdTitleProfil" colspan="2">Informations :</td>
    </tr>
    <tr>  
        <td align="right" width="50px">  
