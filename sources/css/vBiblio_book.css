@@ -1,0 +1,67 @@
+.booklistbanner{
+    display: block;
+    list-style-type: none;
+    overflow-x:hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding:5px;
+}
+
+li.booklistbannerelement{
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    white-space: normal;
+    
+    
+    /* added for the rotation animation*/
+    perspective: 1200px;
+    -webkit-perspective:1200px;
+    
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.booklistbanner>li>div>img{
+    width:100%;
+    height:100%;
+    padding:0;
+}
+
+.booklistbanner>li>div>div{
+    position:absolute;
+    display: block;
+    width:100%;
+    bottom:0;
+    left:0;
+    top:0;
+    opacity: 0;
+    background-color: rgba(200,200,200,0.60);
+    z-index: 100;
+    transition: all ease 1s;
+    text-align: center;
+    padding-top:40%; /* faux centrage*/
+    
+    /* added for the rotation animation*/
+    transform: rotateY(.5turn) translateZ(1px); //translateZ added to avoid flickering element probably due to round func in rendering
+    -webkit-transform: rotateY(180deg) translateZ(1px);
+}
+.booklistbanner>li:hover >div> div{
+    opacity: 1.0;
+    background-color: rgba(200,200,200,0.80);
+}
+
+/* animating with rotation */
+.booklistbanner>li>div{
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    
+    transition: 1s transform;
+    -webkit-transition: 1s -webkit-transform;
+    
+    position:relative;
+}
+.booklistbanner>li:hover >div{
+    transform: rotateY(.5turn);
+    -webkit-transform: rotateY(180deg);
+}

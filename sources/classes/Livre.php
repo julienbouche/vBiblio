@@ -250,6 +250,21 @@ class Livre{
 		return "images/covers/no_cover2.jpg";
 	}
 	
+	public function getThumbsWidth(){
+		return "169px";
+	}
+	public function getThumbsHeight(){
+		return "225px";
+	}
+	
+	public function getVerySmallThumbsWidth(){
+		return "127px";
+	}
+	
+	public function getVerySmallThumbsHeight(){
+		return "170px";
+	}
+	
 	public function getIDCycle(){
 		return $this->idCycle;
 	}

@@ -474,16 +474,41 @@ class Utilisateur{
 				$listeSuggestions[$cptSuggestions] = array();
 				$listeSuggestions[$cptSuggestions][0] = new Utilisateur($row['userid']);
 				$listeSuggestions[$cptSuggestions][1] = new Livre($row['id_book']);
-				$listeSuggestions[$cptSuggestions][2] = $row['id_suggest']; 
+				$listeSuggestions[$cptSuggestions][2] = $row['id_suggest'];
+				$cptSuggestions++;
 			}
 		}
 		return $listeSuggestions;
 	}
 
-	//remplacé par un retour d'une liste de Suggestion(Utilisateur, Livre, idTransaction)
-	//et gérer l'affichage dans la page manageBooksSuggest.php 
-	/*public function afficherSuggestions(){
-	}*/
+	
+	public function recupererListeSuggestionsAutomatiques(){
+		
+		$sql= "SELECT DISTINCT book.id_book
+			FROM vBiblio_book book, vBiblio_tag_book
+			WHERE book.id_book=vBiblio_tag_book.id_book
+			AND id_tag IN (SELECT id_tag
+					FROM vBiblio_tag_book, vBiblio_poss
+					WHERE vBiblio_poss.userid='".$this->identifiant."'
+					AND vBiblio_tag_book.id_book=vBiblio_poss.id_book
+					GROUP BY vBiblio_tag_book.id_book
+					ORDER BY SUM(count))
+			AND book.id_book NOT IN (SELECT DISTINCT poss.id_book
+					FROM vBiblio_poss poss
+					WHERE poss.userid='".$this->identifiant."')		
+			";
+			
+		$result = mysql_query($sql) ;
+		if($result && mysql_num_rows($result)>0){
+			$listeSuggestions = array();
+			$cptSuggestions=0;
+			while($row = mysql_fetch_assoc($result)){
+				$listeSuggestions[$cptSuggestions] = new Livre($row['id_book']);
+				$cptSuggestions++;
+			}
+		}
+		return $listeSuggestions;
+	}
 	
 	
 	public function possede($livre){

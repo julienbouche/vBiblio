@@ -16,6 +16,7 @@ $uid = $_SESSION['uid'];
 	<title>vBiblio - Suggestions de vos amis</title>  
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<link rel="stylesheet" type="text/css" href="css/vBiblio.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/vBiblio_book.css" media="screen" />
 	<script type="text/javascript" src="js/core/vbiblio_ajax.js"></script>
 	<script type="text/javascript" src="js/gui/suggest_gui.js"></script>
 	
@@ -58,7 +59,32 @@ $uid = $_SESSION['uid'];
 	Vous n'avez aucune suggestion actuellement.
 	<?php endif; ?>
 
-
+	
+	
+	<? $listeAutoSuggestions = $utilisateur->recupererListeSuggestionsAutomatiques(); ?>
+	<?php if(count($listeAutoSuggestions) > 0) : ?>
+		<!-- suggestion automatiques -->
+		<div class="BookmarkN1">
+			<div class="BMCorner"></div>
+			<div class="BMCornerLink"></div>
+			<div class="BMMessage">Nos suggestions</div>
+		</div>
+		<br/><br/><br/><br/><br/>
+	
+		<ul class="booklistbanner" id="booklistbanner">
+		<?php foreach($listeAutoSuggestions as $bouquin) : ?>
+			<li class="booklistbannerelement" style="width:<?=$bouquin->getVerySmallThumbsWidth()?>;height:<?=$bouquin->getVerySmallThumbsHeight()?>;">
+				<div>
+					<img src="<?=$bouquin->getAvatarPath()?>" style="width:<?=$bouquin->getVerySmallThumbsWidth()?>;height:<?=$bouquin->getVerySmallThumbsHeight()?>;"/>
+					<div class="imgCaption">
+						<a href="ficheLivre.php?id=<?=$bouquin->getID()?>" class="vBibLink"><?=$bouquin->titreLong()?></a> de <?=$bouquin->retournerAuteur()->fullname()?>
+					</div>
+				</div>
+			</li>
+		<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+	
 	</div>
 	<? include('footer.php'); ?>
 
