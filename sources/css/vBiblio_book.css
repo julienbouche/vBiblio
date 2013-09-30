@@ -43,7 +43,7 @@ li.booklistbannerelement{
     padding-top:40%; /* faux centrage*/
     
     /* added for the rotation animation*/
-    transform: rotateY(.5turn) translateZ(1px); //translateZ added to avoid flickering element probably due to round func in rendering
+    transform: rotateY(.5turn) translateZ(1px); /*translateZ added to avoid flickering element probably due to round func in rendering*/
     -webkit-transform: rotateY(180deg) translateZ(1px);
 }
 .booklistbanner>li:hover >div> div{
