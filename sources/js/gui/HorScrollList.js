@@ -22,7 +22,7 @@ function initNewList(dom_element) {
             elementXOffset = 0, //element positioning in document ref
             posX   = 0,
             mmAA   = galW-(mPadd*2), // The mousemove available area
-            mmAAr  = (galW/mmAA);    // get available mousemove fidderence ratio
+            mmAAr  = (galW/mmAA);    // get available mousemove difference ratio
             
     elementXOffset = getPos(dom_element).x;
             
@@ -39,6 +39,7 @@ function initNewList(dom_element) {
 }
 
 window.onload = (function(){
+    //recherche de tous les éléments dont la classe est HorScrollList
     scrollable_elements = document.querySelectorAll(".HorScrollList");
     
     for(i=0; i<scrollable_elements.length; i++) {
