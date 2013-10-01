@@ -19,6 +19,7 @@ $uid = $_SESSION['uid'];
 	<link rel="stylesheet" type="text/css" href="css/vBiblio_book.css" media="screen" />
 	<script type="text/javascript" src="js/core/vbiblio_ajax.js"></script>
 	<script type="text/javascript" src="js/gui/suggest_gui.js"></script>
+	<script type="text/javascript" src="js/gui/HorScrollList.js"></script>
 	
 </head>
 <body>
@@ -71,7 +72,7 @@ $uid = $_SESSION['uid'];
 		</div>
 		<br/><br/><br/><br/><br/>
 	
-		<ul class="booklistbanner" id="booklistbanner">
+		<ul class="booklistbanner HorScrollList" >
 		<?php foreach($listeAutoSuggestions as $bouquin) : ?>
 			<li class="booklistbannerelement" style="width:<?=$bouquin->getVerySmallThumbsWidth()?>;height:<?=$bouquin->getVerySmallThumbsHeight()?>;">
 				<div>
