@@ -42,7 +42,6 @@ class SiteConfiguration {
      * Fonction permettant de créer un paramètre (clé, valeur) en base
      */
     public function createParam($key, $value){
-        //TODO à tester
         $name = trim(mysql_real_escape_string($key));
         $value = trim(mysql_real_escape_string($value));
         if($name!=''){
@@ -58,7 +57,6 @@ class SiteConfiguration {
      * fonction permettant de mettre à jour la valeur d'un paramètre dans la base de données
      */
     public function update($id, $value){
-        //TODO
         $id=intval($id);
         $value=trim(mysql_real_escape_string($value));
         
