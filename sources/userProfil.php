@@ -57,7 +57,7 @@ if ( isset($_POST['directMessage']) and $_POST['directMessage']!=''){
 			notifyUser($tableID, "[vBiblio] Notification de nouveau message", $mailMessage);
 		}
 	}
-	//notifyUser($tableID, "Vous avez reçu un nouveau message sur vBiblio", $mailMessage);
+	notifyUser($tableID, "Vous avez reçu un nouveau message sur vBiblio", $mailMessage);
 
 
   

@@ -2,7 +2,90 @@
 include 'scripts/common.php';   
 include 'scripts/db/db.php';
 
-if(!isset($_POST['submitok'])){
+if(isset($_POST['submitok'])){
+	//process sign up submission
+	//la date de naissance n'est pas obligatoire...
+	if (ftrim($_POST['newid'])=='' or ftrim($_POST['nom'])=='' or ftrim($_POST['prenom'])=='' or ftrim($_POST['newemail'])=='') {
+		if($_POST['newid']=='' or ftrim($_POST['newid'])=='' )
+			$errorMsg = "Identifiant\\n";
+		if($_POST['nom']=='' or ftrim($_POST['nom'])=='' )
+			$errorMsg = $errorMsg."Nom\\n";
+		if($_POST['prenom']=='' or ftrim($_POST['prenom'])=='' )
+			$errorMsg = $errorMsg."Prenom\\n";
+		if($_POST['newemail']=='' or ftrim($_POST['newemail'])=='' )
+			$errorMsg = $errorMsg."E-mail\\n";		
+		error("Vous n'avez pas saisi le(s) champ(s) suivant(s):\\n".$errorMsg);
+	}
+	
+	if($_POST['email']!='' || $_POST['nick']!='' || $_POST['bday']!='' || $_POST['address']!=''){
+		//si l'un des champs cachés est rempli, robot spam !
+		die("Une erreur est survenue. Merci de ré-essayer plus tard.");
+	}
+	
+	dbConnect();
+	
+	// Check for existing user with the new id  
+	$sql = "SELECT COUNT(*) FROM vBiblio_user WHERE userid = '$_POST[newid]'";  
+   	$result = mysql_query($sql);  
+   	if (!$result) {  
+		error('A database error occurred.\\nIf this error persists, please '.  
+             'contact you@example.com.');  
+   	}
+   	if (@mysql_result($result,0,0)>0) {  
+   	    error('Ce pseudo est déjà utilisé.\\nEssayez-en un autre...');  
+   	}
+	$newpass = substr(md5(time()),0,6);
+	$updateDateNaiss=ftrim($_POST[dateNaiss]);
+	$fmtDateNaiss = substr($updateDateNaiss, 6, 4)."-".substr($updateDateNaiss, 3, 2)."-".substr($updateDateNaiss, 0, 2);
+	$sql = "INSERT INTO vBiblio_user SET  
+	     userid = '$_POST[newid]',  
+	     password = PASSWORD('$newpass'),
+	     prenom = '$_POST[prenom]',
+	     nom = '$_POST[nom]',
+	     fullname = '$_POST[prenom] $_POST[nom]',  
+	     email = '$_POST[newemail]',
+	     date_naiss = '$fmtDateNaiss',
+	     sexe =$_POST[sexe]";
+
+
+	if (!mysql_query($sql)){
+       		error('A database error occurred in processing your submission.\\nIf this error persists, please contact Webmaster .');
+	}
+	else{
+
+	   $message = "Cher ".$_POST['prenom'].",
+
+Tout d'abord, bienvenue et merci de vous être inscrit sur notre site.
+Votre compte utilisateur vient d'être créé. Pour vous connecter, veuillez vous rendre sur : http://vbiblio.free.fr/
+
+Votre compte utilisateur et votre mot de passe sont les suivants:  
+   Utilisateur: $_POST[newid]  
+   mot de passe: $newpass  
+ 
+Votre mot de passe a été généré automatiquement. Nous vous conseillons de le modifier dans la page profil de votre compte.
+
+Si vous rencontrez des problèmes, n'hésitez pas à me contacter à l'adresse suivante: vbiblio@free.fr 
+
+En espérant que vous apprécierez nos services,
+ 
+Cordialement,
+Julien, votre Webmaster  
+";  
+ 
+ 
+		envoyermail($_POST['newemail'],"Confirmation d'inscription sur vBiblio", $message, "Webmaster vBiblio");
+		//mail($_POST['newemail'],"Confirmation d'inscription sur vBiblio", $message, "From:Webmaster vBiblio <vbiblio@free.fr>");
+		$message = "Bonjour,
+		Un nouvel utilisateur vient de s'inscrire :
+			Utilisateur: ".$_POST['prenom']." ".$_POST['nom']." aka ".$_POST['newid']."  
+		
+		Cordialement,
+		Julien, votre Webmaster.";
+		envoyermail("vbiblio@free.fr","[vBiblio] Nouvelle inscription",$message, "vBiblio System");
+	
+		header('Location:formLogin.php');
+	}
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -155,92 +238,3 @@ Vous pourrez par la suite changer votre mot de passe dans la page de votre profi
 </div>
 </body>    
 </html>
-
-<?
-
-}
-else{//process sign up submission
-	//la date de naissance n'est pas obligatoire...
-	if (ftrim($_POST['newid'])=='' or ftrim($_POST['nom'])=='' or ftrim($_POST['prenom'])=='' or ftrim($_POST['newemail'])=='') {
-		if($_POST['newid']=='' or ftrim($_POST['newid'])=='' )
-			$errorMsg = "Identifiant\\n";
-		if($_POST['nom']=='' or ftrim($_POST['nom'])=='' )
-			$errorMsg = $errorMsg."Nom\\n";
-		if($_POST['prenom']=='' or ftrim($_POST['prenom'])=='' )
-			$errorMsg = $errorMsg."Prenom\\n";
-		if($_POST['newemail']=='' or ftrim($_POST['newemail'])=='' )
-			$errorMsg = $errorMsg."E-mail\\n";		
-		error("Vous n'avez pas saisi le(s) champ(s) suivant(s):\\n".$errorMsg);
-	}
-	
-	if($_POST['email']!='' || $_POST['nick']!='' || $_POST['bday']!='' || $_POST['address']!=''){
-		//si l'un des champs cachés est rempli, robot spam !
-		die("Une erreur est survenue. Merci de ré-essayer plus tard.");
-	}
-	
-	dbConnect();
-	
-	// Check for existing user with the new id  
-	$sql = "SELECT COUNT(*) FROM vBiblio_user WHERE userid = '$_POST[newid]'";  
-   	$result = mysql_query($sql);  
-   	if (!$result) {  
-		error('A database error occurred.\\nIf this error persists, please '.  
-             'contact you@example.com.');  
-   	}
-   	if (@mysql_result($result,0,0)>0) {  
-   	    error('Ce pseudo est déjà utilisé.\\nEssayez-en un autre...');  
-   	}
-	$newpass = substr(md5(time()),0,6);
-	$updateDateNaiss=ftrim($_POST[dateNaiss]);
-	$fmtDateNaiss = substr($updateDateNaiss, 6, 4)."-".substr($updateDateNaiss, 3, 2)."-".substr($updateDateNaiss, 0, 2);
-	$sql = "INSERT INTO vBiblio_user SET  
-	     userid = '$_POST[newid]',  
-	     password = PASSWORD('$newpass'),
-	     prenom = '$_POST[prenom]',
-	     nom = '$_POST[nom]',
-	     fullname = '$_POST[prenom] $_POST[nom]',  
-	     email = '$_POST[newemail]',
-	     date_naiss = '$fmtDateNaiss',
-	     sexe =$_POST[sexe]";
-
-
-	if (!mysql_query($sql))  
-       		error('A database error occurred in processing your submission.\\nIf this error persists, please contact Webmaster .');
-
-
-	   $message = "Cher ".$_POST['prenom'].",
-
-Tout d'abord, bienvenue et merci de vous être inscrit sur notre site.
-Votre compte utilisateur vient d'être créé. Pour vous connecter, veuillez vous rendre sur : http://vbiblio.free.fr/
-
-Votre compte utilisateur et votre mot de passe sont les suivants:  
-   Utilisateur: $_POST[newid]  
-   mot de passe: $newpass  
- 
-Votre mot de passe a été généré automatiquement. Nous vous conseillons de le modifier dans la page profil de votre compte.
-
-Si vous rencontrez des problèmes, n'hésitez pas à me contacter à l'adresse suivante: vbiblio@free.fr 
-
-En espérant que vous apprécierez nos services,
- 
-Cordialement,
-Julien, votre Webmaster  
-";  
- 
-	/*mail($_POST['newemail'],"Confirmation d'inscription sur vBiblio", $message, "From:Webmaster vBiblio <vbiblio@free.fr>");
-	  mail("vbiblio@free.fr","[vBiblio] Nouvelle inscription", "Bonjour,
-  
-  Un nouvel utilisateur vient de s'inscrire :
-    Utilisateur: $_POST[newid]  
-	
-  Cordialement,
-  Julien, votre Webmaster.
-  ", "From:Notification vBiblio <vbiblio@free.fr>");
-
-	
-	*/
-	header('Location:formLogin.php');
-
-}
-
-?>
