@@ -1,5 +1,5 @@
 <?php // common.php  
- 
+
 function error($msg) {  
    ?>  
    <html>  
@@ -41,7 +41,6 @@ function notifyUser($userid, $sujet, $message){
 
 function envoyermail($usermail, $sujet, $message, $fromName){
 	$headers = "From:$fromName <vbiblio@free.fr>";
-	//$headers .= "Reply-To:vbiblio@free.fr\n";
 	$headers .= "Content-Type: text/plain;charset=\"iso-8859-1\"\n";
 	$message = str_replace("\\", "", $message);
 	mail($usermail, $sujet, $message, "From: vbiblio@free.fr");
