@@ -16,7 +16,8 @@ class Utilisateur{
 	private $preferredStyle; 
 	private $sexe;  
 	private $pronom;
-	private $exists;   
+	private $exists;
+	private $groups;
 
 	/*
 			Constructeurs et initialisation
@@ -44,6 +45,8 @@ class Utilisateur{
 			$this->notificationActive = ($row['notification_active']=='1');
 			$this->publicpageActive = ($row['active_public_page']=='1');
 			$this->exists = true;
+			
+			$this->loadGroups();
 		}
 	}
 
@@ -69,7 +72,40 @@ class Utilisateur{
 			$this->notificationActive = ($row['notification_active']=='1');
 			$this->publicpageActive = ($row['active_public_page']=='1');
 			$this->exists = true;
+			
+			$this->loadGroups();
 		}
+	}
+	
+	//fonction permettant de charger les groupes de l'utilisateur
+	private function loadGroups(){
+		$sql = "SELECT vBiblio_acl_role.role_name
+		FROM vBiblio_acl_role, vBiblio_acl_role_user
+		WHERE vBiblio_acl_role.id_role=vBiblio_acl_role_user.id_role
+		AND id_user=".$this->identifiant;
+		
+		$this->groups = array();
+		
+		$result = mysql_query($sql);
+		if($result && mysql_num_rows($result)>0){
+			$cptGroup=0;
+			while($row = mysql_fetch_assoc($result) ){
+				$this->groups[$cptGroup] = $row["role_name"];
+				$cptGroup++;
+			}
+		}
+	}
+	
+	public function getGroups(){
+		return $this->groups;
+	}
+	
+	public function belongToGroup($groupname){
+		foreach($this->groups as $group){
+			if($group == $groupname)return true;
+		}
+		
+		return false;
 	}
 
 	//TODO créer la fonction ci-dessous pour remplacer dans les différents constructeurs
@@ -682,5 +718,76 @@ class Utilisateur{
 	}
 
 }
+
+
+/*******************
+ *Fonction liées mais ne faisant pas partie de la classe
+ *
+ *******************/
+
+function getAllUsers(){
+    $sql =" SELECT userid FROM vBiblio_user WHERE tableuserid<>0";
+    $results = mysql_query($sql);
+    $users = array();
+    
+    if($results && mysql_num_rows($results)>0){
+        $cpt = 0;
+        while($row = mysql_fetch_assoc($results)){
+            
+            $users[$cpt] = new Utilisateur($row['userid']);
+            $cpt++;
+        }
+    }
+    
+    return $users;
+}
+
+function getAllUsersNotBelongingToTheGroup($groupid){
+	$groupid = intval($groupid);
+	$sql =" SELECT userid
+		FROM vBiblio_user
+		WHERE tableuserid<>0
+		AND tableuserid NOT IN (SELECT id_user
+					FROM vBiblio_acl_role_user
+					WHERE id_role=$groupid)";
+    $results = mysql_query($sql);
+    $users = array();
+    
+    if($results && mysql_num_rows($results)>0){
+        $cpt = 0;
+        while($row = mysql_fetch_assoc($results)){
+            
+            $users[$cpt] = new Utilisateur($row['userid']);
+            $cpt++;
+        }
+    }
+    
+    return $users;
+}
+
+//utile ?
+function getAllUsersBelongingToTheGroup($groupid){
+	$groupid = intval($groupid);
+	$sql =" SELECT userid
+		FROM vBiblio_user, vBiblio_acl_role_user
+		WHERE tableuserid<>0
+		AND tableuserid = id_user
+		AND id_role=$groupid)";
+		
+    $results = mysql_query($sql);
+    $users = array();
+    
+    if($results && mysql_num_rows($results)>0){
+        $cpt = 0;
+        while($row = mysql_fetch_assoc($results)){
+            $users[$cpt] = new Utilisateur($row['userid']);
+            $cpt++;
+        }
+    }
+    
+    return $users;
+}
+
+
 
 ?>
