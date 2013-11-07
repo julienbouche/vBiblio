@@ -40,6 +40,8 @@ function save(id) {
 
 	<div id="vBibDisplay">
             
+            <?php include('menu.php'); ?>
+            
             <form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
                 <input name="param_name" value="" placeholder="NOM" />
                 <input name="param_value" value="" placeholder="VALEUR" />
@@ -100,7 +102,7 @@ function save(id) {
                                 <img class="ImgAction" onclick="javascript:deleteWithConfirmation('<?=$param_name?>', <?=$id_param?>);" src="../images/supp.png"  style="border:1px solid gray;padding:2px;float:right;margin-right:5px" alt="Supprimer" title="Supprimer" width="20px" height="20px"/>
                                 <!--input type="submit" class="alert" value="X" title="Supprimer la valeur" onvalidate="javascript:deleteWithConfirmation('<?=$param_name?>');"/-->
                             </form>
-                             <img class="ImgAction" onclick="javascript:save('<?=$id_param?>');" src="../images/checkmark.png"  style="border:1px solid gray;padding:2px;float:right;margin-right:5px" alt="Sauvegarder" title="Sauvegarder" width="20px" height="20px"/>
+                            <img class="ImgAction" onclick="javascript:save('<?=$id_param?>');" src="../images/checkmark.png"  style="border:1px solid gray;padding:2px;float:right;margin-right:5px" alt="Sauvegarder" title="Sauvegarder" width="20px" height="20px"/>
     
                         </td>
                     </tr>
