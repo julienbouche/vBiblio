@@ -1,6 +1,6 @@
 <?php
 require_once("Livre.php");
-
+require_once("Groupe.php");
 
 class Utilisateur{
 	private $pseudo;
