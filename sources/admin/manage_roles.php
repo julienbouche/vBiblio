@@ -3,12 +3,16 @@ require_once('../accesscontrol.php');
 require_once('../scripts/dateFunctions.php');
 require_once('../scripts/common.php');
 require_once('../classes/Utilisateur.php');
+require_once("../classes/Groupe.php");
 
 
 
 $uid = $_SESSION['uid'];
 $utilisateur = new Utilisateur($uid);
 
+if(!$utilisateur->belongToGroup('SYS_ADMINS')){
+	 header('Location:../index.php');
+}
 
 //gestion des différents formulaires
 if(isset($_POST['toberemoveduserid'])){
@@ -96,25 +100,15 @@ function addUsersToGroup(group_id) {
             ?>
             <form method="POST" action="<?=$_SERVER['PHP_SELF']?>" style="display:inline;">
                 <select size=10 multiple onchange="this.form.submit();" name="role_selected">
-                <?php
-                    $sql = "SELECT role_name, id_role FROM vBiblio_acl_role ORDER BY role_name ASC";
-                    $result = mysql_query($sql);
-                    
-                    if($result && mysql_num_rows($result)>0){
-                        ?>    
-                
-                    <?php while ($row=mysql_fetch_assoc($result)) : ?>
-                        <?php if($_POST['role_selected']==$row['id_role']) : ?>
-                            <option selected value="<?=$row['id_role']?>"><?=$row['role_name']?></option>
-                        <?php else: ?>
-                            <option value="<?=$row['id_role']?>"><?=$row['role_name']?></option>
-                        <?php endif; ?>
-                    <?php endwhile; ?>
-                
-                        <?
-                    }
-                    
-                ?>
+                <?php $groups = getAllGroups(); ?>
+		
+		<?php foreach($groups as $group) : ?>
+		    <?php if($_POST['role_selected']==$group->getID()) : ?>
+			<option selected value="<?=$group->getID()?>"><?=$group->getName()?></option>
+		    <?php else: ?>
+			<option value="<?=$group->getID()?>"><?=$group->getName()?></option>
+		    <?php endif; ?>
+		<?php endforeach; ?>
                 </select>
             </form>
             
