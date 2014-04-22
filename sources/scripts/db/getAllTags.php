@@ -1,8 +1,8 @@
 <?php
 include('../../scripts/db/db.php');
 
-dbConnect();
-
+	dbConnect();
+	$str = "";
 	$sqlReq = "SELECT value FROM vBiblio_tag";
 	$results = mysql_query($sqlReq);
 	if($results && mysql_num_rows($results) ) {
