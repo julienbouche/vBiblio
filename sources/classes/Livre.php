@@ -85,7 +85,6 @@ class Livre{
 		error_log($sql_update);
 		
 		if(!mysql_query($sql_update))error_log('MYSQL update failed :'+$sql_update);
-		else error_log('MYSQL UPDATE OK '.$sql_update);
 		
 	}
   
