@@ -301,8 +301,10 @@ class Utilisateur{
 				$friends[$cpt] = new Utilisateur($row['pseudo']);
 				$cpt++;
 			}
+			
+			return $friends;
 		}
-		return $friends;
+		return null;
 	}
 
 	public function recupererListeDemandesContact(){

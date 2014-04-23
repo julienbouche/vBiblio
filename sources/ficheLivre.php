@@ -8,9 +8,37 @@ require_once('classes/Livre.php');
 
 $uid= $_SESSION['uid'];
 $utilisateur = new Utilisateur($uid);
+$edit_mode_available = false;
+
+if($utilisateur->belongToGroup("POWER_USERS")){
+	$edit_mode_available = true;
+}
+
+$edit_mode = false;
+if(isset($_GET['edit']) && $_GET['edit']==1){
+	$edit_mode=true;
+}
 
 if(isset($_GET['id']) ){
 	$bouquin = new Livre($_GET['id']);
+	
+	//TODO si edition, mettre à jour le livre en base
+	if($edit_mode_available && isset($_POST['titre']) && isset($_POST['isbn']) && isset($_POST['desc']) ){
+		$cycle_enabled = false;
+		$idtome;
+		$serie;
+		if(isset($_POST['seriesEnabled'])){
+			$cycle_enabled = true;
+			$idtome = $_POST['idTome'];
+			$serie = $_POST['series'];
+		}
+		
+		
+		$bouquin->update($_POST['titre'], $_POST['isbn'], $_POST['desc'], $cycle_enabled, $idtome, $serie);
+		$bouquin = new Livre($_GET['id']);
+	}
+	
+	
 	$auteur = $bouquin->retournerAuteur();
 	if(!$bouquin->exists()){
 		header ('Location: pageErreur.php');
@@ -34,6 +62,7 @@ if(isset($_GET['id']) ){
 	<script type='text/javascript' src='js/core/user_functions.js'></script>
 	<script type='text/javascript' src='js/gui/insidepopup.js'></script>
 	<script type='text/javascript' src='js/gui/livre_gui.js'></script>
+	<script type="text/javascript" src="js/gui/bookForm_gui.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="js/jquery/jquery.autocomplete.css" />
 	<link rel="stylesheet" type="text/css" href="js/jquery/lib/thickbox.css" />
@@ -97,12 +126,7 @@ if(isset($_GET['id']) ){
 
 <!-- FIN FENETRE POP INSIDE -->
 
-
-
 <?php if(isset($_GET['id']) ) : ?>
-<?
-	//on a initialise la variable $bouquin plus haut !
-?>
 
 <div style="float:right;width:200px;">
 	<div class="vBibBoite" style="left:-20px;width:100%">
@@ -132,17 +156,26 @@ if(isset($_GET['id']) ){
 <?php endif; ?>
 </div> <!-- FIN COLONNE DROITE -->
 
-
+<form action="ficheLivre.php?id=<?=$_GET['id']?>" method="POST" >
 <table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;width:580px;">  
    <tr>
-	<td rowspan="7" width="180px" align="center"><img src="<?=$bouquin->getAvatarPath()?>" width="169px" height="225px"/> </td><td class="tdTitleProfil" colspan="2">Informations :</td>
+	<td rowspan="7" width="180px" align="center"><img src="<?=$bouquin->getAvatarPath()?>" width="169px" height="225px"/> </td>
+	<td class="tdTitleProfil" colspan="2">Informations :</td>
+	<?php if($edit_mode_available) : ?>
+		<td><a href="ficheLivre.php?id=<?=$_GET['id']?>&edit=1">Editer</a></td>
+	<?php endif; ?>
    </tr>
    <tr>  
        <td align="right" width="50px">  
            <p>Titre:</p>  
-       </td>  
+       </td>
+       
        <td align="left">
-	<?=$bouquin->TitreCourt()?>
+	<?php if($edit_mode_available && $edit_mode) :  ?>
+		<input type="text" name="titre" value="<?=$bouquin->TitreCourt() ?>" />	
+	<?php else : ?>
+		<?=$bouquin->TitreCourt()?>
+	<?php endif; ?>
        </td>  
    </tr>  
    <tr>  
@@ -150,7 +183,24 @@ if(isset($_GET['id']) ){
            <p>Auteur:</p>  
        </td>  
        <td>
+	<?php if($edit_mode_available && $edit_mode) : $auteurs = retournerListeAuteurs(); ?>
+		
+		<?php if(count($auteurs)) : ?>
+		<select name="auteur" onchange="javascript:reloadBookTitles(this);">
+
+		<?php foreach($auteurs as $itemAuteur) : ?>
+			<?php if($itemAuteur->getID()==$auteur->getID() ) : ?>
+			<option value="<?=$itemAuteur->getID()?>" selected><?=$itemAuteur->fullname()?></option>
+			<?php else : ?>
+			<option value="<?=$itemAuteur->getID()?>" ><?=$itemAuteur->fullname()?></option>
+			<?php endif; ?>
+		<?php endforeach; ?>
+		</select>
+		<?php endif; ?>
+	<?php else : ?>
 		<a href="ficheAuteur.php?id=<?=$auteur->getID()?>" class="vBibLink"><?=$auteur->fullname()?></a>
+	<?php endif; ?>
+		
        </td>  
    </tr>
    <tr>  
@@ -160,42 +210,94 @@ if(isset($_GET['id']) ){
        <td>      
        </td>  
    </tr>
-
-<?php if($bouquin->dansUnCycle()) : ?>
-   <tr>  
-       <td align="right">
-	<p>Cycle: </p>
-	</td>
-	<td><a href="cycle.php?id=<?=$bouquin->getIDCycle()?>" class="vBibLink" ><?=$bouquin->retournerNomCycle()?></a></td>
-   </tr>
-   <tr>  
-       <td align="right"><p>Tome:</p></td>  
-       <td>
-	<?php if($bouquin->hasPrevious()) : $prevBook = $bouquin->getPrevious();?>
-		<a href="<?=$prevBook->retournerURL()?>" class="vBibLink">
-			<img src="images/arrow2.png" style="-moz-transform:scale(0.5);" title="<?=$prevBook->TitreCourt()?>"/>
-		</a>
+<?php if($edit_mode && edit_mode_available) : ?>
+	<tr>  
+		<td align="right">
+			<p>Cycle: </p>
+		</td>
+			<td>
+			<?php if($bouquin->dansUnCycle()) : $cycles=$auteur->retournerListeCycles() ?>
+			<input type="checkbox" onchange="javascript:switchSeriesState()" name="seriesEnabled" checked/>
+			<select id="seriesList" name="series" enabled>
+				<?php if(count($cycles) > 0) : ?>
+					<?php foreach($cycles as $cycleItem) : ?>
+						<?php if($cycleItem->getID()== $bouquin->getIDCycle() ) : ?>
+					<option value="<?=$cycleItem->getID()?>" selected><?=$cycleItem->getTitle()?></option>	
+						<?php else : ?>
+					<option value="<?=$cycleItem->getID()?>" ><?=$cycleItem->getTitle()?></option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				<?php else : ?>
+				<option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+				<?php endif; ?>
+			</select>
+			<?php else : ?>
+			<input type="checkbox" onchange="javascript:switchSeriesState()" name="seriesEnabled" />
+			<select id="seriesList" name="series" disabled>
+				<option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+			</select>
+			<?php endif; ?>
+			</td>
+		</tr>
+		<tr>  
+			<td align="right"><p>Tome:</p></td>  
+		<td>
+		<?php if($bouquin->hasPrevious()) : $prevBook = $bouquin->getPrevious();?>
+			<a href="<?=$prevBook->retournerURL()?>" class="vBibLink">
+				<img src="images/arrow2.png" style="-moz-transform:scale(0.5);" title="<?=$prevBook->TitreCourt()?>"/>
+			</a>
+		<?php endif; ?>
+		<input type="text" name="idTome" size="3" value="<?=$bouquin->retournerNumeroTome()?>" />/<?=$bouquin->retournerMaxTomesCycle()?>
+			<?php if($bouquin->hasNext()) : $nextBook = $bouquin->getNext() ?>
+			<a href="ficheLivre.php?id=<?=$nextBook->getID()?>" class="vBibLink">
+				<img src="images/arrow1.png" style="-moz-transform:scale(0.5);" title="<?=$nextBook->TitreCourt()?>"/></a>
+		<?php endif; ?>
+		</td>  
+	</tr>
+<?php else : ?>
+	<?php if($bouquin->dansUnCycle()) : ?>
+	   <tr>  
+	       <td align="right">
+		<p>Cycle: </p>
+		</td>
+		<td><a href="cycle.php?id=<?=$bouquin->getIDCycle()?>" class="vBibLink" ><?=$bouquin->retournerNomCycle()?></a></td>
+	   </tr>
+	   <tr>  
+	       <td align="right"><p>Tome:</p></td>  
+	       <td>
+		<?php if($bouquin->hasPrevious()) : $prevBook = $bouquin->getPrevious();?>
+			<a href="<?=$prevBook->retournerURL()?>" class="vBibLink">
+				<img src="images/arrow2.png" style="-moz-transform:scale(0.5);" title="<?=$prevBook->TitreCourt()?>"/>
+			</a>
+		<?php endif; ?>
+		<?=$bouquin->retournerNumeroTome()?>/<?=$bouquin->retournerMaxTomesCycle()?>
+			<?php if($bouquin->hasNext()) : $nextBook = $bouquin->getNext() ?>
+			<a href="ficheLivre.php?id=<?=$nextBook->getID()?>" class="vBibLink">
+				<img src="images/arrow1.png" style="-moz-transform:scale(0.5);" title="<?=$nextBook->TitreCourt()?>"/></a>
+		<?php endif; ?>
+		</td>  
+	   </tr>
+	<?php else: ?>	  
+	   <tr>  
+	       <td align="left"><p>&nbsp;</p></td>  
+	       <td>&nbsp;</td>  
+	   </tr>
+	   <tr>  
+	       <td align="left"><p>&nbsp;</p></td>  
+	       <td>&nbsp;</td>  
+	   </tr>
 	<?php endif; ?>
-	<?=$bouquin->retournerNumeroTome()?>/<?=$bouquin->retournerMaxTomesCycle()?>
-		<?php if($bouquin->hasNext()) : $nextBook = $bouquin->getNext() ?>
-		<a href="ficheLivre.php?id=<?=$nextBook->getID()?>" class="vBibLink">
-			<img src="images/arrow1.png" style="-moz-transform:scale(0.5);" title="<?=$nextBook->TitreCourt()?>"/></a>
-	<?php endif; ?>
-	</td>  
-   </tr>
-<?php else: ?>	  
-   <tr>  
-       <td align="left"><p>&nbsp;</p></td>  
-       <td>&nbsp;</td>  
-   </tr>
-   <tr>  
-       <td align="left"><p>&nbsp;</p></td>  
-       <td>&nbsp;</td>  
-   </tr>
-<?php endif; ?>
+   <?php endif; ?>
    <tr>  
        <td align="right"><p>ISBN : </p></td>  
-       <td><?=$bouquin->retournerISBN();?></td>  
+       <td>
+       <?php if($edit_mode_available && $edit_mode) : ?>
+		<input type=text name="isbn" value="<?=$bouquin->retournerISBN();?>" oninput="validateISBN(this);"/>	
+	<?php else : ?>
+		<?=$bouquin->retournerISBN();?>
+	<?php endif; ?>
+       
+       </td>  
    </tr>
 <tr>
 <td align="center">
@@ -239,14 +341,19 @@ if(isset($_GET['id']) ){
 	<td colspan="3" style="text-align:justify;font-family: 'Donegal One', cursive;">
 <?
 	$description = $bouquin->retournerDescription();
+	
 ?>
-
-<?php if($bouquin->retournerDescription() == "") : ?>
-	Nous n'avons pas encore de r&eacute;sum&eacute; pour ce livre.
-<?php else : ?>
-	<?=nl2br(htmlentities($bouquin->retournerDescription()))?>
-<?php endif; ?>
-
+<?php if($edit_mode && $edit_mode_available){ ?>
+	<textarea name="desc" rows=10 style="width:100%;"><?=$description?></textarea>
+	<input type="submit" value="Enregistrer" style="float:right;" class="vert"/>
+	<input type="button" value="Annuler" onclick="window.location='ficheLivre.php?id=<?=$_GET['id']?>'" />
+<? }else{  ?>
+	<?php if(strlen($description) == 0 ) : ?>
+		Nous n'avons pas encore de r&eacute;sum&eacute; pour ce livre.
+	<?php else : ?>
+		<?=nl2br($description)?>
+	<?php endif; ?>
+<? } ?>
 </td>
 
 </tr>
@@ -323,6 +430,7 @@ if(isset($_GET['id']) ){
 	<td class="tdTitleProfil" colspan="3">Tags associ&eacute;s &agrave; ce livre: </td>
 </tr>
 </table>
+</form>
 <? $listeTags = $bouquin->getTagsOrdered(); ?>
 
 <div style="padding-left:20px;">

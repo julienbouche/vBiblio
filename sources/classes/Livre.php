@@ -22,47 +22,74 @@ class Livre{
 	private $nextBookID;
 	private $previousBookID;
   
-  function __construct($idBook){
-    $this->id=intval($idBook);
-    //récupérer les valeurs du livre
-    $sql = "SELECT titre, id_author, id_cycle, numero_cycle, isbn, description, total_votes, nb_votes
-            FROM vBiblio_book
-            WHERE id_book=$idBook 
-            ";
-    $result = mysql_query($sql);
-
-    if($result && mysql_num_rows($result)>0 ){
-      $row = mysql_fetch_assoc($result);
-      $this->titreCourt = $row['titre'];
-      $this->idauteur = $row['id_author'];
-      $this->idCycle = $row['id_cycle'];
-      $this->tome = $row['numero_cycle'];
-      $this->isbn = $row['isbn'];
-	  $this->description = $row['description'];
-	  $this->totalVotes = $row['total_votes'];
-	  $this->nbVotants = $row['nb_votes'];
-      $this->exists = true;
-	  
-	  
-      $sql_cycle= "SELECT vBiblio_cycle.titre, nb_tomes FROM vBiblio_cycle, vBiblio_book WHERE vBiblio_book.id_cycle=vBiblio_cycle.id_cycle AND vBiblio_book.id_book=".$this->id;
-      
-
-	$cycles = mysql_query($sql_cycle);
-	if($cycles && mysql_num_rows($cycles) > 0) {
-		$this->belongToCycle = true;
-		$this->nomCycle = mysql_result($cycles, 0, 'titre');
-		$this->titreLong = $this->nomCycle.", Tome ".$this->tome." : ".$this->titreCourt;
-		$this->nb_tomes_cycle = mysql_result($cycles, 0, 'nb_tomes');
+	function __construct($idBook){
+		$this->id=intval($idBook);
+		//récupérer les valeurs du livre
+		$sql = "SELECT titre, id_author, id_cycle, numero_cycle, isbn, description, total_votes, nb_votes
+			FROM vBiblio_book
+			WHERE id_book=$idBook 
+			";
+		$result = mysql_query($sql);
+	      
+		if($result && mysql_num_rows($result)>0 ){
+		  $row = mysql_fetch_assoc($result);
+		  $this->titreCourt = $row['titre'];
+		  $this->idauteur = $row['id_author'];
+		  $this->idCycle = $row['id_cycle'];
+		  $this->tome = $row['numero_cycle'];
+		  $this->isbn = $row['isbn'];
+		  $this->description = $row['description'];
+		  $this->totalVotes = $row['total_votes'];
+		  $this->nbVotants = $row['nb_votes'];
+		  $this->exists = true;
+		      
+		      
+		  $sql_cycle= "SELECT vBiblio_cycle.titre, nb_tomes FROM vBiblio_cycle, vBiblio_book WHERE vBiblio_book.id_cycle=vBiblio_cycle.id_cycle AND vBiblio_book.id_book=".$this->id;
+		  
+	      
+		    $cycles = mysql_query($sql_cycle);
+		    if($cycles && mysql_num_rows($cycles) > 0) {
+			    $this->belongToCycle = true;
+			    $this->nomCycle = mysql_result($cycles, 0, 'titre');
+			    $this->titreLong = $this->nomCycle.", Tome ".$this->tome." : ".$this->titreCourt;
+			    $this->nb_tomes_cycle = mysql_result($cycles, 0, 'nb_tomes');
+		    }
+		    else {
+			    $this->belongToCycle = false;
+			    $this->titreLong = $this->titreCourt;
+		    }
+		}else $this->exists=false;
 	}
-	else {
-		$this->belongToCycle = false;
-		$this->titreLong = $this->titreCourt;
-	}
-	//$this->nextBook = new Livre(0);
-	
-    }else $this->exists=false;
-  }
 
+	function update($new_titre, $new_isbn, $new_desc, $cycle_enabled, $idtome, $serie ){
+		
+		$new_titre = mysql_real_escape_string($new_titre);
+		$new_isbn = mysql_real_escape_string($new_isbn);
+		$new_desc = trim(mysql_real_escape_string($new_desc));
+		
+		
+		$sql_update;
+		
+		if(!$cycle_enabled){
+			$sql_update="UPDATE vBiblio_book
+				SET titre='$new_titre', description='$new_desc', isbn='$new_isbn', id_cycle=NULL, numero_cycle=0
+				WHERE id_book=".$this->id;	
+		}
+		else{
+			$idtome = INTVAL($idtome);
+			$serie = INTVAL($serie);
+			$sql_update="UPDATE vBiblio_book
+				SET titre='$new_titre', description='$new_desc', isbn='$new_isbn', id_cycle=$serie, numero_cycle=$idtome
+				WHERE id_book=".$this->id;
+		}
+		error_log($sql_update);
+		
+		if(!mysql_query($sql_update))error_log('MYSQL update failed :'+$sql_update);
+		else error_log('MYSQL UPDATE OK '.$sql_update);
+		
+	}
+  
+  
 	function TitreLong(){
 		return $this->titreLong;
 	}

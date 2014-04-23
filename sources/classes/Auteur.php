@@ -1,4 +1,5 @@
 <?php
+require_once("Cycle.php");
 
 class Auteur{
 	private $id;
@@ -73,10 +74,45 @@ class Auteur{
 		}
 		return $livres;
 	}
+	
+	public function retournerListeCycles(){
+		$auteur = $this->id;
+	
+		$sql = "SELECT titre, id_cycle FROM vBiblio_author, vBiblio_cycle
+			WHERE vBiblio_author.id_author=$auteur
+			AND vBiblio_author.id_author=vBiblio_cycle.id_author";
+		$result = mysql_query($sql);
+		$cycles = array();
+		
+		if($result && mysql_num_rows($result) ){
+			$cpt = 0;
+			while ( $row= mysql_fetch_assoc($result)){
+				$cycles[$cpt] = new Cycle($row['id_cycle']);
+				$cpt++;
+			}
+			error_log("Liste des cycles de ".$this->fullname." ($cpt)");
+		}
+		return $cycles;
+	}
 
 	public function retournerListeAuteursSimilaires(){
 		//TODO trouver une méthode pour la similarité... par les tags des livres ?
 		return array();
 	}
+}
+
+function retournerListeAuteurs(){
+	$authors = null;
+	$sql = "SELECT id_author FROM vBiblio_author ORDER BY nom ASC";
+	$result = mysql_query($sql);
+	if($result && mysql_num_rows($result)>0){
+		$authors = array();
+		$cpt = 0;
+		while($row = mysql_fetch_assoc($result)){
+			$authors[$cpt] = new Auteur($row['id_author']);
+			$cpt++;
+		}
+	}
+	return $authors;
 }
 ?>
