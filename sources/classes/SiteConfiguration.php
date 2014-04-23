@@ -59,14 +59,10 @@ class SiteConfiguration {
     public function update($id, $value){
         $id=intval($id);
         $value=trim(mysql_real_escape_string($value));
+        $sql="UPDATE vBiblio_config SET param_value='$value' WHERE id_param=$id";
+        mysql_query($sql);
         
-        
-        if($value !=''){
-            $sql="UPDATE vBiblio_config SET param_value='$value' WHERE id_param=$id";
-            mysql_query($sql);
-            
-            $this->reloadValuesFromDB();
-        }
+        $this->reloadValuesFromDB();
         
     }
     

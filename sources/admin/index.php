@@ -65,7 +65,7 @@ function save(id) {
                 }
                 
                 //modification d'une valeur
-                if(isset($_POST["saveparamvalue"]) && trim($_POST["saveparamvalue"]) !="" ){
+                if(isset($_POST["saveparamid"])){
                     $config->update($_POST["saveparamid"],$_POST["saveparamvalue"]);
                 }
             ?>
