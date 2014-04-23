@@ -1,19 +1,5 @@
 var ISBNok = false;
 
-/*function enableSeries(){
-	if(document.getElementsByName('series')[0].disabled){
-		document.getElementsByName('series')[0].disabled = false;
-		document.getElementsByName('idTome')[0].disabled = false;
-		//charger la liste des series de l'auteur
-		populateSeriesList(document.getElementsByName('auteur')[0]);		
-	}else{ //on désactive le choix de la série
-		document.getElementsByName('series')[0].disabled = true;
-		document.getElementsByName('idTome')[0].disabled = true;
-		//on met un élément vide
-		document.getElementsByName('series')[0].innerHTML="<option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>";
-	}
-}*/
-
 function switchSeriesState(){
 	if(document.getElementsByName('series')[0].disabled){
 		enableSeriesState(document.getElementsByName('series')[0], document.getElementsByName('idTome')[0], document.getElementsByName('auteur')[0]);
