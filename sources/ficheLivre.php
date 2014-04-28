@@ -22,7 +22,7 @@ if(isset($_GET['edit']) && $_GET['edit']==1){
 if(isset($_GET['id']) ){
 	$bouquin = new Livre($_GET['id']);
 	
-	//TODO si edition, mettre à jour le livre en base
+	//si en mode edition, on met à jour les valeurs.
 	if($edit_mode_available && isset($_POST['titre']) && isset($_POST['isbn']) && isset($_POST['desc']) ){
 		$cycle_enabled = false;
 		$idtome;
@@ -340,21 +340,20 @@ if(isset($_GET['id']) ){
 </tr>
 <tr>
 	<td colspan="3" style="text-align:justify;font-family: 'Donegal One', cursive;">
-<?
-	$description = $bouquin->retournerDescription();
 	
-?>
-<?php if($edit_mode && $edit_mode_available){ ?>
+	<? $description = $bouquin->retournerDescription(); ?>
+	
+<?php if($edit_mode && $edit_mode_available) : ?>
 	<textarea name="desc" rows=10 style="width:100%;"><?=$description?></textarea>
 	<input type="submit" value="Enregistrer" style="float:right;" class="vert"/>
 	<input type="button" value="Annuler" onclick="window.location='ficheLivre.php?id=<?=$_GET['id']?>'" />
-<? }else{  ?>
+<?php else :  ?>
 	<?php if(strlen($description) == 0 ) : ?>
 		Nous n'avons pas encore de r&eacute;sum&eacute; pour ce livre.
 	<?php else : ?>
 		<?=nl2br($description)?>
 	<?php endif; ?>
-<? } ?>
+<?php endif; ?>
 </td>
 
 </tr>
