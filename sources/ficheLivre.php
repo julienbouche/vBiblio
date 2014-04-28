@@ -160,10 +160,11 @@ if(isset($_GET['id']) ){
 <table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;width:580px;">  
    <tr>
 	<td rowspan="7" width="180px" align="center"><img src="<?=$bouquin->getAvatarPath()?>" width="169px" height="225px"/> </td>
-	<td class="tdTitleProfil" colspan="2">Informations :</td>
+	<td class="tdTitleProfil" colspan="2">Informations :
 	<?php if($edit_mode_available) : ?>
-		<td><a href="ficheLivre.php?id=<?=$_GET['id']?>&edit=1">Editer</a></td>
+		<a href="ficheLivre.php?id=<?=$_GET['id']?>&edit=1" class="vBibLink" style="float:right;padding-right:5px;"><img src="images/edit.png" width="16px" height="16px"></a>
 	<?php endif; ?>
+	</td>
    </tr>
    <tr>  
        <td align="right" width="50px">  
