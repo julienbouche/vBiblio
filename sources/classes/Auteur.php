@@ -99,6 +99,16 @@ class Auteur{
 		//TODO trouver une méthode pour la similarité... par les tags des livres ?
 		return array();
 	}
+	
+	public function update($nom, $prenom, $desc){
+		$nom = mysql_real_escape_string($nom);
+		$prenom = mysql_real_escape_string($prenom);
+		$desc = mysql_real_escape_string($desc);
+		
+		$sql = "UPDATE vBiblio_author SET nom='$nom', prenom='$prenom', description='$desc' where id_author=".$this->id;
+		
+		if(!mysql_query($sql))error_log("MYSQL update failed: ".$sql);
+	}
 }
 
 function retournerListeAuteurs(){

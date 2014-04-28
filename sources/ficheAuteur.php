@@ -3,12 +3,33 @@ include('accesscontrol.php');
 include('scripts/dateFunctions.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
+require_once('classes/Auteur.php');
 
 checkSecurity();
 
 
 $uid= $_SESSION['uid'];
 $utilisateur = new Utilisateur($uid);
+
+$edit_mode_available = false;
+
+if($utilisateur->belongToGroup("POWER_USERS")){
+	$edit_mode_available = true;
+}
+
+$edit_mode = false;
+if(isset($_GET['edit']) && $_GET['edit']==1){
+	$edit_mode=true;
+}
+
+if(isset($_GET['id'])){
+	if($edit_mode_available && isset($_POST['nomAuteur']) && isset($_POST['prenomAuteur']) && isset($_POST['desc']) ){
+		
+		$auteur = new Auteur($_GET['id']);
+		$auteur->update($_POST['nomAuteur'], $_POST['prenomAuteur'], $_POST['desc']);
+	}
+}
+
 ?>
 
 <?php if(isset($_GET['id']) ) : $auteur=new Auteur($_GET['id']); ?>
@@ -39,17 +60,27 @@ $utilisateur = new Utilisateur($uid);
 		</div>
 	</div>
 
-
+	<form action="ficheAuteur.php?id=<?=$_GET['id']?>" method="POST" >
 	<table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;width:500px;">  
 	   <tr>
-		<td rowspan="5" style="width:200px"><img src="images/avatars/no_avatar.png" width="160px" height="160px"/> </td><td class="tdTitleProfil" colspan="2">Informations g&eacute;n&eacute;rales:</td>
+		<td rowspan="5" style="width:200px"><img src="images/avatars/no_avatar.png" width="160px" height="160px"/></td>
+		<td class="tdTitleProfil" colspan="2">Informations g&eacute;n&eacute;rales:
+		<?php if($edit_mode_available) : ?>
+			<a href="ficheAuteur.php?id=<?=$_GET['id']?>&edit=1" class="vBibLink" style="float:right;padding-right:5px;"><img src="images/edit.png" width="16px" height="16px"></a>
+		<?php endif; ?>
+
+		</td>
 	   </tr>
 	   <tr>  
 	       <td align="left">  
 		   <p>Nom:</p>  
 	       </td>  
 	       <td align="left">
-		<?=$auteur->retournerNom()?>
+		<?php if($edit_mode_available && $edit_mode) :  ?>
+			<input type="text" name="nomAuteur" value="<?=$auteur->retournerNom()?>" />	
+		<?php else: ?>
+			<?=$auteur->retournerNom()?>
+		<?php endif; ?>
 	       </td>  
 	   </tr>  
 	   <tr>  
@@ -57,24 +88,14 @@ $utilisateur = new Utilisateur($uid);
 		   <p>Pr&eacute;nom:</p>  
 	       </td>  
 	       <td>
-		<?=$auteur->retournerPrenom()?>
+		<?php if($edit_mode_available && $edit_mode) :  ?>
+			<input type="text" name="prenomAuteur" value="<?=$auteur->retournerPrenom()?>" />	
+		<?php else: ?>
+			<?=$auteur->retournerPrenom()?>
+		<?php endif; ?>
+		
 	       </td>  
 	   </tr>
-	<?
-	/*if(isset($authorNick) && $authorNicl != "" ) {
-	?>
-	 <tr>  
-	       <td align="left">  
-		   <p>Nom &agrave; la ville:</p>  
-	       </td>  
-	       <td align="left">   
-		<?=$authorNick?>
-	       </td>  
-	   </tr>  
-	<?
-	}
-	else{*/
-	?>
 	 <tr>  
 	       <td align="left">  
 		   <p></p>  
@@ -93,19 +114,16 @@ $utilisateur = new Utilisateur($uid);
 		   
 	       </td>  
 	   </tr>
-	  
-
-	   
-		<tr>
-			<td colspan="3">
-				<div style="display:inline;">
-					<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
-					(lang:'fr')
-					</script>
-					&nbsp;<g:plusone size="small" ></g:plusone>
-				</div>
-			</td>
-		</tr>
+	<tr>
+		<td colspan="3">
+			<div style="display:inline;">
+				<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+				(lang:'fr')
+				</script>
+				&nbsp;<g:plusone size="small" ></g:plusone>
+			</div>
+		</td>
+	</tr>
 
 	<!-- En dessous de l'avatar-->
 
@@ -114,13 +132,17 @@ $utilisateur = new Utilisateur($uid);
 		</tr>
 		<tr>
 			<td colspan="3" style="text-align: justify;">
-
-	<?php if($auteur->retournerDescription() == "") : ?>
-		Nous n'avons pas encore de description pour cet auteur.
+	<?php if($edit_mode_available && $edit_mode) : ?>
+		<textarea name="desc" rows=10 style="width:100%;"><?=$auteur->retournerDescription()?></textarea>
+		<input type="submit" value="Enregistrer" style="float:right;" class="vert"/>
+		<input type="button" value="Annuler" onclick="window.location='ficheAuteur.php?id=<?=$_GET['id']?>'" />
 	<?php else : ?>
-		<?=$auteur->retournerDescription()?>
+		<?php if($auteur->retournerDescription() == "") : ?>
+			Nous n'avons pas encore de description pour cet auteur.
+		<?php else : ?>
+			<?=$auteur->retournerDescription()?>
+		<?php endif; ?>
 	<?php endif; ?>
-
 			</td>
 
 		</tr>
@@ -148,7 +170,7 @@ $utilisateur = new Utilisateur($uid);
 			</td>
 		</tr>
 	</table>
-
+	</form>
 <br/>
 <br/>
 
