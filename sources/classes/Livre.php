@@ -82,9 +82,9 @@ class Livre{
 				SET titre='$new_titre', description='$new_desc', isbn='$new_isbn', id_cycle=$serie, numero_cycle=$idtome
 				WHERE id_book=".$this->id;
 		}
-		error_log($sql_update);
+		//error_log($sql_update);
 		
-		if(!mysql_query($sql_update))error_log('MYSQL update failed :'+$sql_update);
+		if(!mysql_query($sql_update))error_log('MYSQL update failed :'.$sql_update);
 		
 	}
   
