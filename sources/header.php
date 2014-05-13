@@ -1,6 +1,9 @@
 <?php
 require_once("classes/Utilisateur.php");
-$rootPath = "";
+require_once("classes/SiteConfiguration.php");
+
+$config = new SiteConfiguration();
+$rootPath = $config->getParameter("VBIBLIO_ROOT_PATH");
 
 ?>
 	<div id="header">
@@ -58,9 +61,6 @@ $rootPath = "";
 			
 		}
 ?>
-
-
-			<!--li><a class="MenuItem" href="<?=$rootPath?>/index.php">Accueil</a></li-->
 			<li class="MenuContainer" >
 				<a class="MenuItem" href="<?=$rootPath?>/myBooks.php">
 				<?php if($utilisateur->recupererNombreDemandesDePretEnAttente()>0) : ?>
@@ -93,12 +93,27 @@ $rootPath = "";
 					</div>
 				</div>
 			</li>
-			<!--li-->
-				<form method="POST" action="addBooks.php" >
-					<input type="text" name="searchText" placeholder="Recherche..." class="awesomeBar" />
-				</form>
-			<!--/li-->
-
+			
+			<?php if($utilisateur->belongToGroup("SYS_ADMINS")) : ?>
+			<li class="MenuContainer">
+				<a class="MenuItem" href="<?=$rootPath?>/admin/index.php">
+					<img src="<?=$rootPath?>/images/editerprofil.png" title="Administration" alt="Administration" />
+				</a>
+				<div class="SubMenuItem">
+					<div class="SubMenuItemContainer">	
+						<a href="<?=$rootPath?>/admin/index.php" class="vBibLink SubMenuItem">Variables</a>
+						<a href="<?=$rootPath?>/admin/manage_roles.php" class="vBibLink SubMenuItem">Groupes</a>
+					</div>
+				</div>
+			</li>
+			<?php endif; ?>
+			
+			<form method="POST" action="addBooks.php" >
+				<input type="text" name="searchText" placeholder="Recherche..." class="awesomeBar" />
+			</form>
+			
+			
+			
 <?
 	}
 	
