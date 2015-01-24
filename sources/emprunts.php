@@ -59,7 +59,7 @@ $().ready(function() {
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
 		<div align="center">
@@ -89,7 +89,7 @@ $().ready(function() {
 	<br/>
 
 	<?php if(isset($searchText) && trim($searchText)!="") : ?>
-<?
+<?php
 	$searchTerms = str_replace (" ", ",", $searchText );
 	$listeEmpruntsPossibles=  $utilisateur->retournerListeRechercheEmpruntsPossibles($searchTerms);
 ?>
@@ -117,7 +117,7 @@ $().ready(function() {
 	<?php endif; ?>
 		
 	
-<?
+<?php
 	//Si l'utilisateur veut ajouter un emprunt d'une persone externe
 	//détecter le cas où la personne fait partie des amis de l'utilisateur
 	if(isset($_POST['vUsername']) and isset($_POST['id_book'])){
@@ -163,7 +163,7 @@ $().ready(function() {
 	<br/><br/><br/><br/><br/>
 
 
-<?
+<?php
 	
 	$sql = "SELECT vBiblio_pret.nom_emprunteur as fullname, titre, vBiblio_pret.id_preteur, vBiblio_pret.id_book as id_book FROM vBiblio_pret, vBiblio_book WHERE vBiblio_pret.id_emprunteur='".$utilisateur->getID()."' AND vBiblio_pret.id_book=vBiblio_book.id_book order by date_pret ASC";
 	
@@ -179,7 +179,7 @@ $().ready(function() {
 		<ul>
 	<?php while($row=mysql_fetch_assoc($result)) : $bouquin = new Livre($row['id_book']);  ?>
 
-<?
+<?php
 		//while($row=mysql_fetch_assoc($result)){
 			$preteur = $row['fullname'];
 			$IDPreteur = $row['id_preteur'];
@@ -210,7 +210,7 @@ $().ready(function() {
 		Vous n'avez emprunt&eacute; aucun livre, en ce moment.
 <?php endif; ?>
 </div>
-<?
+<?php
 	include('footer.php');
 ?>
 

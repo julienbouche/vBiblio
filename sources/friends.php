@@ -19,7 +19,7 @@ $uid = $_SESSION['uid'];
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
@@ -37,7 +37,7 @@ $uid = $_SESSION['uid'];
 	<!--Afficher <select><option>10</option><option>20</option><option>40</option><option>100</option><option>TOUS</option></select> amis par page.-->
 
 	<div class="BuddyList">
-<?
+<?php
 	$friendsArray = $utilisateur->recupererListeAmis();
 ?>
 
@@ -49,7 +49,7 @@ $uid = $_SESSION['uid'];
 	<?php endforeach; ?>
 	</div>
 </div>
-<?
+<?php
 	include('footer.php');
 ?>
 </div>

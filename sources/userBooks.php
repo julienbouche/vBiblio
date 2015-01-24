@@ -1,5 +1,5 @@
 <?php
-include('accesscontrol.php');
+require_once('accesscontrol.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
@@ -43,13 +43,13 @@ if(isset($_GET['user']) ){
 </head>
 <body>
 <div id="vBibContenu">
-<? include('header.php'); ?>
+<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
 	<?php if($SecuriteOK) : include('ssMenuPageAmi.php'); ?>
 	<div class="vBibList">
 	
-<?
+<?php
 	$sql = "SELECT  vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user WHERE vBiblio_poss.userid = vBiblio_user.tableuserid AND vBiblio_user.tableuserid='".$buddy->getID()."' AND vBiblio_poss.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author"; 
 	
 	$result = mysql_query($sql);
@@ -107,7 +107,7 @@ if(isset($_GET['user']) ){
 	<?php endif; ?>	
 	</div>
 </div>
-<? include('footer.php'); ?>
+<?php include('footer.php'); ?>
 </div>
 </body>
 </html>

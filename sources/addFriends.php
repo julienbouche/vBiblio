@@ -21,7 +21,7 @@ $uid = $_SESSION['uid'];
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 
 if(isset($_POST['searchText'])){
@@ -58,9 +58,9 @@ else{
 
 
   <td>Par son <select name="attribut">
-		<option value="fullname" <?if(isset($_POST['attribut']) and $_POST['attribut']=="fullname") echo "selected";?>>Nom</option>
-		<option value="userid" <?if(isset($_POST['attribut']) and $_POST['attribut']=="userid") echo "selected";?>>Pseudo</option>
-		<option value="email" <?if(isset($_POST['attribut']) and $_POST['attribut']=="email") echo "selected";?>>Email</option>
+		<option value="fullname" <?php if(isset($_POST['attribut']) and $_POST['attribut']=="fullname") echo "selected";?>>Nom</option>
+		<option value="userid" <?php if(isset($_POST['attribut']) and $_POST['attribut']=="userid") echo "selected";?>>Pseudo</option>
+		<option value="email" <?php if(isset($_POST['attribut']) and $_POST['attribut']=="email") echo "selected";?>>Email</option>
 	</select> : <input type="text" max-length="100" size="25" name="searchText" value="<?=$searchText?>"/></td><td></td>
   </tr>
   <tr>
@@ -72,7 +72,7 @@ else{
 	</fieldset>
 	</form>
 
-<?
+<?php
 	if( (isset($_POST['attribut']) ||isset($_GET['attr']) ||isset($_GET['attribut']) ) && (isset($_POST['searchText']) || isset($_GET['q'])) ) {
 		
 		if( isset($_POST['attribut'] ) ) {
@@ -143,7 +143,7 @@ else{
 <?php else : ?>
 Aucun utilisateur ne correspond &agrave; votre recherche
 <?php endif; ?>
-<?
+<?php
 
 
 	}
@@ -158,7 +158,7 @@ Aucun utilisateur ne correspond &agrave; votre recherche
 	<?php endif; ?>
 
 
-	<?
+	<?php
 	
 	if($result && mysql_num_rows($result)>0 ){
 		$row = mysql_fetch_assoc($result);
@@ -167,7 +167,7 @@ Aucun utilisateur ne correspond &agrave; votre recherche
 		if($start + $end < $nb){
 		?>
 	<a href="<?=$_SERVER['PHP_SELF']?>?attr=<?=$searchAttr?>&q=<?=$squery?>&start=<?=($start + $end)?>&s=<?=$delta?>" style="float:right;" class="vBibLink" title="Suivant">&gt;&gt;</a>";
-		<?
+		<?php
 		}
 	}
 
@@ -175,7 +175,7 @@ Aucun utilisateur ne correspond &agrave; votre recherche
 
 </div>
 
-<?
+<?php
 	include('footer.php');
 ?>
 </div>

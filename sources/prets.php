@@ -1,5 +1,5 @@
 <?php
-include('accesscontrol.php');
+require_once('accesscontrol.php');
 require_once('classes/Utilisateur.php');
 
 checkSecurity();
@@ -58,7 +58,7 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">	
 
@@ -76,7 +76,7 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 		<td>Le livre</td>
 		<td>
 			<select name="id_book">
-<?
+<?php
 	$bouquins = $utilisateur->retournerListeLivresDispos();
 ?>
 	
@@ -91,7 +91,7 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 		<td>&agrave;</td>
 		<td>
 			<select name="id_user">
-<?
+<?php
 	$friends = $utilisateur->recupererListeAmis();
 ?>
 	<?php foreach($friends as $friend) : ?>
@@ -123,7 +123,7 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 		<div class="BMMessage">Vos pr&ecirc;ts </div>
 	</div>
 	<br/><br/><br/>
-<?
+<?php
 	$prets = $utilisateur->retournerListePretsEnCours();
 
 ?>
@@ -154,7 +154,7 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 	Vous n'avez pr&ecirc;t&eacute; aucun livre, en ce moment.
 	<?php endif; ?>
 	</div>
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 </div>
 </body>
 </html>

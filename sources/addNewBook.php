@@ -75,10 +75,10 @@ if($result && mysql_num_rows($result)){
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
-	<? include('ssmenuHelpUs.php'); ?>
+	<?php include('ssmenuHelpUs.php'); ?>
 
 Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est pas d&eacute;j&agrave; pr&eacute;sent dans notre r&eacute;f&eacute;rentiel:
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return validateForm();">
@@ -89,7 +89,7 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 				<td>
 					<select name="auteur" onchange="javascript:reloadBookTitles(this);">
 
-<?
+<?php
 	$sql = "SELECT nom, prenom, id_author FROM vBiblio_author ORDER BY nom ASC";
 	$result = mysql_query($sql);
 	if($result && mysql_num_rows($result)>0){
@@ -138,7 +138,7 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 			</table>
 		</fieldset>
 	</form>
-<?
+<?php
 
 	$reqTotalCount = "SELECT COUNT(*) as nbTotalBook FROM vBiblio_book;";
 	$resTotalCount = mysql_query($reqTotalCount);
@@ -148,13 +148,13 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 		$combienDeLivres = $row['nbTotalBook'];
 ?>
 	<div class="vBibInfo">Nous avons actuellement <?=$combienDeLivres?> livres r&eacute;f&eacute;renc&eacute;s dans notre syst&egrave;me. Avez-vous bien v&eacute;rifi&eacute; que celui que vous voulez ajouter, n'y est pas d&eacute;j&agrave;?</div>
-<?
+<?php
 	}
 
 	mysql_close();
 ?>
 	</div>
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 
 </div>
 

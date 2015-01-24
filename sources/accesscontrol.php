@@ -111,24 +111,22 @@ function isUserKnown(){
 	if(!isset($_SESSION['uid']) ){
 	   //recherche d'un éventuel cookie ... 
 		if(isset($_COOKIE["vbiblio"]) && isset($_COOKIE["vbiblio_check"]) ){
-	    // stocke les var...      
+			// stocke les var...      
 			$valeurrech = $_COOKIE["vbiblio"] ;
 			$pass = "*".$_COOKIE["vbiblio_check"];
-	    $_SESSION['uid'] = $valeurrech ;
-	    $sqlSec = "SELECT fullname FROM vBiblio_user WHERE (userid='$valeurrech' OR email='$valeurrech') AND password='$pass' ";
-	    $resSec = mysql_query($sqlSec);
+			$_SESSION['uid'] = $valeurrech ;
+			$sqlSec = "SELECT fullname FROM vBiblio_user WHERE (userid='$valeurrech' OR email='$valeurrech') AND password='$pass' ";
+			$resSec = mysql_query($sqlSec);
 			if($resSec && mysql_num_rows($resSec)>0 ){
 			   $_SESSION['fullname'] = mysql_result($resSec, 0, "fullname");
 			   //seulement dans ce cas, on considère l'utilisateur comme effectivement authentifié
 				 return true;
 			}
-      else {
-			   return false;
-			}
+			else return false;
 		}
 		else return false;
-	} 
-  else return true;
+	}
+	else return true;
 }
 
 ?>

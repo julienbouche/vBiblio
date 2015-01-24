@@ -44,7 +44,7 @@ if(isset($_GET['id'])){
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
@@ -54,8 +54,8 @@ if(isset($_GET['id'])){
 	<div class="vBibBoite" style="float:right;max-width:200px;">
 			<div class="vBibBoiteTitre">Plus d'informations sur l'auteur :</div>
 			<div class="vBibBoiteContenu" style="padding-left:20px;">
-		<li><a class="vBibLink" href="http://fr.wikipedia.org/wiki/Special:Search?search=<?echo str_replace(' ','+',$auteur->fullname());?>">Wikip&eacute;dia</a></li>
-		<li><a class="vBibLink" href='http://www.google.fr/#hl=fr&q="<? echo "".str_replace(' ','+',$auteur->fullname());?>"'>Google</a></li>
+		<li><a class="vBibLink" href="http://fr.wikipedia.org/wiki/Special:Search?search=<?php echo str_replace(' ','+',$auteur->fullname());?>">Wikip&eacute;dia</a></li>
+		<li><a class="vBibLink" href='http://www.google.fr/#hl=fr&q="<?php echo "".str_replace(' ','+',$auteur->fullname());?>"'>Google</a></li>
 		<li><a class="vBibLink" href="http://recherche.fnac.com/r/<?=$auteur->fullname()?>?SCat=2!1">Fnac.com</a></li>
 		</div>
 	</div>
@@ -103,7 +103,7 @@ if(isset($_GET['id'])){
 	       <td align="left">
 	       </td>  
 	   </tr>  
-	<?
+	<?php
 	//}
 	?>
 	   <tr>  
@@ -152,7 +152,7 @@ if(isset($_GET['id'])){
 		</tr>
 		<tr>
 			<td colspan="3">
-	<?
+	<?php
 		//afficher la liste des livres de l'auteur
 		$livres = $auteur->retournerListeLivres();
 	?>
@@ -185,7 +185,7 @@ if(isset($_GET['id'])){
 
 
 </div>
-<?
+<?php
 	include('footer.php');
 ?>
 

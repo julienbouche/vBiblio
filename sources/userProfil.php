@@ -1,7 +1,7 @@
 <?php
-include('accesscontrol.php');
-include('scripts/common.php');
-include('scripts/dateFunctions.php');
+require_once('accesscontrol.php');
+require_once('scripts/common.php');
+require_once('scripts/dateFunctions.php');
 
 checkSecurity();
 
@@ -108,7 +108,7 @@ $message="";
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
 	<?php if($SecuriteOK) :  ?>
@@ -117,7 +117,7 @@ $message="";
 		
 		<?php if(isset($_GET['user'])) : ?>
 	<div style="float:right;width:200px;">
-		<?
+		<?php
 		$buddy = new Utilisateur("");
 		$buddy->initializeByID($tableID);
 		$compatibility = $utilisateur->calculerCompatibiliteAmi($buddy);
@@ -126,7 +126,7 @@ $message="";
 		<div class="vBibBoite" style="left:-20px;width:100%">
 			<div class="vBibBoiteTitre">Styles de lecture:</div>
 			<div class="vBibBoiteContenu" style="padding:0px;">
-				<?$tags = $buddy->getAllTagsFromBooks(); ?>
+				<?php $tags = $buddy->getAllTagsFromBooks(); ?>
 				<?php if(count($tags)>0) : ?>
 				<ul id="vBiblio_tagcloud">	
 					<?php foreach($tags as $tag) : ?>
@@ -142,7 +142,7 @@ $message="";
 		</div>
 		
 		<br/>
-		<meter value="<?=$compatibility?>" min="0" max="100" title="Votre compatibilit&eacute; est <? if($compatibility<20){echo "faible"; }elseif($compatibility<60){ echo "moyenne"; }else {echo "&eacute;lev&eacute;e";}?>"><?=$compatibility?>%</meter>
+		<meter value="<?=$compatibility?>" min="0" max="100" title="Votre compatibilit&eacute; est <?php if($compatibility<20){echo "faible"; }elseif($compatibility<60){ echo "moyenne"; }else {echo "&eacute;lev&eacute;e";}?>"><?=$compatibility?>%</meter>
 		<br/>
 	</div>
 		<?php endif; ?>
@@ -180,7 +180,7 @@ $message="";
 	</tr>
 	<tr>
 		<td>Livre pr&eacute;f&eacute;r&eacute;:</td><td colspan="2">
-<?
+<?php
 	$req = "SELECT titre, id_cycle, numero_cycle FROM vBiblio_book WHERE id_book=$prefBook";
 	$res = mysql_query($req);
 	
@@ -221,7 +221,7 @@ $message="";
 	Vous n'&ecirc;tes pas dans la liste d'amis de cet utilisateur. Vous ne pouvez pas acc&eacute;der &agrave; ses informations.
 	<?php endif; ?>
 	</div>
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 </div>
 </body>
 </html>

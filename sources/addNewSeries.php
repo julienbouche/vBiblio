@@ -74,10 +74,10 @@ function validateNum(chaine){
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
-	<? include('ssmenuHelpUs.php'); ?>
+	<?php include('ssmenuHelpUs.php'); ?>
 
 Vous avez la possibilit&eacute; d'ajouter un titre de cycle directement si celui-ci n'est pas d&eacute;j&agrave; pr&eacute;sent dans notre r&eacute;f&eacute;rentiel:
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return validateTomes();">
@@ -87,7 +87,7 @@ Vous avez la possibilit&eacute; d'ajouter un titre de cycle directement si celui
 			<td>Auteur :</td>
 			<td>
 				<select name="auteur">
-<?
+<?php
 			$sql = "SELECT nom, prenom, id_author FROM vBiblio_author ORDER BY nom ASC";
 			$result = mysql_query($sql);
 ?>
@@ -115,14 +115,14 @@ Vous avez la possibilit&eacute; d'ajouter un titre de cycle directement si celui
 		</table>
 		</fieldset>
 	</form>
-<?
+<?php
 	//faire l'ajout du livre et afficher un message si reussi...
 	
 	mysql_close();
 ?>
 
 	</div>
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 
 </div>
 </body>

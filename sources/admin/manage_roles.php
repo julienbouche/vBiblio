@@ -78,7 +78,7 @@ function addUsersToGroup(group_id) {
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('../header.php'); ?>
+	<?php include('../header.php'); ?>
 
 	<div id="vBibDisplay">
             <?php include('menu.php'); ?>
@@ -124,7 +124,7 @@ function addUsersToGroup(group_id) {
                     <option value="<?=$row['userid']?>"><?=$row['pseudo']?></option> 
                 <?php endwhile; ?>
             
-                    <?
+                    <?php
                 }
                 
             ?>
@@ -146,7 +146,7 @@ function addUsersToGroup(group_id) {
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
             <div class="insideWindowContent" >
                 <input type="hidden" name="role_selected" value="<?=$_POST['role_selected']?>" />
-        <?
+        <?php
                 $users = getAllUsersNotBelongingToTheGroup($_POST['role_selected']);
         ?>
                 <?php if (count($users)>0) : ?>
@@ -173,7 +173,7 @@ function addUsersToGroup(group_id) {
     </div> 
         
         
-        <? include('../footer.php'); ?>
+        <?php include('../footer.php'); ?>
 </div>
 </body>
 </html>

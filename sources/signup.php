@@ -103,7 +103,7 @@ Julien, votre Webmaster
  <body>    
 
 <div id="vBibContenu"> 
-<?
+<?php
 	include('header.php');
 ?>
 <br/>
@@ -231,7 +231,7 @@ Julien, votre Webmaster
 <div style="font-size:small;color:red;">Votre adresse e-mail sera utilis&eacute;e pour vous envoyer votre mot de passe. 
 Vous pourrez par la suite changer votre mot de passe dans la page de votre profil.</div>
 
-<? include('footer.php'); ?>
+<?php include('footer.php'); ?>
 
 </div>
 

@@ -15,7 +15,7 @@ if(isset($_GET['user'])){
  <a href="userProfil.php?user=<?=$_GET['user']?>" class="vBibLink">Profil</a> | <a href="userBooks.php?user=<?=$_GET['user']?>" class="vBibLink">Consulter sa biblioth&egrave;que</a> | <a href="userTRL.php?user=<?=$_GET['user']?>" class="vBibLink">Consulter sa ToRead List</a><br/><br/>
 
 
-<?
+<?php
 	}
 	else $onEstAmi = false;
 }

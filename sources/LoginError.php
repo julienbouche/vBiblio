@@ -12,7 +12,7 @@
  <body>    
 
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 	<div id="vBibDisplay">
@@ -24,7 +24,7 @@ Pour vous connecter, merci de cliquer
 
 </div>
 
-<?
+<?php
 	include('footer.php');
 ?>
 

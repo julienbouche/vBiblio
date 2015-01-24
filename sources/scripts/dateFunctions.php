@@ -1,4 +1,4 @@
-<? 
+<?php 
 function dateh_lettres($chaine)
 {
 	$jour = substr($chaine,8,2) ;

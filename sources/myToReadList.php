@@ -1,6 +1,6 @@
 <?php
-include('scripts/common.php');
-include('accesscontrol.php');
+require_once('scripts/common.php');
+require_once('accesscontrol.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
@@ -27,13 +27,13 @@ $utilisateur = new Utilisateur($uid);
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
 	<div id="vBibDisplay">
 
-<?
+<?php
 
 	$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_toReadList.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_toReadList, vBiblio_user WHERE vBiblio_toReadList.id_user = vBiblio_user.tableuserid AND vBiblio_user.tableuserid='".$utilisateur->getID()."' AND vBiblio_toReadList.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author ORDER BY vBiblio_author.nom ASC, id_cycle, numero_cycle ASC"; 
 	
@@ -57,7 +57,7 @@ $utilisateur = new Utilisateur($uid);
 
 	<?php while ($row=mysql_fetch_assoc($result)) : $bouquin = new Livre($row['id_book']); $auteur = $bouquin->retournerAuteur(); ?>
 
-	<?
+	<?php
 		if($cpt%2==0){
 			$style = "vBiblioBookEven";
 		}
@@ -89,7 +89,7 @@ $utilisateur = new Utilisateur($uid);
 	Vous n'avez pas encore ajout&eacute; de livres &agrave; votre liste de livres &agrave; lire.
 	<?php endif; ?>
 </div>
-<?
+<?php
 	include('footer.php');
 ?>
 

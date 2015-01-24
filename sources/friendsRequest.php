@@ -20,7 +20,7 @@ $uid = $_SESSION['uid'];
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
@@ -34,7 +34,7 @@ $uid = $_SESSION['uid'];
 
 <br/><br/><br/><br/><br/>
 
-<?
+<?php
 	$listeDemandes = $utilisateur->recupererListeDemandesContact();
 ?>
 
@@ -61,7 +61,7 @@ $uid = $_SESSION['uid'];
 	<?php endif; ?>
 
 </div>
-<?
+<?php
 	include('footer.php');
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-include('accesscontrol.php');
+require_once('accesscontrol.php');
 require_once('classes/Utilisateur.php');
 
 checkSecurity();
@@ -22,7 +22,7 @@ $uid = $_SESSION['uid'];
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
 
@@ -33,7 +33,7 @@ $uid = $_SESSION['uid'];
 		</div>
 		<br/><br/><br/><br/><br/>
 
-		<? $LivresDemandes = $utilisateur->recupererListeDemandesLivres(); ?>
+		<?php $LivresDemandes = $utilisateur->recupererListeDemandesLivres(); ?>
 		<?php if(count($LivresDemandes)>0) : ?>
 			<table>
 			<?php foreach($LivresDemandes as $demande) : $buddy = $demande[0]; $bouquin = $demande[1]; $idDemande=$demande[2]?>
@@ -56,7 +56,7 @@ $uid = $_SESSION['uid'];
 		Vous n'avez aucune demande actuellement.
 		<?php endif; ?>
 		</div>
-		<? include('footer.php'); ?>
+		<?php include('footer.php'); ?>
 	</div>
 </body>
 </html>

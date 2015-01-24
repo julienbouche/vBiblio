@@ -20,7 +20,7 @@ $utilisateur = new Utilisateur($uid);
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
@@ -65,7 +65,9 @@ $utilisateur = new Utilisateur($uid);
 		Ce cycle n'existe pas.
             <?php endif; ?>
         </div>
-<?
+	
+	<div style="clear:both"></div>
+<?php
 	include('footer.php');
 ?>
 

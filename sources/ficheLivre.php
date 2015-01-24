@@ -79,7 +79,7 @@ if(isset($_GET['id']) ){
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
 
@@ -90,7 +90,7 @@ if(isset($_GET['id']) ){
 	<form >
 	<input type="hidden" name="idbook" value="<?=$_GET['id']?>" />
 
-<?
+<?php
 	$buddys = $utilisateur->recupererListeAmis();
 ?>
 	<?php if (count($buddys)>0) : $i=0 ?>
@@ -132,10 +132,10 @@ if(isset($_GET['id']) ){
 	<div class="vBibBoite" style="left:-20px;width:100%">
 		<div class="vBibBoiteTitre">Rechercher ce livre :</div>
 		<div class="vBibBoiteContenu" style="padding-left:20px;">
-			<li><a class="vBibLink" href="http://www.leboncoin.fr/livres/offres/ile_de_france/occasions/?f=a&th=1&q=<?echo str_replace(' ','+',$bouquin->TitreCourt())." ".$auteur->fullname();?>">Leboncoin.fr</a></li>
-			<li><a class="vBibLink" href="http://fr.wikipedia.org/wiki/Special:Search?search=<?echo str_replace(' ','+',$bouquin->TitreCourt())." ".$auteur->fullname();?>">Wikip&eacute;dia</a></li>
-			<li><a class="vBibLink" href="http://www.amazon.fr/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=<?echo "".str_replace(' ','+',$bouquin->TitreCourt());?>">Amazon.fr</a></li>
-			<li><a class="vBibLink" href="http://www.priceminister.com/nav/Livres/kw/<?echo "".str_replace(' ','+',urlencode($bouquin->TitreCourt()));?>">Price Minister</a></li>
+			<li><a class="vBibLink" href="http://www.leboncoin.fr/livres/offres/ile_de_france/occasions/?f=a&th=1&q=<?php echo str_replace(' ','+',$bouquin->TitreCourt())." ".$auteur->fullname();?>">Leboncoin.fr</a></li>
+			<li><a class="vBibLink" href="http://fr.wikipedia.org/wiki/Special:Search?search=<?php echo str_replace(' ','+',$bouquin->TitreCourt())." ".$auteur->fullname();?>">Wikip&eacute;dia</a></li>
+			<li><a class="vBibLink" href="http://www.amazon.fr/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=<?php echo "".str_replace(' ','+',$bouquin->TitreCourt());?>">Amazon.fr</a></li>
+			<li><a class="vBibLink" href="http://www.priceminister.com/nav/Livres/kw/<?php echo "".str_replace(' ','+',urlencode($bouquin->TitreCourt()));?>">Price Minister</a></li>
 			<li><a class="vBibLink" href="http://www.google.fr/#hl=fr&q=<?=str_replace(' ','+',urlencode($bouquin->TitreCourt().' '.$auteur->fullname()));?>">Google</a></li>
 			<li><a class="vBibLink" href="http://recherche.fnac.com/r/<?=$bouquin->TitreCourt()?>?SCat=2!1">Fnac.com</a></li>
 		</div>
@@ -146,7 +146,7 @@ if(isset($_GET['id']) ){
 	<div class="vBibBoite" style="left:-20px;width:100%">
 		<div class="vBibBoiteTitre">Vos amis l'ont d&eacute;j&agrave;:</div>
 		<div class="vBibBoiteContenu" style="padding-left:20px;">
-		<? foreach($buddyListWhoGotThisBook as $buddyGTB) : ?>
+		<?php foreach($buddyListWhoGotThisBook as $buddyGTB) : ?>
 			<a href="userBooks.php?user=<?=$buddyGTB->getID()?>" title="<?=$buddyGTB->getFullname()?>"><img src="<?=$buddyGTB->cheminFichierAvatar()?>"  /></a>
 		<?php endforeach; ?>
 			<br/>
@@ -303,7 +303,7 @@ if(isset($_GET['id']) ){
 <tr>
 <td align="center">
 	<?php if( isUserKnown()) : ?>
-		<?//rendant la page publique, on affiche les interactions avec les autres utilisateurs que si l'utilisateur est connecté ?>
+		<?php //rendant la page publique, on affiche les interactions avec les autres utilisateurs que si l'utilisateur est connecté ?>
 		<a href="" onclick="javascript:popinside_show('fenetreConseilAmi');return false;" class="vBibLink"><img src="images/recommander.png" alt="Conseiller ce livre" title="Conseiller ce livre" style="border:1px solid gray;padding:2px;" width="18" height="18"/></a>
 		<a href="" onclick="javascript:DisplayFenetreTag();return false;" class="vBibLink"><img src="images/addTag.png" alt="Taguer" title="Taguer" style="border:1px solid gray;padding:2px;" width="18" height="18"/></a>
 		<?php if($bouquin->retournerISBN() != "") : ?>
@@ -341,7 +341,7 @@ if(isset($_GET['id']) ){
 <tr>
 	<td colspan="3" style="text-align:justify;font-family: 'Donegal One', cursive;">
 	
-	<? $description = $bouquin->retournerDescription(); ?>
+	<?php $description = $bouquin->retournerDescription(); ?>
 	
 <?php if($edit_mode && $edit_mode_available) : ?>
 	<textarea name="desc" rows=10 style="width:100%;"><?=$description?></textarea>
@@ -362,7 +362,7 @@ if(isset($_GET['id']) ){
 <tr><td colspan="3"></td></tr>
 <tr>
 	<td class="tdTitleProfil" colspan="3">Note des utilisateurs: 
-<?
+<?php
 	$nb_votes = $bouquin->retournerNbVotants();
 ?>
 	<?php if (isset($nb_votes) && $nb_votes!=0) : $actualRating = $bouquin->retournerNote() ?>
@@ -404,7 +404,7 @@ if(isset($_GET['id']) ){
 	</td>
 </tr>
 
-<?
+<?php
 	$livres = $bouquin->retournerAutresLivresMemeAuteur();
 ?>
 
@@ -431,7 +431,7 @@ if(isset($_GET['id']) ){
 </tr>
 </table>
 </form>
-<? $listeTags = $bouquin->getTagsOrdered(); ?>
+<?php $listeTags = $bouquin->getTagsOrdered(); ?>
 
 <div style="padding-left:20px;">
 <?php if(count($listeTags)>0) : ?>
@@ -506,14 +506,14 @@ Aucun tag associ&eacute; &agrave; ce livre
 <?php endif; ?>	
 	
 </div>
-<?
+<?php
 	include('footer.php');
 ?>
 
 </div>
 <script src="https://encrypted.google.com/books?jscmd=viewapi&bibkeys=ISBN:<?=$bouquin->retournerISBN()?>&callback=processDynamicLinksResponse"></script>
 </body>
-<?
+<?php
   }
 }
 ?>

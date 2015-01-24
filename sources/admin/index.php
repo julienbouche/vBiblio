@@ -39,7 +39,7 @@ function save(id) {
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('../header.php'); ?>
+	<?php include('../header.php'); ?>
 
 	<div id="vBibDisplay">
             
@@ -112,12 +112,12 @@ function save(id) {
                 <?php endforeach; ?>
                 </tbody>
             </table>
-                    <?
+                    <?php
                 }
             ?>
             <br/>
 	</div>	
-        <? include('../footer.php'); ?>
+        <?php include('../footer.php'); ?>
 </div>
 </body>
 </html>

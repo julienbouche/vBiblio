@@ -1,5 +1,5 @@
 <?php
-include('accesscontrol.php');
+require_once('accesscontrol.php');
 require_once('classes/Utilisateur.php');
 
 
@@ -18,7 +18,7 @@ $utilisateur = new Utilisateur($uid);
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 

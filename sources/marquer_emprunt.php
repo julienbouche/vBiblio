@@ -1,6 +1,6 @@
 <?php
-include('accesscontrol.php');
-include('classes/Utilisateur.php');
+require_once('accesscontrol.php');
+require_once('classes/Utilisateur.php');
 
 checkSecurity();
 
@@ -59,13 +59,13 @@ $().ready(function() {
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?phpinclude('header.php'); ?>
 
 	<div id="vBibDisplay">
 
 
 	<!-- **************************************FORMULAIRE ****************************************-->
-<?
+<?php
 	$bouquins = $utilisateur->retournerListeLivresDispos();
 ?>
 
@@ -86,7 +86,7 @@ $().ready(function() {
 				<td>
 					<select name="id_book">
 			<?php foreach($bouquins as $bouquin) : ?>
-					<option value="<?=$bouquin->getID()?>" <?if($bouquin->getID()==$_GET['q']){echo "selected";}?>><?=$bouquin->TitreLongAsShortNames()?> de <?=$bouquin->retournerAuteur()->getShortName()?></option>
+					<option value="<?=$bouquin->getID()?>" <?php if($bouquin->getID()==$_GET['q']){echo "selected";}?>><?=$bouquin->TitreLongAsShortNames()?> de <?=$bouquin->retournerAuteur()->getShortName()?></option>
 			<?php endforeach; ?>
 					</select>
 				</td>
@@ -110,7 +110,7 @@ $().ready(function() {
 	Vous n'avez plus de livres &agrave; marquer comme emprunt&eacute;s.	
 <?php endif; ?>
 		<!-- **************************************FIN FORMULAIRE ****************************************-->
-<?
+<?php
 	//Si l'utilisateur veut ajouter un emprunt d'une persone externe
 	//détecter le cas où la personne fait partie des amis de l'utilisateur
 	if(isset($_POST['vUsername']) and isset($_POST['id_book'])){
@@ -156,7 +156,7 @@ $().ready(function() {
 	<br/><br/><br/><br/><br/>
 
 
-<?
+<?php
 	
 	$sql = "SELECT vBiblio_pret.nom_emprunteur as fullname, titre, vBiblio_pret.id_preteur, vBiblio_pret.id_book as id_book FROM vBiblio_pret, vBiblio_book WHERE vBiblio_pret.id_emprunteur='".$utilisateur->getID()."' AND vBiblio_pret.id_book=vBiblio_book.id_book order by date_pret ASC";
 	
@@ -172,7 +172,7 @@ $().ready(function() {
 		<ul>
 	<?php while($row=mysql_fetch_assoc($result)) : $bouquin = new Livre($row['id_book']);  ?>
 
-<?
+<?php
 		//while($row=mysql_fetch_assoc($result)){
 			$preteur = $row['fullname'];
 			$IDPreteur = $row['id_preteur'];
@@ -203,7 +203,7 @@ $().ready(function() {
 		Vous n'avez emprunt&eacute; aucun livre, en ce moment.
 <?php endif; ?>
 </div>
-<?
+<?php
 	include('footer.php');
 ?>
 

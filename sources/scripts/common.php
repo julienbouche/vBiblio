@@ -1,6 +1,7 @@
 <?php // common.php  
 
 function error($msg) {  
+   
    ?>  
    <html>  
    <head>  
@@ -14,7 +15,9 @@ function error($msg) {
    <body>  
    </body>  
    </html>  
-   <?  
+   
+   <?php
+   
    exit;  
 }
 
@@ -46,5 +49,6 @@ function envoyermail($usermail, $sujet, $message, $fromName){
 	mail($usermail, $sujet, $message, "From: vbiblio@free.fr");
 }
 
-  
 ?>
+
+

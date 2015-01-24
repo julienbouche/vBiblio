@@ -22,10 +22,10 @@ $uid = $_SESSION['uid'];
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
-<?
+<?php
 
 //partie d'ajout des livres sélectionnés
 if(isset($_POST['booksToAdd']) ){
@@ -91,9 +91,9 @@ $tag = new Tag($_GET['idtag']);
 <?php endif; ?>
 
 	<br/>
-	<? mysql_close(); ?>
+	<?php mysql_close(); ?>
 	</div>
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 
 </div>
 </body>

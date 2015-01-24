@@ -79,7 +79,7 @@ function AfficherFormReponse($caller, $id_mess){
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
@@ -88,7 +88,7 @@ function AfficherFormReponse($caller, $id_mess){
 			<div class="MessagerieMenuItem"><a href="messages_rec.php" class="vBibLink" ><input class="vert" value="Messages re&ccedil;us" type="button" /></a></div>
 			<div class="MessagerieMenuItem"><a href="messages_sen.php" class="vBibLink" ><input value="Messages envoy&eacute;s" type="button" /></a></div>
 		</div>
-    <?
+    <?php
     //$utilisateur->afficherDerniersMessages();
     $ListeMessages = $utilisateur->recupererListeTousMessagesRecus();
     
@@ -96,18 +96,18 @@ function AfficherFormReponse($caller, $id_mess){
 	
 	?>
 	<ul id="vBibMessages">
-	<?
+	<?php
     	foreach($ListeMessages as $Message){
 		$Expediteur = $Message->getExpediteur();
 		if($Expediteur->aUnAvatar()){ 
 		?>
 		<li class="vBibMessage" style="background: url(<?=$Expediteur->cheminFichierAvatar()?>) no-repeat 0 1.45em;min-height:70px;" >
-	 	<?
+	 	<?php
    		}
 	 	else{
 	 	?>
 		<li class="vBibMessage" style="" >
-		<?
+		<?php
    		}
 		?>
 		<div>
@@ -129,18 +129,18 @@ function AfficherFormReponse($caller, $id_mess){
 			</form>
 		</div>
 	</li>
-<?
+<?php
 	}
 ?>
 	</ul>
-<?
+<?php
 
     }
     else echo "<br/>Vous n'avez aucun message.";
 
     ?>
 	</div>	
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 </div>
 </body>
 </html>

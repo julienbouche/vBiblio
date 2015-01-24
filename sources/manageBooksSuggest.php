@@ -1,5 +1,5 @@
 <?php
-include('accesscontrol.php');
+require_once('accesscontrol.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Livre.php');
 
@@ -22,7 +22,7 @@ $uid = $_SESSION['uid'];
 </head>
 <body>
 <div id="vBibContenu">
-<? include('header.php'); ?>
+<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
 
@@ -33,7 +33,7 @@ $uid = $_SESSION['uid'];
 	</div>
 	<br/><br/><br/><br/><br/>
 
-	<? $listeSuggestions = $utilisateur->recupererListeCompleteSuggestions(); ?>
+	<?php $listeSuggestions = $utilisateur->recupererListeCompleteSuggestions(); ?>
 
 	<?php if(count($listeSuggestions) > 0) : ?>
 		<table style="font-size:inherit;width:100%;border:0;">
@@ -60,7 +60,7 @@ $uid = $_SESSION['uid'];
 
 
 	</div>
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 
 </div>
 

@@ -17,7 +17,7 @@ $userProfilId = mysql_real_escape_string($_GET['u']);
 
 	
 	
-<?
+<?php
 	if(isset($_GET['sort']) && $_GET['sort']=="Title" && isset($_GET['sortOrder']) ){
 		$sortOrder=mysql_real_escape_string($_GET['sortOrder']);
 		$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_toReadList.id_book as id_book, vBiblio_author.id_author

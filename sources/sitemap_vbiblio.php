@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('scripts/db/db.php');
 
 header('Content-Type: text/xml');
@@ -6,7 +6,7 @@ echo "<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">";
 
 ?>
 <urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
-<?
+<?php
 	dbConnect();
 	
 	//lister toutes les pages publiques utilisateur activées
@@ -25,7 +25,7 @@ echo "<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">";
 			<lastmod><?=substr($data['date_ajout'], 0, 10)?></lastmod>
 			<changefreq>monthly</changefreq>
 	    </url>
-		<?
+		<?php
 	}
 
 
@@ -39,7 +39,7 @@ echo "<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">";
 		<loc>http://vbiblio.free.fr/ficheLivre.php?id=<?=$data['id_book']?></loc>
 		<changefreq>YEARLY</changefreq>
 	</url>
-	<?
+	<?php
 	}
 	
 	//lister tous les cycles
@@ -52,7 +52,7 @@ echo "<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">";
 		<loc>http://vbiblio.free.fr/cycle.php?id=<?=$data['id_cycle']?></loc>
 		<changefreq>YEARLY</changefreq>
 	</url>
-	<?
+	<?php
 	}
 
 ?>

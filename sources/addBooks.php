@@ -20,7 +20,7 @@ $uid = $_SESSION['uid'];
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 
 	
@@ -41,12 +41,12 @@ $uid = $_SESSION['uid'];
 	Rechercher parmi notre r&eacute;f&eacute;rentiel un livre que vous souhaitez ajouter &agrave; votre biblioth&egrave;que :
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
 		<fieldset>
-			<input type="text" max-length="100" size="100" name="searchText" value="<? echo str_replace("\\", "" , $searchText);?>"/>
+			<input type="text" max-length="100" size="100" name="searchText" value="<?php echo str_replace("\\", "" , $searchText);?>"/>
 			<input type="submit" value="Rechercher" style="float:right;" />
 		</fieldset>
 	</form>
 	<br/>
-<?
+<?php
 	$livresAAjouter = $utilisateur->rechercherLivresAAjouter($searchText);
 ?>
 
@@ -90,7 +90,7 @@ $uid = $_SESSION['uid'];
 
 
 	Note: Les livres &eacute;tant d&eacute;j&agrave; pr&eacute;sents dans vos listes ne sont pas affich&eacute;s dans cette recherche.
-<?
+<?php
 	//gestion de l'enregistrement des livres sélectionnés
 	if(isset($_POST['booksToAdd']) ){
 		$bouquins = $_POST['booksToAdd'];
@@ -113,11 +113,11 @@ $uid = $_SESSION['uid'];
 
 
 <br/>
-<? mysql_close(); ?>
+<?php mysql_close(); ?>
 
 </div>
 
-<? include('footer.php'); ?>
+<?php include('footer.php'); ?>
 
 </div>
 </body>

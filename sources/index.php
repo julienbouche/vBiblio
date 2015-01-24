@@ -1,7 +1,7 @@
 <?php
+require_once('scripts/common.php');
 require_once('accesscontrol.php');
 require_once('scripts/dateFunctions.php');
-require_once('scripts/common.php');
 require_once('classes/Utilisateur.php');
 require_once('classes/Message.php');
 
@@ -80,7 +80,7 @@ function AfficherFormReponse($caller, $id_mess){
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
 	<p><a href="addNewBook.php" class="vBibLink" >Aidez-nous</a> &agrave; augmenter notre r&eacute;f&eacute;rentiel.</p>
@@ -101,7 +101,7 @@ function AfficherFormReponse($caller, $id_mess){
 	<div class="vBibBoite">
 		<div class="vBibBoiteTitre">Derni&egrave;res demandes</div>
 		<div class="vBibBoiteContenu">
-		<? $listeDemandes = $utilisateur->recupererListeResumeDernieresDemandes(); ?>
+		<?php $listeDemandes = $utilisateur->recupererListeResumeDernieresDemandes(); ?>
 		<?php if(count($listeDemandes)>0) : ?>
 			<ul>
 			<?php foreach($listeDemandes as $demande) : ?>
@@ -125,7 +125,7 @@ function AfficherFormReponse($caller, $id_mess){
 	<div class="vBibBoite">
 		<div class="vBibBoiteTitre">Suggestions de vos amis</div>
 		<div class="vBibBoiteContenu">
-		<? $listeSuggestions = $utilisateur->recupererListeResumeSuggestions(); ?>
+		<?php $listeSuggestions = $utilisateur->recupererListeResumeSuggestions(); ?>
 		<?php if(count($listeSuggestions)>0) : ?>
 			<ul>
 			<?php foreach($listeSuggestions as $suggestion) : $buddy = $suggestion[0]; $book = $suggestion[1]?>
@@ -155,7 +155,7 @@ function AfficherFormReponse($caller, $id_mess){
 			<div class="vBibBoiteTitre">Derniers ajouts dans votre <a href="myBooks.php" class="vBibLink" >biblioth&egrave;que</a></div>
 			<div class="vBibBoiteContenu">
 			
-			<? $listeAjoutsLivre = $utilisateur->retournerListeDerniersAjouts(); ?>
+			<?php $listeAjoutsLivre = $utilisateur->retournerListeDerniersAjouts(); ?>
 
 			<?php if(count($listeAjoutsLivre)>0) : ?>
 				<ul>
@@ -188,9 +188,7 @@ function AfficherFormReponse($caller, $id_mess){
 
 		<br/><br/><br/><br/>
 		
-    <?
-    $ListeMessages = $utilisateur->recupererListeDerniersMessages();
-    ?>
+    <?php  $ListeMessages = $utilisateur->recupererListeDerniersMessages(); ?>
     <?php if(sizeof($ListeMessages)>0) : ?>
 	
 	<ul id="vBibMessages">
@@ -229,7 +227,7 @@ function AfficherFormReponse($caller, $id_mess){
 <?php endif; ?>
 	</div>
 	</div>	
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 
 </div>
 </body>

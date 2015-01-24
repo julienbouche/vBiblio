@@ -1,5 +1,5 @@
 <?php
-include('../accesscontrol.php');
+require_once('../accesscontrol.php');
 require_once('../scripts/db/db.php');
 
 dbConnect();
@@ -45,15 +45,15 @@ if($user_login != "" ){
 
 <html>
 <head>
-  <?
+  <?php
   if($userExist){
   ?>
 	<title>vBiblio - Les livres de <?=$user_login?> </title>
-  <?
+  <?php
   }else{
   ?>
   <title>vBiblio - Page publique inexistante</title>
-  <?
+  <?php
   }
   ?>  
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -63,13 +63,13 @@ if($user_login != "" ){
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('../header.php');
 ?>
 
 	<div id="vBibDisplay">
 
-<?
+<?php
 
 //si l'utilisateur n'est pas connu, insérer de la pub !
 if( isUserKnown()==false ) {
@@ -90,7 +90,7 @@ if( isUserKnown()==false ) {
 <div style="clear:both"></div>
 
 
-<?
+<?php
 }
 
 if( $userExist && $isPublicActivated){
@@ -99,7 +99,7 @@ if( $userExist && $isPublicActivated){
   
 	<div class="vBibList">
 	
-<?
+<?php
 	$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user WHERE vBiblio_poss.userid = vBiblio_user.tableuserid AND vBiblio_user.tableuserid='".$tableID."' AND vBiblio_poss.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author"; 
 	
 	$result = mysql_query($sql);
@@ -176,7 +176,7 @@ if( $userExist && $isPublicActivated){
 
 	</div>
 	
-	<?
+	<?php
 }else {
   if(!$userExist){
     echo "L'utilisateur ($user_login) que vous recherchez n'existe pas ou bien il/elle a supprimé son compte.";
@@ -189,7 +189,7 @@ if( $userExist && $isPublicActivated){
   ?>
 </div>
 
-<?
+<?php
 	include('../footer.php');
 ?>
 </div>

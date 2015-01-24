@@ -42,10 +42,10 @@ if(isset($_POST['addAuthorName']) && trim($_POST['addAuthorName']) !='' && isset
 </head>
 <body>
 <div id="vBibContenu">
-	<? include('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
-	<? include('ssmenuHelpUs.php'); ?>
+	<?php include('ssmenuHelpUs.php'); ?>
 
 Vous avez la possibilit&eacute; d'ajouter un auteur directement si celui-ci n'est pas d&eacute;j&agrave; pr&eacute;sent dans notre r&eacute;f&eacute;rentiel:
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
@@ -58,7 +58,7 @@ Vous avez la possibilit&eacute; d'ajouter un auteur directement si celui-ci n'es
 			</table>
 		</fieldset>
 	</form>
-<?
+<?php
 	//faire l'ajout du livre et afficher un message si reussi...
 
 	mysql_close();
@@ -66,7 +66,7 @@ Vous avez la possibilit&eacute; d'ajouter un auteur directement si celui-ci n'es
 ?>
 	
 	</div>
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 
 </div>
 

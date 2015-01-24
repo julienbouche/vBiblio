@@ -14,16 +14,16 @@ function writeTags($idBook){
 		?>
 		
 		<ul id="vBiblio_tagcloud">
-		<?
+		<?php
 		while($row = mysql_fetch_assoc($results)){
 			?>
 			<li class="tag"><div style="display:inline-block;"><a href="searchByTag.php?idtag=<?=$row['idtag']?>" class="vBibLink" title="Rechercher d'autres livres"><?=$row['value']?></a></div></li>
-			<?
+			<?php
 		}
 		?>
 		</ul>
 		
-		<?
+		<?php
 
 	}
 	else echo "Aucun tag associ&eacute; &agrave; ce livre";
@@ -31,7 +31,7 @@ function writeTags($idBook){
 
 ?>
 
-<?
+<?php
 }
 
 

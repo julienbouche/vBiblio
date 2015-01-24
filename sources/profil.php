@@ -1,7 +1,7 @@
 <?php
-include('accesscontrol.php');
-include('scripts/common.php');
-include('scripts/dateFunctions.php');
+require_once('accesscontrol.php');
+require_once('scripts/common.php');
+require_once('scripts/dateFunctions.php');
 checkSecurity();
 
 
@@ -265,13 +265,13 @@ function verifyPwd(){
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
 	<div id="vBibDisplay">
 
-<?
+<?php
 	//include('ssmenuProfil.php');
 ?>
 
@@ -284,7 +284,7 @@ function verifyPwd(){
 	<input type="hidden" id="DPC_MONTH_NAMES" value="['Janvier', 'F&eacute;vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao&ucirc;t', 'Septembre', 'Octobre', 'Novembre', 'D&eacute;cembre']"/>
 	<input type="hidden" id="DPC_DAY_NAMES" value="['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']" />
 
-<?
+<?php
 
 	if(isset($donneesPerso) ){
 		echo "$donneesPerso";
@@ -343,11 +343,11 @@ function verifyPwd(){
        </td>  
        <td>  
            <select name="sexe"><option value="0" 
-<?
+<?php
 	if($sexe=="0") echo " selected ";
 ?>
 >Homme</option><option value="1"
-<?
+<?php
 	if($sexe=="1") echo " selected ";
 ?>
 >Femme</option></select>
@@ -369,7 +369,7 @@ function verifyPwd(){
        </td>  
        <td>
 	   <select name="prefBook">
-<?
+<?php
 	$sql = "SELECT vBiblio_book.titre As titre, numero_cycle, vBiblio_author.nom as nom, vBiblio_author.prenom as prenom, vBiblio_poss.lu, vBiblio_poss.possede, vBiblio_poss.pret, vBiblio_poss.id_book as id_book, vBiblio_author.id_author FROM vBiblio_author, vBiblio_book, vBiblio_poss, vBiblio_user WHERE vBiblio_poss.userid = vBiblio_user.tableuserid AND vBiblio_user.userid='$uid' AND vBiblio_poss.id_book = vBiblio_book.id_book AND vBiblio_book.id_author=vBiblio_author.id_author ORDER BY vBiblio_author.nom ASC, id_cycle, numero_cycle ASC"; 
 
 	$result = mysql_query($sql);
@@ -441,11 +441,11 @@ function verifyPwd(){
        </td>  
        <td>  
            <input name="active_public_page" type="checkbox" <?=$active_public_page?> />
-           <?
+           <?php
            if($active_public_page== "checked"){
             ?>
             <a href="/public/user/<?=$uid?>" target="_blank" class="vBibLink">Voir ma page publique</a>
-            <?
+            <?php
            }
            ?>
        </td>  
@@ -516,7 +516,7 @@ echo "Pas d'image." ;
 	</form>
 </div>
 
-<?
+<?php
 	include('footer.php');
 ?>
 </div>

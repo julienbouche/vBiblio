@@ -1,6 +1,6 @@
 <?php
-include 'accesscontrol.php';
-include 'scripts/common.php';
+require_once('accesscontrol.php');
+require_once('scripts/common.php');
 
 session_start();
 checkSecurityLoginPage();
@@ -22,9 +22,7 @@ if( !isset($_POST['uid']) ){
 <body>
 
 <div id="vBibContenu">
-<?
-	include('header.php');
-?>
+<?php include('header.php'); ?>
 	<div id="vBibDisplay">
 	<br/><br/><br/><br/>
 	<div style="float:left;width:350px;padding-left:20px;text-align:justify">Ce site est destin&eacute; &agrave; vous aider &agrave; g&eacute;rer simplement votre biblioth&egrave;que.	<br/>
@@ -50,7 +48,7 @@ if( !isset($_POST['uid']) ){
 		<input name="uid" type="text" maxlength="100" size="25" /></p>
 		<p>Mot de passe:
 		<input name="pwd" type="password" maxlength="100" size="25" /></p>
-		<p style="font-size:x-small;color:#999;">Rester connect&eacute; ? <input type="checkbox" name="creercookie" <?if(isset($_COOKIE["vbiblio"]))echo "checked";?>/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="resetPwd.php" class="vBibLink" style="font-size:x-small;color:#999;padding-right:60px">Mot de passe oubli&eacute; ?</a></p>
+		<p style="font-size:x-small;color:#999;">Rester connect&eacute; ? <input type="checkbox" name="creercookie" <?php if(isset($_COOKIE["vbiblio"]))echo "checked";?>/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="resetPwd.php" class="vBibLink" style="font-size:x-small;color:#999;padding-right:60px">Mot de passe oubli&eacute; ?</a></p>
 		<input type="submit" name="submitok" class="blue" value="Se connecter" /> 
 		<br/>
 	</form>
@@ -66,9 +64,7 @@ if( !isset($_POST['uid']) ){
 	
 </div>
 
-<?
-	include('footer.php');
-?>
+<?php include('footer.php'); ?>
 
 </div>
 
@@ -82,17 +78,20 @@ if( !isset($_POST['uid']) ){
 
 </body>  
 </html>
-<?	
+<?php
+
 }
 else{ //l'utilisateur tente une connexion
 	if (isset($_POST['uid']) ){    
  		$uid = $_POST['uid'];    
-	} else {    
+	}
+	else {    
  		$uid = $_SESSION['uid'];    
 	}    
 	if (isset($_POST['pwd']) and $_POST['pwd'] != "" ){    
 		$pwd = $_POST['pwd'];    
-	} else {    
+	}
+	else {    
 		$pwd = $_SESSION['pwd'];    
 	}
 
@@ -134,4 +133,5 @@ else{ //l'utilisateur tente une connexion
 
 	}
 }
+
 ?>

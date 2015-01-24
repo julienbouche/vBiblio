@@ -34,10 +34,10 @@ if($result && mysql_num_rows($result)>0 ){
 <a href="<?=$rootPath?>/friends.php" class="vBibLink SubMenuItem">Consulter</a>
 <a href="<?=$rootPath?>/addFriends.php" class="vBibLink SubMenuItem">Rechercher</a>
 
-<?
+<?php
 	if ($affBuddyRequestMenu){
 ?>
 	<a href="<?=$rootPath?>/friendsRequest.php" class="vBibLink SubMenuItem">Demandes d'ajout<?=$pendingRequest?></a>
-<?
+<?php
 	}
 ?>

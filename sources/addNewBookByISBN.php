@@ -86,12 +86,12 @@ header('Access-Control-Allow-Origin: http://xisbn.worldcat.org/');
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
 	<div id="vBibDisplay">
-<?
+<?php
 	include('ssmenuHelpUs.php');
 ?>
 
@@ -103,7 +103,7 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 			<tr><td></td><td></td></tr>
 			<tr><td>Auteur :</td><td> <select name="auteur" onchange="javascript:reloadBookTitles(this);">
 
-<?
+<?php
 	$sql = "SELECT nom, prenom, id_author FROM vBiblio_author ORDER BY nom ASC";
 	$result = mysql_query($sql);
 	if($result && mysql_num_rows($result)>0){
@@ -128,14 +128,14 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 		</fieldset>
 	</form>
 
-<?
+<?php
 	echo $error;
 
 	mysql_close();
 ?>
 	
 </div>
-<?
+<?php
 	include('footer.php');
 ?>
 

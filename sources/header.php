@@ -16,7 +16,7 @@ $rootPath = $config->getParameter("VBIBLIO_ROOT_PATH");
 						<img src="<?=$rootPath?>/images/logout.png" height="32px" width="32px" />
 					</a>
 				</div>
-				<div class="vBibProfilDisplay"><? include('ssmenuProfil.php');?></div>
+				<div class="vBibProfilDisplay"><?php include('ssmenuProfil.php');?></div>
 			</div>
 
 			<ul id="vBibMenu">
@@ -39,15 +39,10 @@ $rootPath = $config->getParameter("VBIBLIO_ROOT_PATH");
 				</form>
 			</li>
 <?php endif; ?>
-<?
+<?php
 	if(isset($_SESSION['fullname'])){
 		//$utilisateur = new Utilisateur($_SESSION['uid']);
 		$mytableId = $utilisateur->getID();
-
-		?>
-		
-
-<?
 
 		//récupérer le nombre de demandes de prets de livre en attente de traitement
 		$sql = "SELECT COUNT(*) as nb FROM vBiblio_demande WHERE type='BOOK_REQUEST' AND id_user_requested ='$mytableId' ";
@@ -60,6 +55,7 @@ $rootPath = $config->getParameter("VBIBLIO_ROOT_PATH");
 			else $affMesLivres = "<b>Mes Livres</b>";
 			
 		}
+		
 ?>
 			<li class="MenuContainer" >
 				<a class="MenuItem" href="<?=$rootPath?>/myBooks.php">
@@ -71,9 +67,7 @@ $rootPath = $config->getParameter("VBIBLIO_ROOT_PATH");
 				</a>
 				<div class="SubMenuItem">
 					<div class="SubMenuItemContainer">
-					<?
-					include('ssmenuLivres.php');
-					?>
+					<?php include('ssmenuLivres.php'); ?>
 					</div>
 				</div>
 			</li>
@@ -87,9 +81,7 @@ $rootPath = $config->getParameter("VBIBLIO_ROOT_PATH");
 				</a>
 				<div class="SubMenuItem">
 					<div class="SubMenuItemContainer">
-					<?
-					include('ssMenuAmis.php');
-					?>
+					<?php  include('ssMenuAmis.php'); ?>
 					</div>
 				</div>
 			</li>
@@ -103,20 +95,17 @@ $rootPath = $config->getParameter("VBIBLIO_ROOT_PATH");
 					<div class="SubMenuItemContainer">	
 						<a href="<?=$rootPath?>/admin/index.php" class="vBibLink SubMenuItem">Variables</a>
 						<a href="<?=$rootPath?>/admin/manage_roles.php" class="vBibLink SubMenuItem">Groupes</a>
+						<a href="<?=$rootPath?>/admin/users.php" class="vBibLink SubMenuItem">Utilisateurs</a>
 					</div>
 				</div>
 			</li>
 			<?php endif; ?>
 			
-			<form method="POST" action="addBooks.php" >
+			<form method="POST" action="<?=$rootPath?>/addBooks.php" >
 				<input type="text" name="searchText" placeholder="Recherche..." class="awesomeBar" />
-			</form>
-			
-			
-			
-<?
+			</form>		
+<?php
 	}
-	
 ?>	
 		</ul>
 	</div>

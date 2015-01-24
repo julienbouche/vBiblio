@@ -72,7 +72,7 @@ function AfficherFormReponse($caller, $id_mess){
 </head>
 <body>
 <div id="vBibContenu">
-<?
+<?php
 	include('header.php');
 ?>
 
@@ -82,7 +82,7 @@ function AfficherFormReponse($caller, $id_mess){
 			<div class="MessagerieMenuItem"><a href="messages_sen.php" class="vBibLink" ><input class="vert" value="Messages envoy&eacute;s" type="button"></a></div>
 		</div>
 
-    <?
+    <?php
     //$utilisateur->afficherDerniersMessages();
     $ListeMessages = $utilisateur->recupererListeTousMessagesEnvoyes();
     ?>
@@ -113,7 +113,7 @@ function AfficherFormReponse($caller, $id_mess){
 <?php endif; ?>
 	</div>	
 
-	<? include('footer.php'); ?>
+	<?php include('footer.php'); ?>
 
 </div>
 </body>

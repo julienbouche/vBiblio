@@ -28,13 +28,13 @@ if($result && mysql_num_rows($result)>0 ){
 <a href="<?=$rootPath?>/myToReadList.php" class="vBibLink SubMenuItem">Ma ToRead List</a>
 <a href="<?=$rootPath?>/addBooks.php" class="vBibLink SubMenuItem">Ajouter des livres</a>
 
-<?
+<?php
 $sql = "SELECT COUNT(*) as nb FROM vBiblio_poss WHERE userid ='$mytableId' AND possede='1' ";
 $result = mysql_query($sql);
 if($result && mysql_num_rows($result)>0 ){
 ?>
 <a href="<?=$rootPath?>/prets.php" class="vBibLink SubMenuItem">Mes Pr&ecirc;ts</a>
-<?
+<?php
 }
 
 ?>
