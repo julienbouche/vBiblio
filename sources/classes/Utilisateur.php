@@ -512,7 +512,8 @@ class Utilisateur{
 				$listeSuggestions[$cptSuggestions] = array();
 				$listeSuggestions[$cptSuggestions][0] = new Utilisateur($row['userid']);
 				$listeSuggestions[$cptSuggestions][1] = new Livre($row['id_book']);
-				$listeSuggestions[$cptSuggestions][2] = $row['id_suggest']; 
+				$listeSuggestions[$cptSuggestions][2] = $row['id_suggest'];
+				$cptSuggestions++;
 			}
 		}
 		return $listeSuggestions;
