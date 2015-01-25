@@ -655,12 +655,12 @@ class Utilisateur{
 	
 	
 	public function getAllTagsFromBooks(){
-		$sql = "SELECT id_tag, SUM(count) as SOMME
+		$sql = "SELECT DISTINCT id_tag, SUM(count) as SOMME
 			FROM vBiblio_tag_book, vBiblio_poss
 			WHERE userid='".$this->identifiant."'
 			AND vBiblio_tag_book.id_book=vBiblio_poss.id_book
-			GROUP BY vBiblio_tag_book.id_book
-			ORDER BY SOMME";
+			GROUP BY id_tag
+			ORDER BY SOMME DESC";
 		$result = mysql_query($sql);
 		if($result && mysql_num_rows($result)>0 ){
 			$listTags = array();
