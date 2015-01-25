@@ -26,26 +26,20 @@ $uid = $_SESSION['uid'];
 
 	<div id="vBibDisplay">
 
-		<div class="BookmarkN1">
-			<div class="BMCorner"></div>
-			<div class="BMCornerLink"></div>
-			<div class="BMMessage">Demandes en cours</div>
-		</div>
-		<br/><br/><br/><br/><br/>
+		<h2>Demandes en cours</h2>
 
 		<?php $LivresDemandes = $utilisateur->recupererListeDemandesLivres(); ?>
 		<?php if(count($LivresDemandes)>0) : ?>
-			<table>
+			<table class="lineSep">
 			<?php foreach($LivresDemandes as $demande) : $buddy = $demande[0]; $bouquin = $demande[1]; $idDemande=$demande[2]?>
 				<tr name="request<?=$idDemande?>">
-					<td style="width:2%;"></td>
-					<td style="width:50%;text-align:left;">
+					<td style="width:80%;text-align:left;">
 						<a href="userProfil.php?user=<?=$buddy->getID()?>" class="vBibLink">
 							<b><?=$buddy->getFullname()?></b>
 						</a> souhaite vous emprunter 
 						<a href="ficheLivre.php?id=<?=$bouquin->getID()?>" class="vBibLink"><?=$bouquin->titreLong()?></a>
 					</td>
-					<td>
+					<td style="text-align:right;">
 						<input type="button" value="Confirmer!" onclick="javascript:acceptRequest(<?=$idDemande?>, <?=$utilisateur->getID()?>, <?=$buddy->getID()?>, <?=$bouquin->getID()?>);" />&nbsp;
 						<input type="button" class="alert" value="X" onclick="javascript:ignoreRequest(<?=$idDemande?>);"/>
 					</td>
@@ -56,7 +50,7 @@ $uid = $_SESSION['uid'];
 		Vous n'avez aucune demande actuellement.
 		<?php endif; ?>
 		</div>
-		<?php include('footer.php'); ?>
 	</div>
+	<?php include('footer.php'); ?>
 </body>
 </html>

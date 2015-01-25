@@ -59,7 +59,7 @@ $().ready(function() {
 </head>
 <body>
 <div id="vBibContenu">
-	<?phpinclude('header.php'); ?>
+	<?php include('header.php'); ?>
 
 	<div id="vBibDisplay">
 
@@ -70,13 +70,8 @@ $().ready(function() {
 ?>
 
 <?php if(count($bouquins) > 0) : ?>
-	<div class="BookmarkN1">
-		<div class="BMCorner"></div>
-		<div class="BMCornerLink"></div>
-		<div class="BMMessage">Marquer l'un de vos livres comme un emprunt</div>
-	</div>
-	<br/><br/><br/><br/><br/>
-
+	
+	<h2>Marquer l'un de vos livres comme un emprunt</h2>
 
 	<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
 	<fieldset style="width:90%;">
@@ -147,15 +142,10 @@ $().ready(function() {
 		}
 	}
 ?>
+
+	<hr/>
+	<h2>Les livres qu'on vous a pr&ecirc;t&eacute;s</h2>
 	<br/>
-	<div class="BookmarkN1">
-		<div class="BMCorner"></div>
-		<div class="BMCornerLink"></div>
-		<div class="BMMessage">Les livres qu'on vous a pr&ecirc;t&eacute;s</div>
-	</div>
-	<br/><br/><br/><br/><br/>
-
-
 <?php
 	
 	$sql = "SELECT vBiblio_pret.nom_emprunteur as fullname, titre, vBiblio_pret.id_preteur, vBiblio_pret.id_book as id_book FROM vBiblio_pret, vBiblio_book WHERE vBiblio_pret.id_emprunteur='".$utilisateur->getID()."' AND vBiblio_pret.id_book=vBiblio_book.id_book order by date_pret ASC";
@@ -173,15 +163,13 @@ $().ready(function() {
 	<?php while($row=mysql_fetch_assoc($result)) : $bouquin = new Livre($row['id_book']);  ?>
 
 <?php
-		//while($row=mysql_fetch_assoc($result)){
-			$preteur = $row['fullname'];
-			$IDPreteur = $row['id_preteur'];
-			if($IDPreteur != "0"){ //alors le user est dans le système
-				$preteurUser = new Utilisateur("");
-				$preteurUser->initializeByID($IDPreteur);
-				$preteur = $preteurUser->getFullname();
-			}
-			//$bouquin = new Livre($row['id_book']);
+		$preteur = $row['fullname'];
+		$IDPreteur = $row['id_preteur'];
+		if($IDPreteur != "0"){ //alors le user est dans le système
+			$preteurUser = new Utilisateur("");
+			$preteurUser->initializeByID($IDPreteur);
+			$preteur = $preteurUser->getFullname();
+		}
 ?>
 			<li style="margin-top:10px">
 				<span class="vBibBookTitle">
@@ -203,11 +191,9 @@ $().ready(function() {
 		Vous n'avez emprunt&eacute; aucun livre, en ce moment.
 <?php endif; ?>
 </div>
+</div>
 <?php
 	include('footer.php');
 ?>
-
-</div>
-
 </body>
 </html>

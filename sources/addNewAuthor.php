@@ -66,10 +66,8 @@ Vous avez la possibilit&eacute; d'ajouter un auteur directement si celui-ci n'es
 ?>
 	
 	</div>
+</div>	
 	<?php include('footer.php'); ?>
-
-</div>
-
 </body>
 </html>
 

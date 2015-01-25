@@ -135,12 +135,10 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 ?>
 	
 </div>
+</div>
 <?php
 	include('footer.php');
 ?>
-
-</div>
-
 </body>
 </html>
 

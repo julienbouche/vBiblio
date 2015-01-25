@@ -67,11 +67,11 @@ $utilisateur = new Utilisateur($uid);
         </div>
 	
 	<div style="clear:both"></div>
+</div>
+
 <?php
 	include('footer.php');
 ?>
-
-</div>
 </body>
 </html>
 

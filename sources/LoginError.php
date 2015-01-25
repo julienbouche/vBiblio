@@ -23,12 +23,10 @@ Pour vous connecter, merci de cliquer
 
 
 </div>
-
+</div>
 <?php
 	include('footer.php');
 ?>
-
-</div>
 </body>    
 </html>
 

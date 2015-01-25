@@ -185,11 +185,10 @@ if(isset($_GET['id'])){
 
 
 </div>
+</div>
 <?php
 	include('footer.php');
 ?>
-
-</div>
 </body>
 </html>
 <?php endif; ?>

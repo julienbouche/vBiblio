@@ -85,18 +85,9 @@ function AfficherFormReponse($caller, $id_mess){
 	<div id="vBibDisplay">
 	<p><a href="addNewBook.php" class="vBibLink" >Aidez-nous</a> &agrave; augmenter notre r&eacute;f&eacute;rentiel.</p>
 
-	<div class="BookmarkN1">
-		<div class="BMCorner" style=""></div>
-		<div class="BMCornerLink" style=""></div>
-		<div class="BMMessage" style="">Les Derni&egrave;res Infos</div>
-	</div>
+	<h2>Les Derni&egrave;res Infos</h2>
+	
 
-
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
 	<div class="colonneGauche">
 	<div class="vBibBoite">
 		<div class="vBibBoiteTitre">Derni&egrave;res demandes</div>
@@ -175,19 +166,11 @@ function AfficherFormReponse($caller, $id_mess){
 			</div>
 		</div>
 	</div>
-	<br/>
-	<br/>
-
+	
+	<div style="clear:both;"></div>
+	<hr/>
 	<div id="vBibActus">
-
-		<div class="BookmarkN1">
-			<div class="BMCorner"></div>
-			<div class="BMCornerLink"></div>
-			<div class="BMMessage">Derniers Messages</div>
-		</div>
-
-		<br/><br/><br/><br/>
-		
+		<h2>Derniers Messages</h2>
     <?php  $ListeMessages = $utilisateur->recupererListeDerniersMessages(); ?>
     <?php if(sizeof($ListeMessages)>0) : ?>
 	
@@ -207,7 +190,7 @@ function AfficherFormReponse($caller, $id_mess){
 				<span class="vBibMessageDate">le <?=dateh_lettres($Message->getDate())?></span>
 			</div>
 			<div></div>
-			<div class="vBibMessageContent"  style="margin: 0 4em;border-radius:0px 10px 10px 10px;">
+			<div class="vBibMessageContent"  style="margin: 0 4em;">
 				<?=nl2br(htmlentities($Message->getContent()))?>
 				<br/>&nbsp;
 				<input type="button" value="R&eacute;pondre" style="float:right;" onclick="AfficherFormReponse(this,<?=$Message->getID()?>);"/>
@@ -215,8 +198,8 @@ function AfficherFormReponse($caller, $id_mess){
 			<div id="ReponseMessage<?=$Message->getID()?>" style="display:none;">
 				<form name="formDirectMessage" method="POST" action="<?=$_SERVER['PHP_SELF']?>">
 					<input type="hidden" value="<?=$Message->getExpediteur()->getID()?>" name="user_to" /> 
-					<textarea id="TAReponseMessage<?=$Message->getID()?>" wrap="soft" name="directMessage" rows="5" cols="60" style="float:right;"></textarea>
-					<input type="submit" value="Envoyer" style="float:right;" />
+					<textarea id="TAReponseMessage<?=$Message->getID()?>" wrap="soft" name="directMessage" rows="5" cols="60" ></textarea><br/>
+					<input type="submit" value="Envoyer" />
 				</form>
 			</div>
 		</li>
@@ -226,9 +209,8 @@ function AfficherFormReponse($caller, $id_mess){
 	<br/>Vous n'avez aucun message.
 <?php endif; ?>
 	</div>
-	</div>	
-	<?php include('footer.php'); ?>
-
+	</div>
 </div>
+	<?php include('footer.php'); ?>
 </body>
 </html>

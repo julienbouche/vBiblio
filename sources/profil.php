@@ -515,11 +515,9 @@ echo "Pas d'image." ;
 	</fieldset>	
 	</form>
 </div>
-
+</div>
 <?php
 	include('footer.php');
 ?>
-</div>
-
 </body>
 </html>

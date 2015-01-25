@@ -122,9 +122,8 @@ Vous avez la possibilit&eacute; d'ajouter un titre de cycle directement si celui
 ?>
 
 	</div>
-	<?php include('footer.php'); ?>
-
 </div>
+	<?php include('footer.php'); ?>
 </body>
 </html>
 

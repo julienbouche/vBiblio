@@ -160,10 +160,7 @@ if(isset($_GET['id']) ){
 <table border="0" cellpadding="0" style="font-size:inherit;border-spacing: 20px 5px;width:580px;">  
    <tr>
 	<td rowspan="7" width="180px" align="center"><img src="<?=$bouquin->getAvatarPath()?>" width="169px" height="225px"/> </td>
-	<td class="tdTitleProfil" colspan="2">Informations :
-	<?php if($edit_mode_available) : ?>
-		<a href="ficheLivre.php?id=<?=$_GET['id']?>&edit=1" class="vBibLink" style="float:right;padding-right:5px;"><img src="images/edit.png" width="16px" height="16px"></a>
-	<?php endif; ?>
+	<td colspan="2">
 	</td>
    </tr>
    <tr>  
@@ -176,6 +173,9 @@ if(isset($_GET['id']) ){
 		<input type="text" name="titre" value="<?=$bouquin->TitreCourt() ?>" />	
 	<?php else : ?>
 		<?=$bouquin->TitreCourt()?>
+	<?php endif; ?>
+	<?php if($edit_mode_available) : ?>
+		<a href="ficheLivre.php?id=<?=$_GET['id']?>&edit=1" class="vBibLink" style="float:right;padding-right:5px;"><img src="images/edit.png" width="20px" height="20px"></a>
 	<?php endif; ?>
        </td>  
    </tr>  
@@ -320,6 +320,9 @@ if(isset($_GET['id']) ){
 <td colspan="2"></td>
 </tr>
 <!-- En dessous de l'avatar-->
+</table>
+
+<table border="0" cellpadding="0" >
 <tr>
 <?php if( isUserKnown()) : ?>
 	<td colspan="3">
@@ -338,8 +341,8 @@ if(isset($_GET['id']) ){
 <tr>
 	<td class="tdTitleProfil" colspan="3">Description:</td>
 </tr>
-<tr>
-	<td colspan="3" style="text-align:justify;font-family: 'Donegal One', cursive;">
+<tr class="bordered">
+	<td colspan="3" style="text-align:justify;font-family: 'Donegal One', cursive;font-size:small">
 	
 	<?php $description = $bouquin->retournerDescription(); ?>
 	
@@ -354,7 +357,7 @@ if(isset($_GET['id']) ){
 		<?=nl2br($description)?>
 	<?php endif; ?>
 <?php endif; ?>
-</td>
+	</td>
 
 </tr>
 <tr><td colspan="3"></td></tr>
@@ -371,7 +374,7 @@ if(isset($_GET['id']) ){
 	<?php endif; ?>
 	
 	<?php if(intval($nb_votes)==0) : ?> 
-	(aucun vote, soyez le premier !)
+	<a style="font-size:xx-small; font-weight:normal">aucun vote</a>
 	<?php else : ?>
 		<?php if(intval($nb_votes==1)) : ?>
 		(1 seul vote)
@@ -382,7 +385,7 @@ if(isset($_GET['id']) ){
 	
 	</td>
 </tr>
-<tr>
+<tr class="bordered">
 	<td colspan="3">
 <?php if( isUserKnown()) : ?>
 		Votez : <div onMouseOut="ratingOutGlobal(this)" style="display:inline">
@@ -410,9 +413,9 @@ if(isset($_GET['id']) ){
 
 <?php if(count($livres)>0) : ?>
 	<tr>
-		<td class="tdTitleProfil" colspan="3">Autres livres du m&ecirc;me auteur:</td>
+		<td class="tdTitleProfil" colspan="3">Du m&ecirc;me auteur:</td>
 	</tr>
-	<tr>
+	<tr class="bordered">
 		<td colspan="3">
 
 			<div class="vBibList">
@@ -465,7 +468,7 @@ Aucun tag associ&eacute; &agrave; ce livre
 	</form>
 	</div>
 
-	<input type="button" class="vert" value="Enregistrer" onclick="sendTags(<?=$bouquin->getID()?>);"; style="float:right;margin-right:5px;"/>
+	<input type="button" class="vert" value="Enregistrer" onclick="sendTags(<?=$bouquin->getID()?>);" style="float:right; margin-right:5px;"/>
 	<input type="button" value="Annuler" onclick="hideFenetreTags();" style="float:right;margin-right:5px;"/>
 </div> 
 
@@ -506,11 +509,11 @@ Aucun tag associ&eacute; &agrave; ce livre
 <?php endif; ?>	
 	
 </div>
+</div>
+</div>
 <?php
 	include('footer.php');
 ?>
-
-</div>
 <script src="https://encrypted.google.com/books?jscmd=viewapi&bibkeys=ISBN:<?=$bouquin->retournerISBN()?>&callback=processDynamicLinksResponse"></script>
 </body>
 <?php

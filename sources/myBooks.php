@@ -55,7 +55,7 @@ $utilisateur = new Utilisateur($uid);
 			<img src="images/adobe-pdf-logo.png" width="32" height="32" title="Export au format PDF"/>
 		</a>
 		<br/><br/>
-		<input type="text" name="filtreSaisie" title="Filtrer..." placeholder="Filtrer..." style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;float:left;" onkeyup="javascript:filter();" />
+		<input type="text" name="filtreSaisie" title="Filtrer..." placeholder="Filtrer..." onkeyup="javascript:filter();" />
 
 		<?php if ($utilisateur->NbBooksInLibrary()== "1") : ?>
 			Vous poss&eacute;dez actuellement un seul livre dans votre vBiblio.<br/>
@@ -127,10 +127,12 @@ $utilisateur = new Utilisateur($uid);
 	<?php endif; ?>
 
 </div>
+	
+</div>
+
 <?php
 	include('footer.php');
 ?>
 
-</div>
 </body>
 </html>

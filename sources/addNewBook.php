@@ -154,9 +154,8 @@ Vous avez la possibilit&eacute; d'ajouter un livre directement si celui-ci n'est
 	mysql_close();
 ?>
 	</div>
-	<?php include('footer.php'); ?>
-
 </div>
+	<?php include('footer.php'); ?>
 
 </body>
 </html>

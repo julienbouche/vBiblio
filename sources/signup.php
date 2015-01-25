@@ -231,10 +231,7 @@ Julien, votre Webmaster
 <div style="font-size:small;color:red;">Votre adresse e-mail sera utilis&eacute;e pour vous envoyer votre mot de passe. 
 Vous pourrez par la suite changer votre mot de passe dans la page de votre profil.</div>
 
+</div>
 <?php include('footer.php'); ?>
-
-</div>
-
-</div>
 </body>    
 </html>

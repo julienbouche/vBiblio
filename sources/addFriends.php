@@ -42,15 +42,11 @@ else{
 			<div class="MessagerieMenuItem"><a href="addFriends.php?q=<?=$searchText?>&attribut=fullname" class="vBibLink" ><input class="vert" value="Utilisateurs" type="button" /></a></div>
 		</div>
 
-	<div class="BookmarkN1">
-		<div class="BMCorner"></div>
-		<div class="BMCornerLink"></div>
-		<div class="BMMessage">Retrouver vos amis:</div>
-	</div>
-
+	
+	<h2>Retrouver vos amis:</h2>
 	
 	<br/>
-	<br/><br/><br/><br/>
+
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
 	<fieldset style="width:430px;">
 	<table style="font-size:inherit">
@@ -174,11 +170,11 @@ Aucun utilisateur ne correspond &agrave; votre recherche
 ?>
 
 </div>
-
+</div>
 <?php
 	include('footer.php');
 ?>
-</div>
+
 
 </body>
 </html>

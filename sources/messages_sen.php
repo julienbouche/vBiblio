@@ -112,9 +112,7 @@ function AfficherFormReponse($caller, $id_mess){
 	<br/>Vous n'avez envoy&eacute; aucun message.
 <?php endif; ?>
 	</div>	
-
-	<?php include('footer.php'); ?>
-
 </div>
+<?php include('footer.php'); ?>
 </body>
 </html>
