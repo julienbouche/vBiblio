@@ -29,7 +29,7 @@ class Message{
 		if($result && mysql_num_rows($result)>0){
 			while($row=mysql_fetch_assoc($result)){			
 				$this->date_message = $row['date'];
-				$this->contenu_message = utf8_encode($row['message']);
+				$this->contenu_message = $row['message'];
 
 				$this->Destinataire = new Utilisateur("");
 				$this->Destinataire->initializeByID($row['to_user']);
