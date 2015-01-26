@@ -74,13 +74,9 @@ $().ready(function() {
 			</div>
 		</div>
 
-	<div class="BookmarkN1">
-		<div class="BMCorner"></div>
-		<div class="BMCornerLink"></div>
-		<div class="BMMessage">Rechercher un livre disponible dans les biblioth&egrave;ques de vos amis</div>
-	</div>
-	<br/><br/><br/><br/><br/>
-
+	<br/>
+	<h2>Rechercher un livre disponible dans les biblioth&egrave;ques de vos amis</h2>
+	<br/>
 	<form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
 		<fieldset style="width:90%">
 			<input type="text" max-length="100" size="100" name="searchText" value="<?=str_replace("\\", "", $searchText)?>"/> <input type="submit" value="Rechercher" style="right:0px"/>
@@ -155,13 +151,9 @@ $().ready(function() {
 	}
 ?>
 	<br/>
-	<div class="BookmarkN1">
-		<div class="BMCorner"></div>
-		<div class="BMCornerLink"></div>
-		<div class="BMMessage">Les livres qu'on vous a pr&ecirc;t&eacute;s</div>
-	</div>
-	<br/><br/><br/><br/><br/>
+	<hr/>
 
+	<h2>Les livres qu'on vous a pr&ecirc;t&eacute;s</h2>
 
 <?php
 	
@@ -210,11 +202,9 @@ $().ready(function() {
 		Vous n'avez emprunt&eacute; aucun livre, en ce moment.
 <?php endif; ?>
 </div>
+</div>
 <?php
 	include('footer.php');
 ?>
-
-</div>
-
 </body>
 </html>

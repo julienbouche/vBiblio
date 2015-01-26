@@ -44,7 +44,7 @@ if( !isset($_POST['uid']) ){
   <div name="loginBox" class="loginBox">
 		<div class="title"><b>Connexion &agrave; vBiblio</b></div>
 	<form method="post" action="<?=$_SERVER['PHP_SELF']?>" style="display:table-cell;position:relative;padding-left:40px;text-align: right;"> 
-		<p>Login ou e-mail:
+		<p>Login/e-mail:
 		<input name="uid" type="text" maxlength="100" size="25" /></p>
 		<p>Mot de passe:
 		<input name="pwd" type="password" maxlength="100" size="25" /></p>
@@ -63,10 +63,9 @@ if( !isset($_POST['uid']) ){
 	<br/><br/>
 	
 </div>
-
+</div>
 <?php include('footer.php'); ?>
 
-</div>
 
 <!-- GITHUB FORK ME -->
     <div class="github-fork-ribbon-wrapper right-bottom">
@@ -74,7 +73,6 @@ if( !isset($_POST['uid']) ){
             <a href="https://github.com/julienbouche/vBiblio" target="_blank">Fork Moi Sur GitHub</a>
         </div>
     </div>
-
 
 </body>  
 </html>

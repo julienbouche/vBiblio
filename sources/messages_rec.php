@@ -139,8 +139,8 @@ function AfficherFormReponse($caller, $id_mess){
     else echo "<br/>Vous n'avez aucun message.";
 
     ?>
-	</div>	
-	<?php include('footer.php'); ?>
+	</div>
 </div>
+<?php include('footer.php'); ?>
 </body>
 </html>

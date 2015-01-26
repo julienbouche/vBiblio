@@ -44,7 +44,7 @@ $utilisateur = new Utilisateur($uid);
 <?php if ($result && mysql_num_rows($result)>0) : ?>
 
 
-	<input type="text" name="filtreSaisie" title="Filtrer..." placeholder="Filtrer..." style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;margin-left:10px;" onkeyup="javascript:filter();" style="float:left;"/>
+	<input type="text" name="filtreSaisie" title="Filtrer..." placeholder="Filtrer..." onkeyup="javascript:filter();" style="float:left;"/>
 	<br/>
 	<table class="vBiblioBooksTable">
 	<thead>
@@ -89,10 +89,12 @@ $utilisateur = new Utilisateur($uid);
 	Vous n'avez pas encore ajout&eacute; de livres &agrave; votre liste de livres &agrave; lire.
 	<?php endif; ?>
 </div>
+</div>
+
 <?php
 	include('footer.php');
 ?>
 
-</div>
+
 </body>
 </html>

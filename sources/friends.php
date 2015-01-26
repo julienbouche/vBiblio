@@ -25,16 +25,7 @@ $uid = $_SESSION['uid'];
 
 	<div id="vBibDisplay">
 
-	<!--b>Mes amis</b-->
-<div class="BookmarkN1">
-	<div class="BMCorner"></div>
-	<div class="BMCornerLink"></div>
-	<div class="BMMessage">Mes Amis</div>
-</div>
-
-<br/><br/><br/><br/>
-
-	<!--Afficher <select><option>10</option><option>20</option><option>40</option><option>100</option><option>TOUS</option></select> amis par page.-->
+	<h2>Mes Amis</h2>
 
 	<div class="BuddyList">
 <?php
@@ -49,9 +40,9 @@ $uid = $_SESSION['uid'];
 	<?php endforeach; ?>
 	</div>
 </div>
+</div>
 <?php
 	include('footer.php');
 ?>
-</div>
 </body>
 </html>

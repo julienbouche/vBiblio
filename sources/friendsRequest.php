@@ -25,14 +25,7 @@ $uid = $_SESSION['uid'];
 ?>
 
 	<div id="vBibDisplay">
-
-<div class="BookmarkN1">
-	<div class="BMCorner"></div>
-	<div class="BMCornerLink"></div>
-	<div class="BMMessage">Demandes en cours</div>
-</div>
-
-<br/><br/><br/><br/><br/>
+	<h2>Demandes en cours</h2>
 
 <?php
 	$listeDemandes = $utilisateur->recupererListeDemandesContact();
@@ -61,10 +54,9 @@ $uid = $_SESSION['uid'];
 	<?php endif; ?>
 
 </div>
+</div>
 <?php
 	include('footer.php');
 ?>
-
-</div>
 </body>
 </html>

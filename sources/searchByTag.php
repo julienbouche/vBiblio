@@ -93,8 +93,7 @@ $tag = new Tag($_GET['idtag']);
 	<br/>
 	<?php mysql_close(); ?>
 	</div>
-	<?php include('footer.php'); ?>
-
 </div>
+	<?php include('footer.php'); ?>
 </body>
 </html>

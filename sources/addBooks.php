@@ -116,9 +116,9 @@ $uid = $_SESSION['uid'];
 <?php mysql_close(); ?>
 
 </div>
-
+</div>
 <?php include('footer.php'); ?>
 
-</div>
+
 </body>
 </html>

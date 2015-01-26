@@ -62,13 +62,8 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 
 	<div id="vBibDisplay">	
 
-	<div class="BookmarkN1">
-		<div class="BMCorner"></div>
-		<div class="BMCornerLink"></div>
-		<div class="BMMessage">Ajouter un pr&ecirc;t </div>
-	</div>
-
-	<br/><br/><br/><br/><br/>	
+	<h2>Ajouter un pr&ecirc;t </h2>
+	
 	<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
 	<fieldset>
 	<table>
@@ -117,20 +112,20 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 	</fieldset>
 	</form>
 
-	<div class="BookmarkN1">
-		<div class="BMCorner"></div>
-		<div class="BMCornerLink"></div>
-		<div class="BMMessage">Vos pr&ecirc;ts </div>
-	</div>
-	<br/><br/><br/>
+	
+	<hr/>
+	
+	<h2>Vos pr&ecirc;ts </h2>
+
+
 <?php
 	$prets = $utilisateur->retournerListePretsEnCours();
 
 ?>
 	<?php if(count($prets)>0) : ?>
 	<a href="generateTablePretsPDF.php?type=2" target="_blank" style="float:right;" ><img src="images/adobe-pdf-logo.png" width="32" height="32" title="T&eacute;l&eacute;charger la liste"/></a>
-		<br/><br/>
-		<table class="vBibTablePret">
+		
+		<table class="vBibTablePret lineSep">
 		<?php foreach($prets as $pret) : $bouquin = $pret[0]; $nomEmprunteur = $pret[2]; $idEmprunteur = $pret[1]; ?>
 			<tr>
 				<td></td>
@@ -144,17 +139,18 @@ if( isset($_POST['id_book']) && isset($_POST['outsideUser']) ){
 						<b><?=$nomEmprunteur?></b>
 					</a>
 				</td>
-				<td>
+				<td style="text-align:right">
 					<input type="button" value="Ok, il me l'a rendu!" onclick="javascript:retourPret(this,<?=$utilisateur->getID()?>, <?=$idEmprunteur?>, <?=$bouquin->getID()?>);"/>
 				</td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
 	<?php else : ?>
+	<br/><br/>
 	Vous n'avez pr&ecirc;t&eacute; aucun livre, en ce moment.
 	<?php endif; ?>
 	</div>
-	<?php include('footer.php'); ?>
 </div>
+<?php include('footer.php'); ?>
 </body>
 </html>

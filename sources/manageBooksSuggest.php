@@ -26,17 +26,12 @@ $uid = $_SESSION['uid'];
 
 	<div id="vBibDisplay">
 
-	<div class="BookmarkN1">
-		<div class="BMCorner"></div>
-		<div class="BMCornerLink"></div>
-		<div class="BMMessage">Suggestions de vos amis</div>
-	</div>
-	<br/><br/><br/><br/><br/>
+	<h2>Suggestions de vos amis</h2>
 
 	<?php $listeSuggestions = $utilisateur->recupererListeCompleteSuggestions(); ?>
 
 	<?php if(count($listeSuggestions) > 0) : ?>
-		<table style="font-size:inherit;width:100%;border:0;">
+		<table class="lineSep" style="font-size:inherit;width:100%;">
 		<?php foreach($listeSuggestions as $suggestion) : $bouquin =$suggestion[1]; $buddy=$suggestion[0]; $id_suggest =$suggestion[2]?>
 			<tr name="request<?=$id_suggest?>">
 				<td style="text-align:left;">
@@ -60,9 +55,8 @@ $uid = $_SESSION['uid'];
 
 
 	</div>
-	<?php include('footer.php'); ?>
-
 </div>
+<?php include('footer.php'); ?>
 
 </body>
 </html>

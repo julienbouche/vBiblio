@@ -221,7 +221,7 @@ $message="";
 	Vous n'&ecirc;tes pas dans la liste d'amis de cet utilisateur. Vous ne pouvez pas acc&eacute;der &agrave; ses informations.
 	<?php endif; ?>
 	</div>
-	<?php include('footer.php'); ?>
 </div>
+	<?php include('footer.php'); ?>
 </body>
 </html>

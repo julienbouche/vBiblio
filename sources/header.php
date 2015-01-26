@@ -33,8 +33,8 @@ $rootPath = $config->getParameter("VBIBLIO_ROOT_PATH");
 			<li><div id="enseigne"><a href="<?=$rootPath?>/formLogin.php">vBiblio</a></div></li>
 			<li style="float:right;">
 				<form method="POST" action="<?=$_SERVER['REQUEST_URI']?>">
-					<input type="text" name="login" placeholder="login/email..." size="20" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;margin-left:60px"/>
-					<input type="password" name="pwd" placeholder="Mot de passe" size="20" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;"/>
+					<input type="text" name="login" placeholder="login/email..." size="20" style="margin-left:60px"/>
+					<input type="password" name="pwd" placeholder="Mot de passe" size="20" />
 					<input type="submit" name="submitok" class="darkblue" value="Connexion" /> 
 				</form>
 			</li>

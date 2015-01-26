@@ -49,7 +49,7 @@ if(isset($_GET['user']) ){
 ?>
 
 <?php if($result && mysql_num_rows($result)>0 ) : $cpt=0 ?>
-	<input type="text" name="filtreSaisie" title="Filtrer..." onkeyup="javascript:filter();" style="moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;padding-left:5px;padding-right:5px;" placeholder="Filtrer..."/>
+	<input type="text" name="filtreSaisie" title="Filtrer..." onkeyup="javascript:filter();" placeholder="Filtrer..."/>
 	<table class="vBiblioBooksTable">
 	<thead>
 		<tr>
@@ -87,7 +87,8 @@ if(isset($_GET['user']) ){
 	<?php endif; ?>	
 
 	</div>
-<?php include('footer.php'); ?>
 </div>
+<?php include('footer.php'); ?>
+
 </body>
 </html>
